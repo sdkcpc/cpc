@@ -28,8 +28,8 @@ def main():
     deploy_parser.add_argument('--m4', action='store_true', help='Run in M4-Board')
 
     # A check command
-    subparsers.add_parser('validate', help='Project data validation.')
-
+    validate_parser = subparsers.add_parser('validate', help='Project data validation.')
+    validate_parser.add_argument('-v', '--verbose', action='store_false', help='Show all info to validate process')
     # config_parser.print_help()
 
     # AN info command
@@ -86,7 +86,7 @@ def main():
         validate_project(True)
         info()
     elif args.command == "validate":
-        validate_makefile_project(True)
+        validate_makefile_project(args.verbose)
     elif args.command == "make":
         validate_project(args.verbose)
         build()

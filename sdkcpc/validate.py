@@ -30,7 +30,7 @@ def validate_project(verbose):
     # Validate 8:3 files
     validate_83_files_project(FOLDERS_PROJECT_NEW,verbose)
 
-
+    print("OK")
 
 def conversions_error(error):
 
@@ -119,6 +119,8 @@ def validate_makefile_project(verbose):
         print("[*]   model.cpc: " + project_data["rvm"]["model.cpc"]+ " [green bold][OK]")
         print("[*] [blue bold]M4 BOARD [/]")
         print("[*]   ip: " + project_data["m4"]["ip"] + " [green bold][OK]")
+        show_foot(MAKEFILE + " Successfull","green")
+    else:
         show_foot(MAKEFILE + " Successfull","green")
     
 # validate folder is poject

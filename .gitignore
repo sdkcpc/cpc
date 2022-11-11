@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+mibas/*
 *$py.class
 .idea/*
 .gitignore
@@ -137,6 +138,7 @@ dmypy.json
 
 prueba*/
 pepe*/
+mibas*/
 *sdkcpc/resources/software/Retr*
 *sdkcpc/resources/software/che*
 *sdkcpc/resources/software/iD*

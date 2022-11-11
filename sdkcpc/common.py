@@ -126,6 +126,6 @@ def show_foot(info, color):
     print("[*] ------------------------------------------------------------------------")
 
 def developer_info():
-    print("\n[white]sdkcpc [green]v"+str(__version__))
-    print("[blue]" + sys.platform+ " - [red] Build: [yellow]"+str(readBuild()))
-    print("[magenta]©2022 Destroyer\n")
+    print(f"sdkcpc v"+str(__version__))
+    print(sys.platform+ " - Build: "+str(readBuild()))
+    print(f"© Destroyer 2022\n")

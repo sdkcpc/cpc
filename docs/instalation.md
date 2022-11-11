@@ -52,11 +52,6 @@ Las extensiones de [Visual Studio Code](https://code.visualstudio.com/download) 
 - sdkcpc-amstrad-basic-snippet
 - sdkcpc-amstrad-basic-language
 
-Para instalar las extensiones desde Visual Studio Code, pulsaremos sobre el boton **Extensiones** y buscaremos la que vamos a instalar.
+Para instalar las extensiones desde Visual Studio Code, pulsaremos sobre el boton **Extensiones** y buscaremos sdkcpc y pulsaremos instalar en las dos extensiones.
 
-![image](assets/extension.png)
-
-
-* [Windows](https://www.mclibre.org/consultar/informatica/lecciones/vsc-instalacion.html)
-* [Linux/Mac](https://www.jccsystem.com/blog/visual-studio-code/)
-
+![image](assets/plugins.png)
