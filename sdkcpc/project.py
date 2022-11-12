@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
-import sys, os
+import sys
+import os
+import re
 import inquirer
+from inquirer import errors
 import shutil
 from datetime import datetime
 import subprocess
@@ -11,6 +14,7 @@ from rich.console import Console
 from rich import print
 from jinja2 import Environment, FileSystemLoader
 from .common import *
+from .validations import *
 from rich.console import Console
 
 console = Console(width=80, color_system="windows", force_terminal=True)
@@ -19,6 +23,70 @@ console = Console(width=80, color_system="windows", force_terminal=True)
 # Crea nuevo proyecto en la ruta actua.
 #   @Param Nombre del Proyecto
 def createNewProject(nameProject, template):
+    questions = [
+        inquirer.Confirm("validate83", message="Validate 8:3 name format in files")]
+    answers_1 = inquirer.prompt(questions)
+
+    if answers_1.get("validate83"):
+        questions = [
+            inquirer.Text("name_project",
+                          message="Project's name",
+                          validate=project_name_validation_yes)]
+    else:
+        questions = [
+            inquirer.Text("name_project",
+                          message="Project's names",
+                          validate=project_name_validation_no)]
+
+    answers_2 = inquirer.prompt(questions)
+
+    questions = [
+        inquirer.Text("description",
+                      message="Project description",
+                      default=""),
+        inquirer.List("template",
+                      message="Select the example Bas template to create",
+                      choices=["BASIC", "8BP"], default="BASIC"),
+        inquirer.Text("author",
+                      message="Author's name",
+                      default="Alan Sugar"),
+        inquirer.Confirm("concatenate", message="Concatenate Bas files",
+                         default=False)]
+    answers_3 = inquirer.prompt(questions)
+
+    if answers_1.get("validate83"):
+        questions = [
+            inquirer.Text("bas_file",
+                          message="Bas file name (with extension)",
+                          validate=bas_name_validation_yes)]
+    else:
+        questions = [
+            inquirer.Text("bas_file",
+                          message="Bas file name (with extension)",
+                          validate=bas_name_validation_no)]
+
+    answers_4 = inquirer.prompt(questions)
+
+    questions = [
+        inquirer.List("model.cpc",
+                      message="Select CPC Model",
+                      choices=["464", "664", "6128"], default="6128"),
+        inquirer.Text("m4_ip",
+                      message="IP M4 Board",
+                      default="0.0.0.0",
+                      validate=validate_ip),
+        inquirer.List("creategit",
+                      message="Do you want to create version control in the project (git software needed)?",
+                      choices=["Yes", "No"], default="Yes"),
+        inquirer.List("creategit",
+                      message="Do you want to create version control in the project (git software needed)?",
+                      choices=["Yes", "No"], default="Yes"),
+        inquirer.List("vscodeopen", message="Do you want to open the new Project with Visual Studio Code?",
+                      choices=["Yes", "No"], default="Yes"),
+    ]
+
+    answers_5 = inquirer.prompt(questions)
+
     # check nomenclature (spaces, 8:3 file)
     check_project_nomenclature(nameProject)
 
@@ -48,14 +116,7 @@ def createNewProject(nameProject, template):
             create_template(data, "basic.j2", PWD + nameProject + "/src/" + nameProject + ".bas")
 
         # Create a Git Versions and Vscode files
-        questions = [
-            inquirer.List("creategit",
-                          message="Do you want to create version control in the project (git software needed)?",
-                          choices=["Yes", "No"], default="Yes"),
-            inquirer.List("vscodeopen", message="Do you want to open the new Project with Visual Studio Code?",
-                          choices=["Yes", "No"], default="Yes"),
-        ]
-        answers = inquirer.prompt(questions)
+
         if answers["creategit"] == "Yes":
             console.print("[+] Create Git Repository")
             gitInit(nameProject)
