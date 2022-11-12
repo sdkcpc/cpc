@@ -16,7 +16,6 @@ from . import __version__
 
 from configparser import ConfigParser
 from rich.console import Console
-
 console = Console(width=80, color_system="windows", force_terminal=True)
 
 # DEFINE VARIABLES

@@ -4,7 +4,57 @@ import re
 import inquirer
 from .common import *
 from inquirer import errors
+from cerberus import Validator
+from datetime import datetime
 
+
+def validate_data_project():
+    schema = {
+        "compilation": {
+                'required': True,
+                'type': 'string',
+                'regex': '^(?!\s*$).+',
+            },
+        "version": {
+                'type': 'string',
+                'empty': False,
+                'required': True,
+                'regex': '^(?:(0\\.|([1-9]+\\d*)\\.))+(?:(0\\.|([1-9]+\\d*)\\.))+((0|([1-9]+\\d*)))$',
+            },
+        "validate83": {'type': 'string'},
+        "name_project": {
+                'type': 'string',
+                'empty': False,
+                'required': True
+            },
+        "description": {
+                'type': 'string',
+                'empty': True,
+                'required': True
+            },
+        "template": {
+                'type': 'string',
+                'empty': False,
+                'required': True,
+                'allowed': ["BASIC", "8BP"]
+            },
+        "author": {
+                'type': 'string',
+                'empty': False,
+                'required': True,
+                'regex': '^(?!\s*$).+',
+            },
+        "concatenate": {'type': 'string'},
+        "bas_file": {'type': 'date'},
+        "model.cpc": {'type': ['string', 'list']},
+        "m4_ip": {'type': ['string', 'list']}
+    }
+
+    response = requests.get("https://www.anapioficeandfire.com/api/books/1")
+
+    v = Validator(schema)
+    validate_response = v.validate(response.json())
+    assert_that(validate_response, description=v.errors).is_true()
 
 def phone_validation(answers, current):
     if not re.match('\+?\d[\d ]+\d', current):
@@ -32,6 +82,7 @@ def project_name_validation(answers, current):
         raise errors.ValidationError('', reason='The project name exists in this path!')
 
     return True
+
 
 def project_name_validation_yes(answers, current):
     if not re.match("^[\w+]{1,8}$", current):
