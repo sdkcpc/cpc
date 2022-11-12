@@ -36,12 +36,12 @@ def main():
     subparsers.add_parser('info', help='Show information of project')
 
     # A new command
-    new_parser = subparsers.add_parser('new', help='Create new basic project')
-    new_parser.add_argument('name_project', type=str)
+    new_parser = subparsers.add_parser('project', help='Create new basic project')
+    # new_parser.add_argument('name_project', type=str)
 
     # A new 8bp command
-    new_8bp_parser = subparsers.add_parser('new-8bp', help='Create new basic project 8bp')
-    new_8bp_parser.add_argument('name_project_8bp', type=str)
+    # new_8bp_parser = subparsers.add_parser('new-8bp', help='Create new basic project 8bp')
+    # new_8bp_parser.add_argument('name_project_8bp', type=str)
 
     # A run command
     run_parser = subparsers.add_parser('run', help='Run BAS File in DSK image')
@@ -59,10 +59,8 @@ def main():
 
     args = parser.parse_args()
 
-    if args.command == 'new':
-        createNewProject(args.name_project, "BASIC")
-    elif args.command == 'new-8bp':
-        createNewProject(args.name_project_8bp, "8BP")
+    if args.command == 'project':
+        createNewProject()
     elif args.command == 'run':
         validate_project(args.verbose)
         if args.rvm:

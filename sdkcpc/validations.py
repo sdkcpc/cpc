@@ -2,6 +2,7 @@ import sys
 import os
 import re
 import inquirer
+from .common import *
 from inquirer import errors
 
 
@@ -25,6 +26,12 @@ def project_name_validation_no(answers, current):
 
     return True
 
+
+def project_name_validation(answers, current):
+    if os.path.isdir(PWD + current):
+        raise errors.ValidationError('', reason='The project name exists in this path!')
+
+    return True
 
 def project_name_validation_yes(answers, current):
     if not re.match("^[\w+]{1,8}$", current):

@@ -4,12 +4,14 @@ import sys
 import os
 import re
 import inquirer
+import json
 from inquirer import errors
 import shutil
 from datetime import datetime
 import subprocess
 import os.path
 from os import path
+from pathlib import Path
 from rich.console import Console
 from rich import print
 from jinja2 import Environment, FileSystemLoader
@@ -17,42 +19,22 @@ from .common import *
 from .validations import *
 from rich.console import Console
 
-console = Console(width=80, color_system="windows", force_terminal=True)
+# console = Console(width=80, color_system="windows", force_terminal=True)
 
 
 # Crea nuevo proyecto en la ruta actua.
 #   @Param Nombre del Proyecto
-def createNewProject(nameProject, template):
+def createNewProject():
     questions = [
-        inquirer.Confirm("validate83", message="Validate 8:3 name format in files")]
+        inquirer.Confirm("validate83", message="Validate 8:3 name format in files"),
+        inquirer.Text("name_project", message="Project's name", validate=project_name_validation),
+        inquirer.Text("description", message="Project description", default=""),
+        inquirer.List("template", message="Select the example Bas template to create", choices=["BASIC", "8BP"],
+                      default="BASIC"),
+        inquirer.Text("author", message="Author's name", default="Alan Sugar"),
+        inquirer.Confirm("concatenate", message="Concatenate Bas files", default=False)]
+
     answers_1 = inquirer.prompt(questions)
-
-    if answers_1.get("validate83"):
-        questions = [
-            inquirer.Text("name_project",
-                          message="Project's name",
-                          validate=project_name_validation_yes)]
-    else:
-        questions = [
-            inquirer.Text("name_project",
-                          message="Project's names",
-                          validate=project_name_validation_no)]
-
-    answers_2 = inquirer.prompt(questions)
-
-    questions = [
-        inquirer.Text("description",
-                      message="Project description",
-                      default=""),
-        inquirer.List("template",
-                      message="Select the example Bas template to create",
-                      choices=["BASIC", "8BP"], default="BASIC"),
-        inquirer.Text("author",
-                      message="Author's name",
-                      default="Alan Sugar"),
-        inquirer.Confirm("concatenate", message="Concatenate Bas files",
-                         default=False)]
-    answers_3 = inquirer.prompt(questions)
 
     if answers_1.get("validate83"):
         questions = [
@@ -65,7 +47,7 @@ def createNewProject(nameProject, template):
                           message="Bas file name (with extension)",
                           validate=bas_name_validation_no)]
 
-    answers_4 = inquirer.prompt(questions)
+    answers_2 = inquirer.prompt(questions)
 
     questions = [
         inquirer.List("model.cpc",
@@ -74,72 +56,69 @@ def createNewProject(nameProject, template):
         inquirer.Text("m4_ip",
                       message="IP M4 Board",
                       default="0.0.0.0",
-                      validate=validate_ip),
-        inquirer.List("creategit",
-                      message="Do you want to create version control in the project (git software needed)?",
-                      choices=["Yes", "No"], default="Yes"),
-        inquirer.List("creategit",
-                      message="Do you want to create version control in the project (git software needed)?",
-                      choices=["Yes", "No"], default="Yes"),
-        inquirer.List("vscodeopen", message="Do you want to open the new Project with Visual Studio Code?",
-                      choices=["Yes", "No"], default="Yes"),
-    ]
+                      validate=validate_ip)]
 
-    answers_5 = inquirer.prompt(questions)
+    answers_3 = inquirer.prompt(questions)
 
-    # check nomenclature (spaces, 8:3 file)
-    check_project_nomenclature(nameProject)
+    questions = [
+        inquirer.Confirm("creategit",
+                         message="Do you want to create version control in the project (git software needed)"),
+        inquirer.Confirm("vscodeopen",
+                         message="Do you want to open the new Project with Visual Studio Code")]
 
-    # Creamos estructura del proyectod
+    answers_4 = inquirer.prompt(questions)
 
-    show_info("Create New Project " + nameProject, "white")
+    answers_1.update(answers_2)
+    answers_1.update(answers_3)
 
-    data = {"project_name": nameProject, "compilation": str(datetime.now()), "template": template}
+    project = answers_1.get("name_project")
+    project_path = PWD + answers_1.get("name_project")
 
-    if not path.exists(PWD + "/" + nameProject):
+    show_info("Create New Project " + project, "white")
 
-        # Create project folder
-        os.makedirs(PWD + "/" + nameProject)
+    data = {"compilation": str(datetime.now()), "version": "1.0.0"}
+    data.update(answers_1)
 
-        # Create estructure project for template
-        create_structure_project(nameProject, template)
+    # Create project folder
+    os.makedirs(project_path)
+    create_structure_project(project_path)
+    json_string = json.dumps(data, indent=4)
+    create_project_cfg(project_path + "/" + MAKEFILE, json_string)
 
-        # create template makefile
-        data = {"project_name": nameProject, "compilation": str(datetime.now()), "template": template}
-        create_template(data, "project.j2", PWD + nameProject + "/" + MAKEFILE)
+    # create template bas file
+    if answers_1.get("template") == "8BP":
+        copy_resources(project_path + "/resources/8bp.dsk")
+        create_template(data, "8bp.j2", project_path + "/src/" + answers_1.get("bas_file"))
+    elif answers_1.get("template") == "BASIC":
+        create_template(data, "basic.j2", project_path + "/src/" + answers_1.get("bas_file"))
 
-        # create template bas file
-        if template == "8BP":
-            copy_resources(PWD + nameProject + "/resources/8bp.dsk")
-            create_template(data, "8bp.j2", PWD + nameProject + "/src/" + nameProject + ".bas")
-        elif template == "BASIC":
-            create_template(data, "basic.j2", PWD + nameProject + "/src/" + nameProject + ".bas")
+    if answers_4.get("creategit"):
+        console.print("[+] Create Git Repository")
+        gitInit(project_path)
+    if answers_4.get("vscodeopen"):
+        createVscode(project_path)
+        openVscode(project_path)
 
-        # Create a Git Versions and Vscode files
+    show_info(project + " project successfully created", "green")
 
-        if answers["creategit"] == "Yes":
-            console.print("[+] Create Git Repository")
-            gitInit(nameProject)
-        if answers["vscodeopen"] == "Yes":
-            createVscode(nameProject)
-            openVscode(nameProject)
-
-        show_info(nameProject + " project successfully created", "green")
-    else:
-        print("[red bold]\[ERROR] " + nameProject + " project exists on this path.")
-        sys.exit(1)
+    return True
 
 
 # Cheque si el nombre de proyecto contiene espacios.
 #   @Param Nombre del Proyecto
-def check_project_nomenclature(nameProject):
-    if nameProject.find(' ') != -1:
-        print("[red bold]The project name cannot contain spaces")
-        sys.exit(1)
+# def check_project_nomenclature(nameProject):
+#     if nameProject.find(' ') != -1:
+#         print("[red bold]The project name cannot contain spaces")
+#         sys.exit(1)
+#
+#     if len(nameProject) > 8:
+#         print("[red bold] The project name can only have a maximum of 8 characters.")
+#         sys.exit(1)
 
-    if len(nameProject) > 8:
-        print("[red bold] The project name can only have a maximum of 8 characters.")
-        sys.exit(1)
+def create_project_cfg(path, data):
+    f = open(path, "a")
+    f.write(data)
+    f.close()
 
 
 # Create template file
@@ -147,26 +126,22 @@ def create_template(data, template_name, file):
     j2_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True)
     with open(file, mode="w", encoding="utf-8") as message:
         message.write(j2_env.get_template(template_name).render(data))
-    print("[+] Create Template " + file)
+    print("[+] Create Template " + Path(file).stem + ".bas")
 
 
 # Crea estructura del proyecto
-def create_structure_project(project, template):
-    if template == "BASIC":
-        estructura = FOLDERS_PROJECT_NEW
-    elif template == "8BP":
-        estructura = FOLDERS_PROJECT_NEW
+def create_structure_project(project):
 
-    for i in estructura:
-        if not os.path.isdir(PWD + project + "/" + i):
-            os.makedirs(PWD + project + "/" + i)
-            print("[+] Create Folder " + project + "/" + i)
+    for i in FOLDERS_PROJECT_NEW:
+        if not os.path.isdir(project + "/" + i):
+            os.makedirs(project + "/" + i)
+            print("[+] Create Folder ../" + i)
 
 
 # Crea estructura vscode
 def createVscode(project):
     try:
-        shutil.copytree(APP_PATH + "/resources/vscode", PWD + project + "/.vscode")
+        shutil.copytree(APP_PATH + "/resources/vscode", project + "/.vscode")
         print("[+] Create Vscode files.")
     except OSError as err:
         print("[red bold]" + str(err))
@@ -187,12 +162,12 @@ def copy_resources(project):
 def gitInit(project):
     FNULL = open(os.devnull, 'w')
     try:
-        subprocess.call(['git', 'init', PWD + project], stdout=FNULL, stderr=subprocess.STDOUT)
-    except:
-        print('[red bold][ERROR] The git command does not exist.')
+        subprocess.call(['git', 'init', project], stdout=FNULL, stderr=subprocess.STDOUT)
+    except OSError as err:
+        print('[red bold][ERROR] The git command does not exist. ' + err)
 
     try:
-        shutil.copy(APP_PATH + "/resources/gitignore", PWD + project + "/.gitignore")
+        shutil.copy(APP_PATH + "/resources/gitignore", project + "/.gitignore")
         print("[+] Create gitignore file.")
     except OSError as err:
         print("[bold red]" + err)
@@ -203,6 +178,6 @@ def gitInit(project):
 def openVscode(project):
     FNULL = open(os.devnull, 'w')
     try:
-        subprocess.call(['code', PWD + project], stdout=FNULL, stderr=subprocess.STDOUT)
-    except:
-        print('[yellow bold][WARNING] The Visual Studio Code does not exist.')
+        subprocess.call(['code', project], stdout=FNULL, stderr=subprocess.STDOUT)
+    except OSError as err:
+        print('[yellow bold][WARNING] The Visual Studio Code does not exist. ' + err)
