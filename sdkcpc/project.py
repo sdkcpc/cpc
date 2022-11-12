@@ -16,6 +16,7 @@ from rich.console import Console
 from rich import print
 from jinja2 import Environment, FileSystemLoader
 from .common import *
+from .about import *
 from .validations import *
 from rich.console import Console
 
@@ -25,6 +26,7 @@ from rich.console import Console
 # Crea nuevo proyecto en la ruta actua.
 #   @Param Nombre del Proyecto
 def createNewProject():
+
     questions = [
         inquirer.Confirm("validate83", message="Validate 8:3 name format in files"),
         inquirer.Text("name_project", message="Project's name", validate=project_name_validation),

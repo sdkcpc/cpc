@@ -1,5 +1,8 @@
 
 import argparse
+
+from . import __version__
+
 from .about import *
 from .compile import *
 from .run import *
@@ -9,7 +12,7 @@ from .validate import *
 def main():
     # Program arguments
     parser = argparse.ArgumentParser()
-    parser.version = developer_info()
+    parser.version = str(__version__)
 
     subparsers = parser.add_subparsers(help='commands', dest='command')
 
@@ -60,6 +63,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'project':
+        head()
         createNewProject()
     elif args.command == 'run':
         validate_project(args.verbose)
