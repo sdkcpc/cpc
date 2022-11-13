@@ -7,6 +7,7 @@ from .about import *
 from .compile import *
 from .run import *
 from .validate import *
+from .validations import *
 
 
 def main():
@@ -32,7 +33,7 @@ def main():
 
     # A check command
     validate_parser = subparsers.add_parser('validate', help='Project data validation.')
-    validate_parser.add_argument('-v', '--verbose', action='store_false', help='Show all info to validate process')
+    # validate_parser.add_argument('-v', '--verbose', action='store_false', help='Show all info to validate process')
     # config_parser.print_help()
 
     # AN info command
@@ -88,7 +89,10 @@ def main():
         validate_project(True)
         info()
     elif args.command == "validate":
-        validate_makefile_project(args.verbose)
+        validate_data_project()
+        validate_folder_project()
+        if GetValidate83():
+            validate_83_files()
     elif args.command == "make":
         validate_project(args.verbose)
         build()

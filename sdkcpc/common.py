@@ -2,11 +2,12 @@
 from itertools import count
 import sys
 import os
+import json
 import os.path
 import sys
 import os
 import configparser
-
+import emoji
 from rich import print
 from rich.panel import Panel
 from os.path import exists
@@ -51,10 +52,9 @@ elif sys.platform == "linux":
 
 # Get data project in dict
 def Get_data_project_dict():
-    config = ConfigParser()
-    config.read(MAKEFILE)
-    project_dic = dict(config._sections)
-    return project_dic
+    f = open(PWD + MAKEFILE)
+    data = json.load(f)
+    return data
 
 
 # Leer propiedad del proyecto

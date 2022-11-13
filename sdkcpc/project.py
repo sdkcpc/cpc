@@ -20,7 +20,7 @@ from .about import *
 from .validations import *
 from rich.console import Console
 
-# console = Console(width=80, color_system="windows", force_terminal=True)
+console = Console(width=80, color_system="windows", force_terminal=True)
 
 
 # Crea nuevo proyecto en la ruta actua.
