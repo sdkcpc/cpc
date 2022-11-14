@@ -1,58 +1,110 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "CPCPY: Build",
+            "label": "CPC: MAKE",
             "type": "shell",
             "windows": {
-                "command": "cpcpy_make.exe --clean"
+                "command": "cpc make"
               },
               "linux": {
-                "command": "cpcpy_make --clean"
+                "command": "cpc make"
               },
               "osx": {
-                "command": "cpcpy_make --clean"
+                "command": "cpc make"
               },
             "problemMatcher": [],
             "group": {
-                "kind": "build",
+                "kind": "make",
                 "isDefault": true
             }
         },
         {
-            "label": "CPC: Build & Run",
+            "label": "CPC: DEPLOY",
             "type": "shell",
             "windows": {
-                "command": "cpcpy_rvm.exe"
+                "command": "cpc run"
               },
               "linux": {
-                "command": "cpcpy_rvm"
+                "command": "cpc run"
               },
               "osx": {
-                "command": "cpcpy_rvm"
+                "command": "cpc run"
+              },
+            "problemMatcher": [],
+            "group": {
+                "kind": "make",
+                "isDefault": false
+            },            
+            "dependsOn": [
+                "CPC: Make"
+               ]
+        },
+        {
+            "label": "CPC: RUN Retro virtual Machine",
+            "type": "shell",
+            "windows": {
+                "command": "cpc run --rvm"
+              },
+              "linux": {
+                "command": "cpc run --rvm"
+              },
+              "osx": {
+                "command": "cpc run --rvm"
               },
             "problemMatcher": [],
             "group": {
                 "kind": "build",
                 "isDefault": false
-            },            
-            "dependsOn": [
-                "CPCPY: Build"
-               ]
+            }
         },
         {
-            "label": "CPC: Retro virtual Machine",
+            "label": "CPC: RUN M4 Board",
             "type": "shell",
             "windows": {
-                "command": "cpcpy_rvm.exe"
+                "command": "cpc run --m4"
               },
               "linux": {
-                "command": "cpcpy_rvm"
+                "command": "cpc run --m4"
               },
               "osx": {
-                "command": "cpcpy_rvm"
+                "command": "cpc run --m4"
+              },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "CPC: VALIDATE",
+            "type": "shell",
+            "windows": {
+                "command": "cpc validate"
+              },
+              "linux": {
+                "command": "cpc validate"
+              },
+              "osx": {
+                "command": "cpc validate"
+              },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "CPC: INFO",
+            "type": "shell",
+            "windows": {
+                "command": "cpc info"
+              },
+              "linux": {
+                "command": "cpc info"
+              },
+              "osx": {
+                "command": "cpc info"
               },
             "problemMatcher": [],
             "group": {

@@ -53,7 +53,8 @@ setup(
         ],
         entry_points={
             'console_scripts': [
-                'sdkcpc=sdkcpc.__main__:main'
+                'sdkcpc=sdkcpc.__main__:main',
+                'cpc=sdkcpc.__main__:main'
             ],
         },
 )
