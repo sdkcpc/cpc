@@ -1,4 +1,4 @@
-from .info import *
+from .information import *
 from rich import print
 from rich.console import Console
 

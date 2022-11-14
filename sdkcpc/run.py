@@ -1,4 +1,4 @@
-
+import os
 import os.path
 from zipfile import ZipFile
 from tqdm.auto import tqdm
@@ -12,13 +12,13 @@ console = Console()
 
 # GET PLATFORM
 if sys.platform == "darwin":
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "win32" or sys.platform == "win64":
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine.exe"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine.exe"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "linux":
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/linux/x64/RetroVirtualMachine.2.0.beta-1.r7.linux.x64.zip"
 
 
@@ -29,39 +29,38 @@ def make_executable(path):
 
 
 def download_retro_virtual_machine():
-    if os.paht.exxists(MY_HOME + "/resources"):
-        os.makedirs(MY_HOME + "/resources")
-        if not os.path.exists(RETROVIRTUALMACHINE):
-            print()
-            show_info("Download Retro Virtual Machine.... please wait..", "white")
-            print()
-            with requests.get(URL, stream=True) as r:
-                total_length = int(r.headers.get("Content-Length"))
-                with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
-                    with open(APP_PATH + "/resources/software/rvm.zip", 'wb') as output:
-                        shutil.copyfileobj(raw, output)
-                        with ZipFile(APP_PATH + "/resources/software/rvm.zip", "r") as zipObj:
-                            zipObj.extractall(APP_PATH + "/resources/software")
-            os.remove(APP_PATH + "/resources/software/rvm.zip")
-            if sys.platform == "darwin" or sys.platform == "linux":
-                make_executable(RETROVIRTUALMACHINE)
+    if not os.path.exists(MY_HOME):
+        os.makedirs(MY_HOME)
+    if not os.path.exists(RETROVIRTUALMACHINE):
+        validateOK("Download Retro Virtual Machine.... please wait..")
+        with requests.get(URL, stream=True) as r:
+            total_length = int(r.headers.get("Content-Length"))
+            with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
+                with open(MY_HOME + "/rvm.zip", 'wb') as output:
+                    shutil.copyfileobj(raw, output)
+                    with ZipFile(MY_HOME + "/rvm.zip", "r") as zipObj:
+                        zipObj.extractall(MY_HOME)
+        os.remove(MY_HOME + "/rvm.zip")
+        if sys.platform == "darwin" or sys.platform == "linux":
+            make_executable(RETROVIRTUALMACHINE)
 
 
 # Ejecuta retro virtual machine con el dsk asociado
 def rvm():
-    download_retro_virtual_machine()
-    print()
+
     project_data = Get_data_project_dict()
 
     show_head("Run " + project_data.get("name_project").replace(" ", "_") + ".dsk in the Emulator", "white")
+    validateAll()
+    download_retro_virtual_machine()
     if not path.exists(PWD + project_data.get("name_project").replace(" ", "_") + ".dsk"):
         show_info("An error occurred not exist " + project_data.get("name_project").replace(" ", "_") + ".dsk", "red")
         sys.exit(1)
     DSK = PWD + project_data.get("name_project").replace(" ", "_") + ".dsk"
-    print("[+] Version : " + project_data.get("version"))
-    print("[+] Build   : " + project_data.get("build"))
-    print("[+] Bas File: " + project_data.get("bas_file"))
-    print("[+] Dsk File: " + project_data.get("name_project").replace(" ", "_") + ".dsk")
+    validateOK("Version : " + project_data.get("version"))
+    validateOK("Build   : " + project_data.get("build"))
+    validateOK("Bas File: " + project_data.get("bas_file"))
+    validateOK("Dsk File: " + project_data.get("name_project").replace(" ", "_") + ".dsk")
 
     FNULL = open(os.devnull, 'w')
     try:

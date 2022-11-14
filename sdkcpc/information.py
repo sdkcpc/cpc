@@ -1,42 +1,49 @@
+import glob
+
 from .project import *
 
 import os
 
 from rich import print
 
-console = Console(width=100, color_system="windows", force_terminal=True)
+console = Console()
 contador_files = 0
 
 
 def info():
     project_data = Get_data_project_dict()
-    show_head("Information project", "white")
+    show_head("Project validation", "white")
+    validateAll()
+    show_head("Project information", "white")
     # print("[*] ------------------------------------------------------------------------")
     print("[*] [blue bold]COMPILATION [/]------------------------------------------------------------")
-    print("[*]   compilation: " + project_data["compilation"]["build"])
-    print("[*]   version: " + project_data["compilation"]["version"])
+    print("[*]   compilation: " + project_data.get("build"))
+    print("[*]   version: " + project_data.get("version"))
     print("[*] [blue bold]GENERAL [/]----------------------------------------------------------------")
-    print("[*]   name: " + project_data["general"]["name"])
-    print("[*]   description: " + project_data["general"]["description"])
-    print("[*]   template: " + project_data["general"]["template"])
-    print("[*]   authors: " + project_data["general"]["authors"])
+    print("[*]   name: " + project_data.get("name_project"))
+    print("[*]   description: " + project_data.get("description"))
+    print("[*]   template: " + project_data.get("template"))
+    print("[*]   author: " + project_data.get("author"))
     print("[*] [blue bold]CONFIG [/]-----------------------------------------------------------------")
-    print("[*]   concatenate.bas.files: " + project_data["config"]["concatenate.bas.files"])
-    print("[*]   name.bas.file: " + project_data["config"]["name.bas.file"])
+    if project_data.get("concatenate"):
+        print("[*]   concatenate.bas.files: Yes")
+    else:
+        print("[*]   concatenate.bas.files: No")
+    print("[*]   name.bas.file: " + project_data.get("bas_file"))
     print("[*] [blue bold]RETRO VIRTUAL MACHINE [/]--------------------------------------------------")
-    print("[*]   model.cpc: " + project_data["rvm"]["model.cpc"])
+    print("[*]   model.cpc: " + project_data.get("model.cpc"))
     print("[*] [blue bold]M4 BOARD [/]---------------------------------------------------------------")
-    print("[*]   ip: " + project_data["m4"]["ip"])
+    print("[*]   ip: " + project_data.get("m4_ip"))
     print(" ")
 
-    if project_data["general"]["template"] == "8BP":
+    if project_data.get("template") == "8BP":
         info_files(FOLDERS_PROJECT_NEW)
-    elif project_data["general"]["template"] == "BASIC":
+    elif project_data.get("template") == "BASIC":
         info_files(FOLDERS_PROJECT_NEW)
 
 
 def info_files(estructura):
-    show_head("Files Information", "white")
+    show_head("Project Files", "white")
     TOTAL_FILES = 0
     TOTAL_SIZE = 0
     for i in estructura:

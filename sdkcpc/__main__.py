@@ -1,6 +1,7 @@
 
 import argparse
 
+from sdkcpc.information import info
 from . import __version__
 
 from .about import *
@@ -66,7 +67,6 @@ def main():
         head()
         createNewProject()
     elif args.command == 'run':
-        validateAll()
         if args.rvm:
             rvm()
             sys.exit(0)
@@ -76,7 +76,6 @@ def main():
         print("\n[red bold]Missing parameter.\n")
     elif args.command == 'deploy':
         if args.rvm:
-            validateAll()
             if build():
                 rvm()
                 sys.exit(0)
@@ -85,8 +84,7 @@ def main():
             sys.exit(0)
         print("\n[red bold]Missing parameter.\n")
     elif args.command == 'info':
-        validateAll()
-        # info()
+        info()
     elif args.command == "validate":
         validateAll()
     elif args.command == "make":
