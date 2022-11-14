@@ -89,10 +89,7 @@ def main():
         validate_project(True)
         info()
     elif args.command == "validate":
-        validate_data_project()
-        validate_folder_project()
-        if GetValidate83():
-            validate_83_files()
+        validateAll()
     elif args.command == "make":
         validate_project(args.verbose)
         build()

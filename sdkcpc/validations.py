@@ -14,10 +14,16 @@ from rich.console import Console
 
 from sdkcpc.common import *
 
-PWD = os.getcwd() + "/"
-MAKEFILE = "Project.cfg"
-
 console = Console(width=80, color_system="windows", force_terminal=True)
+
+
+def validateAll():
+    validate_data_project()
+    validate_folder_project()
+    if GetValidate83():
+        validate_files(True)
+    else:
+        validate_files(False)
 
 
 def validate_data_project():
@@ -104,17 +110,26 @@ def GetValidate83():
     return data["validate83"]
 
 
-def validate_83_files():
+def validate_files(format_83_files):
     for i in FOLDERS_PROJECT_NEW:
         arr = next(os.walk(PWD + i))[2]
-        if len(arr) == 0:
-            print("[ - ] No files in folder " + i)
+
+        # if len(arr) == 0:
+        #     print("[ - ] No files in folder " + i)
         for x in range(0, len(arr)):
-            if len(os.path.splitext(arr[x])[1]) != 4 or len(os.path.splitext(arr[x])[0]) > 8:
-                validateError("./" + i + "/" + arr[x] + " does not conform to 8:3 file format.")
-                sys.exit(1)
-            else:
-                validateOK("Format file 8.3 ./" + i + "/" + arr[x])
+            # validate format 8.3 files
+            if format_83_files:
+                if len(os.path.splitext(arr[x])[1]) != 4 or len(os.path.splitext(arr[x])[0]) > 8:
+                    validateError("./" + i + "/" + arr[x] + " does not conform to 8:3 file format.")
+                else:
+                    validateOK("Format file 8.3 ./" + i + "/" + arr[x])
+            # Validate spaces in files
+            if ' ' in arr[x]:
+                validateError("./" + i + "/" + arr[x] + " contains spaces.")
+
+            if i == "src":
+                if not os.path.splitext(arr[x])[1].upper() == ".BAS":
+                    validateError("./" + i + "/" + arr[x] + " Does not have .BAS extension.")
 
 
 def validate_folder_project():
@@ -186,4 +201,3 @@ def validateOK(message):
 def validateError(message):
     print(emoji.emojize("[:boom: ][red] " + message))
     sys.exit(1)
-
