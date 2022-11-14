@@ -6,7 +6,6 @@ from . import __version__
 from .about import *
 from .compile import *
 from .run import *
-from .validate import *
 from .validations import *
 
 
@@ -67,7 +66,7 @@ def main():
         head()
         createNewProject()
     elif args.command == 'run':
-        validate_project(args.verbose)
+        validateAll()
         if args.rvm:
             rvm()
             sys.exit(0)
@@ -77,7 +76,7 @@ def main():
         print("\n[red bold]Missing parameter.\n")
     elif args.command == 'deploy':
         if args.rvm:
-            validate_project(args.verbose)
+            validateAll()
             if build():
                 rvm()
                 sys.exit(0)
@@ -86,12 +85,12 @@ def main():
             sys.exit(0)
         print("\n[red bold]Missing parameter.\n")
     elif args.command == 'info':
-        validate_project(True)
-        info()
+        validateAll()
+        # info()
     elif args.command == "validate":
         validateAll()
     elif args.command == "make":
-        validate_project(args.verbose)
+        validateAll()
         build()
     elif args.command == "about":
         about()

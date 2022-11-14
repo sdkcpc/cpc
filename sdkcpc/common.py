@@ -1,21 +1,12 @@
 #!/usr/bin/python
-from itertools import count
-import sys
-import os
-import json
 import os.path
+import json
 import sys
 import os
 import configparser
-import emoji
 from rich import print
-from rich.panel import Panel
-from os.path import exists
-from tabulate import tabulate
-from datetime import datetime
 from . import __version__
 
-from configparser import ConfigParser
 from rich.console import Console
 console = Console(width=80, color_system="windows", force_terminal=True)
 
@@ -55,7 +46,6 @@ def Get_data_project_dict():
     f = open(PWD + MAKEFILE)
     data = json.load(f)
     return data
-
 
 # Leer propiedad del proyecto
 #   @Param Seccion

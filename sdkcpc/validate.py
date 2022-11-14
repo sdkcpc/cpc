@@ -1,14 +1,8 @@
-import yaml
-import re
-import os
-import sys
-from cerberus import Validator
-import os.path
-from os import path
-from .common import *
 from .info import *
 from rich import print
 from rich.console import Console
+
+from .project import Get_data_project_dict
 
 console = Console(width=80, color_system="windows", force_terminal=True)
 

@@ -5,16 +5,16 @@ import inquirer
 import requests
 import json
 import os.path
-# from .common import *
+import emoji
+from .common import *
 from inquirer import errors
 from cerberus import Validator
 from datetime import datetime
 from assertpy import assert_that
 from rich.console import Console
+from .common import *
 
-from sdkcpc.common import *
-
-console = Console(width=80, color_system="windows", force_terminal=True)
+console = Console()
 
 
 def validateAll():

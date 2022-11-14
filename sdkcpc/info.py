@@ -1,21 +1,15 @@
-import glob
-from rich.console import Console
-from .common import *
 from .project import *
-from .validate import *
 
 import os
 
 from rich import print
 
-
 console = Console(width=100, color_system="windows", force_terminal=True)
 contador_files = 0
 
-project_data = Get_data_project_dict()
-
 
 def info():
+    project_data = Get_data_project_dict()
     show_head("Information project", "white")
     # print("[*] ------------------------------------------------------------------------")
     print("[*] [blue bold]COMPILATION [/]------------------------------------------------------------")

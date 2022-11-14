@@ -1,21 +1,15 @@
-#!/usr/bin/python
 
-import os
-import stat
+
 import os.path
-import sys
-import requests
-import subprocess
 from zipfile import ZipFile
-import requests
-import shutil
 from tqdm.auto import tqdm
 
-from .common import *
 from .project import *
 from rich.console import Console
 
-console = Console(width=80, color_system="windows", force_terminal=True)
+from .project import *
+
+console = Console()
 
 # GET PLATFORM
 if sys.platform == "darwin":
@@ -58,31 +52,31 @@ def rvm():
     print()
     project_data = Get_data_project_dict()
 
-    show_head("Run " + project_data["general"]["name"] + ".dsk in the Emulator", "white")
-    if not path.exists(PWD + project_data["general"]["name"] + ".dsk"):
-        show_info("An error occurred not exist " + project_data["general"]["name"] + ".dsk", "red")
+    show_head("Run " + project_data.get("name_project").replace(" ", "_") + ".dsk in the Emulator", "white")
+    if not path.exists(PWD + project_data.get("name_project").replace(" ", "_") + ".dsk"):
+        show_info("An error occurred not exist " + project_data.get("name_project").replace(" ", "_") + ".dsk", "red")
         sys.exit(1)
-    DSK = PWD + project_data["general"]["name"] + ".dsk"
-    print("[+] Version : " + project_data["compilation"]["version"])
-    print("[+] Build   : " + project_data["compilation"]["build"])
-    print("[+] Bas File: " + project_data["config"]["name.bas.file"])
-    print("[+] Dsk File: " + project_data["general"]["name"] + ".dsk")
+    DSK = PWD + project_data.get("name_project").replace(" ", "_") + ".dsk"
+    print("[+] Version : " + project_data.get("version"))
+    print("[+] Build   : " + project_data.get("build"))
+    print("[+] Bas File: " + project_data.get("bas_file"))
+    print("[+] Dsk File: " + project_data.get("name_project").replace(" ", "_") + ".dsk")
 
     FNULL = open(os.devnull, 'w')
     try:
         # Variables for platform
         if sys.platform == "darwin":
-            retcode = subprocess.Popen([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data['rvm']['model.cpc'],
-                                        "-c=RUN\"" + project_data["config"]["name.bas.file"] + "\n"], stdout=FNULL,
+            retcode = subprocess.Popen([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data.get("model.cpc"),
+                                        "-c=RUN\"" + project_data.get("bas_file") + "\n"], stdout=FNULL,
                                        stderr=subprocess.STDOUT)
         elif sys.platform == "win32" or sys.platform == "win64":
-            retcode = subprocess.run([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data['rvm']['model.cpc'],
-                                      "-c=RUN\"" + project_data["config"]["name.bas.file"] + "\n"])
+            retcode = subprocess.run([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data.get("model.cpc"),
+                                      "-c=RUN\"" + project_data.get("bas_file") + "\n"])
         elif sys.platform == "linux":
-            retcode = subprocess.Popen([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data['rvm']['model.cpc'],
-                                        "-c=RUN\"" + project_data["config"]["name.bas.file"] + "\n"], stdout=FNULL,
+            retcode = subprocess.Popen([RETROVIRTUALMACHINE, "-i", DSK, "-b=cpc" + project_data.get("model.cpc"),
+                                        "-c=RUN\"" + project_data.get("bas_file") + "\n"], stdout=FNULL,
                                        stderr=subprocess.STDOUT)
-        show_foot("Execution Successfull", "green")
+        show_foot("Execution Successfully", "green")
         print()
     except:
         show_info("An error occurred while running Retro Virtual Machine.'", "red")

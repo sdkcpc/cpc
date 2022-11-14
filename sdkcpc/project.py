@@ -1,4 +1,4 @@
-#!/usr/bin/python
+
 
 import sys
 import os
@@ -15,13 +15,16 @@ from pathlib import Path
 from rich.console import Console
 from rich import print
 from jinja2 import Environment, FileSystemLoader
-from .common import *
+
+
 from .about import *
 from .validations import *
 from rich.console import Console
 
-console = Console(width=80, color_system="windows", force_terminal=True)
+console = Console()
 
+PWD = os.getcwd() + "/"
+MAKEFILE = "Project.cfg"
 
 # Crea nuevo proyecto en la ruta actua.
 #   @Param Nombre del Proyecto
@@ -183,3 +186,6 @@ def openVscode(project):
         subprocess.call(['code', project], stdout=FNULL, stderr=subprocess.STDOUT)
     except OSError as err:
         print('[yellow bold][WARNING] The Visual Studio Code does not exist. ' + err)
+
+
+

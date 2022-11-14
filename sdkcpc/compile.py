@@ -1,18 +1,17 @@
-#!/usr/bin/python
 
 import datetime
-import requests
 from tqdm.auto import tqdm
 from zipfile import ZipFile
-from .validate import *
+from .common import Get_data_project_dict, PWD, MAKEFILE, MODELS_CPC
 from rich.console import Console
 
 console = Console(width=80, color_system="windows", force_terminal=True)
 
-project_data = Get_data_project_dict()
+
 
 
 def build():
+    project_data = Get_data_project_dict()
     # Download iDSK Software
     Download_IDSK()
     print()

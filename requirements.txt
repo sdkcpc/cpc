@@ -13,3 +13,4 @@ sdkcpc~=1.0.2
 inquirerpy~=0.3.4
 setuptools~=65.4.1
 assertpy~=1.1
+emoji~=2.2.0
