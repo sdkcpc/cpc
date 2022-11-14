@@ -1,5 +1,3 @@
-
-
 import sys
 import os
 import re
@@ -16,7 +14,6 @@ from rich.console import Console
 from rich import print
 from jinja2 import Environment, FileSystemLoader
 
-
 from .about import *
 from .validations import *
 from rich.console import Console
@@ -26,10 +23,10 @@ console = Console()
 PWD = os.getcwd() + "/"
 MAKEFILE = "Project.cfg"
 
+
 # Crea nuevo proyecto en la ruta actua.
 #   @Param Nombre del Proyecto
 def createNewProject():
-
     questions = [
         inquirer.Confirm("validate83", message="Validate 8:3 name format in files"),
         inquirer.Text("name_project", message="Project's name", validate=project_name_validation),
@@ -81,7 +78,7 @@ def createNewProject():
 
     show_info("Create New Project " + project, "white")
 
-    data = {"compilation": str(datetime.now()), "version": "1.0.0"}
+    data = {"build": str(datetime.now()), "version": "1.0.0"}
     data.update(answers_1)
 
     # Create project folder
@@ -121,7 +118,7 @@ def createNewProject():
 #         sys.exit(1)
 
 def create_project_cfg(path, data):
-    f = open(path, "a")
+    f = open(path, "w")
     f.write(data)
     f.close()
 
@@ -136,7 +133,6 @@ def create_template(data, template_name, file):
 
 # Crea estructura del proyecto
 def create_structure_project(project):
-
     for i in FOLDERS_PROJECT_NEW:
         if not os.path.isdir(project + "/" + i):
             os.makedirs(project + "/" + i)
@@ -186,6 +182,3 @@ def openVscode(project):
         subprocess.call(['code', project], stdout=FNULL, stderr=subprocess.STDOUT)
     except OSError as err:
         print('[yellow bold][WARNING] The Visual Studio Code does not exist. ' + err)
-
-
-

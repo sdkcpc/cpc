@@ -32,7 +32,7 @@ def validate_data_project():
         sys.exit(1)
 
     schema = {
-        "compilation": {
+        "build": {
             'required': True,
             'type': 'string',
             'regex': '^(?!\s*$).+',

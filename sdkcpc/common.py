@@ -14,6 +14,7 @@ console = Console(width=80, color_system="windows", force_terminal=True)
 
 PWD = os.getcwd() + "/"
 MAKEFILE = "Project.cfg"
+MY_HOME = os.environ['HOME']+"/sdkcpc/resources"
 FOLDERS_PROJECT_NEW = ["resources", "ascii", "bin", "src", "obj"]
 MODELS_CPC = ["464", "664", "6128"]
 BAS_PATH = PWD + "src"
@@ -21,23 +22,23 @@ OBJ_PATH = PWD + "obj"
 LOG_FILE = "project.log"
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 TEMPLATES = APP_PATH + "/resources/templates/"
-SOFTWARE = APP_PATH + "/resources/software/"
+SOFTWARE = MY_HOME + "/resources/"
 
 # Variables for platform
 if sys.platform == "darwin":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip"
-    COMMANDO_IDSK = APP_PATH + "/resources/software/iDSK"
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine"
+    COMMANDO_IDSK = MY_HOME + "/iDSK"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "win32" or sys.platform == "win64":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip"
-    COMMANDO_IDSK = APP_PATH + "/resources/software/iDSK.exe"
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine.exe"
+    COMMANDO_IDSK = MY_HOME + "/iDSK.exe"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine.exe"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "linux":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
-    COMMANDO_IDSK = APP_PATH + "/resources/software/iDSK"
-    RETROVIRTUALMACHINE = APP_PATH + "/resources/software/RetroVirtualMachine"
+    COMMANDO_IDSK = MY_HOME + "/iDSK"
+    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/linux/x64/RetroVirtualMachine.2.0.beta-1.r7.linux.x64.zip"
 
 

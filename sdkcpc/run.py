@@ -1,5 +1,4 @@
 
-
 import os.path
 from zipfile import ZipFile
 from tqdm.auto import tqdm
@@ -30,20 +29,22 @@ def make_executable(path):
 
 
 def download_retro_virtual_machine():
-    if not os.path.exists(RETROVIRTUALMACHINE):
-        print()
-        show_info("Download Retro Virtual Machine.... please wait..", "white")
-        print()
-        with requests.get(URL, stream=True) as r:
-            total_length = int(r.headers.get("Content-Length"))
-            with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
-                with open(APP_PATH + "/resources/software/rvm.zip", 'wb') as output:
-                    shutil.copyfileobj(raw, output)
-                    with ZipFile(APP_PATH + "/resources/software/rvm.zip", "r") as zipObj:
-                        zipObj.extractall(APP_PATH + "/resources/software")
-        os.remove(APP_PATH + "/resources/software/rvm.zip")
-        if sys.platform == "darwin" or sys.platform == "linux":
-            make_executable(RETROVIRTUALMACHINE)
+    if os.paht.exxists(MY_HOME + "/resources"):
+        os.makedirs(MY_HOME + "/resources")
+        if not os.path.exists(RETROVIRTUALMACHINE):
+            print()
+            show_info("Download Retro Virtual Machine.... please wait..", "white")
+            print()
+            with requests.get(URL, stream=True) as r:
+                total_length = int(r.headers.get("Content-Length"))
+                with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
+                    with open(APP_PATH + "/resources/software/rvm.zip", 'wb') as output:
+                        shutil.copyfileobj(raw, output)
+                        with ZipFile(APP_PATH + "/resources/software/rvm.zip", "r") as zipObj:
+                            zipObj.extractall(APP_PATH + "/resources/software")
+            os.remove(APP_PATH + "/resources/software/rvm.zip")
+            if sys.platform == "darwin" or sys.platform == "linux":
+                make_executable(RETROVIRTUALMACHINE)
 
 
 # Ejecuta retro virtual machine con el dsk asociado

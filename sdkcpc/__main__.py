@@ -4,7 +4,7 @@ import argparse
 from . import __version__
 
 from .about import *
-from .compile import *
+from .make import *
 from .run import *
 from .validations import *
 
@@ -90,7 +90,6 @@ def main():
     elif args.command == "validate":
         validateAll()
     elif args.command == "make":
-        validateAll()
         build()
     elif args.command == "about":
         about()
