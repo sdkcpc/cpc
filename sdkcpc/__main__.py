@@ -2,6 +2,9 @@ import click
 import os
 from .validator import *
 from .cat import *
+from .save import *
+from .init import *
+from .dsk import *
 
 
 @click.group()
@@ -25,15 +28,19 @@ def load(file):
 @main.command()
 @click.argument('file', required=False)
 def dsk(file):
-    print(file)
-    # TODO: generate dsk of cdt file in OUT folder.
+    if not file:
+        file = os.path.basename(os.path.normpath(os.getcwd()))
+    dskCommand(file)
 
 
 @main.command()
-@click.argument('file', required=False)
-@click.option(',template', ',t', type=click.Choice(['BASIC', '8BP'], case_sensitive=False))
-def save(file):
-    print(file)
+@click.argument('file', required=True)
+@click.option('--template', '-t', type=click.Choice(['BASIC', '8BP'], case_sensitive=False))
+def save(file, template):
+    if not template:
+        template = "BASIC"
+
+    saveCommand(file, template)
     # TODO: create file bas.
 
 
@@ -58,7 +65,7 @@ def init(model, folder):
     if not folder:
         folder = os.getcwd() + "/"
 
-    print(folder, model)
+    initCommand(folder, model)
     # TODO: FOLDER -> crear ruta si no existe
     # TODO: MODEL --> crear fichero .model y si es 464 archivo .cdt y .dsk con el modelo en carpeta .config
 

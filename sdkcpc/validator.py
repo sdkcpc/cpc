@@ -1,5 +1,6 @@
 import os
 import os.path
+from .init import *
 
 
 def isExist(file):
@@ -16,4 +17,14 @@ def isExist(file):
 
 def isConfig():
     """Check if there is a file"""
-    return isExist(os.getcwd() + "/.config")
+    return os.path.exists(os.getcwd() + "/.sdkcpc")
+
+
+def isModel():
+    """Check if there is a file"""
+    return readConfigKey("rvm", "model")
+
+
+def isConcat():
+    """Check if there is a file"""
+    return readConfigKey("files", "concat")

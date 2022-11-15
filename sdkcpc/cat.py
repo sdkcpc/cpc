@@ -2,10 +2,8 @@ import os.path
 import os.path
 import sys
 import getpass as gt
-import pathlib
 
 from rich import print
-from rich.columns import Columns
 from rich.table import Table
 from .validator import *
 
@@ -18,9 +16,9 @@ def catCommand():
     column = 1
     totalKbytes = 0
 
-    # Check that it is an amstrad repository
+    # Check that it is an sdkcpc project
     if not isConfig():
-        print("no es un ")
+        print("This folder is not a valid sdkcpc project")
         sys.exit(1)
 
     # show files in folders
@@ -33,15 +31,17 @@ def catCommand():
     for file in files:
         # if it is not a folder we show it
         file_split = os.path.splitext(file)
+        if len(file_split[0]) > 8:
+            file83 = file_split[0][0:7] + "~"
+        else:
+            file83 = file_split[0]
         if column == 1:
-            file_extension = pathlib.Path(os.getcwd() + "/" + file).suffix
             totalKbytes = totalKbytes + int(GetKbytes(file))
-            col = '{:<8s}{:>3s}{:>8s}'.format(file_split[0].ljust(8, " "), file_split[1], GetKbytes(file) + "K")
+            col = '{:<8s}{:>3s}{:>8s}'.format(file83.ljust(8, " "), file_split[1], GetKbytes(file) + "K")
             column = column + 1
         else:
             totalKbytes = totalKbytes + int(GetKbytes(file))
-            file_extension = pathlib.Path(os.getcwd() + "/" + file).suffix
-            col = col + '   {:<8s}{:>3s}{:>8s}'.format(file_split[0].ljust(8, " "), file_split[1], GetKbytes(file) + "K")
+            col = col + '   {:<8s}{:>3s}{:>8s}'.format(file83.ljust(8, " "), file_split[1], GetKbytes(file) + "K")
             grid.add_row(col)
             column = 1
             col = ""
@@ -51,7 +51,7 @@ def catCommand():
         count = count + 1
 
     # Show files
-    print("Drive A: user " + str(gt.getuser()) + "\n")
+    print("\nDrive A: user " + str(gt.getuser()) + "\n")
     print(grid)
     bytesFree = 180 - int(totalKbytes)
     print("\n" + str(bytesFree) + "K free")
