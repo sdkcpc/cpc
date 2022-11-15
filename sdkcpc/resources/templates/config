@@ -2,7 +2,7 @@
 model = 6128
 
 [files]
-concat = False
+concat =
 
 [compilation]
 version = 1.0.0

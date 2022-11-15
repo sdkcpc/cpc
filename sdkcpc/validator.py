@@ -27,4 +27,7 @@ def isModel():
 
 def isConcat():
     """Check if there is a file"""
-    return readConfigKey("files", "concat")
+    file = readConfigKey("files", "concat")
+    if file:
+        return file
+    return False

@@ -34,5 +34,11 @@ def saveCommand(file, template):
         file_split = os.path.splitext(file)
         file = file_split[0][0:8] + file_split[1]
 
-    data = {"project": os.path.basename(os.path.normpath(os.getcwd())), "build": str(datetime.now()), "version": "1.0.0"}
+    data = {"project": os.path.basename(os.path.normpath(os.getcwd())), "build": str(datetime.now()),
+            "version": "1.0.0"}
     createTemplate(data, template.lower() + ".j2", file)
+
+    if template.upper() == "8BP":
+        if not os.path.exists(os.getcwd() + "/.sdkcpc/8bp.dsk"):
+            copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
+                     os.getcwd() + "/.sdkcpc/8bp.dsk")

@@ -34,7 +34,7 @@ def initCommand(folder, model):
 
     # copy files (vscode and config)
     createVscode(folder)
-    copyConfig(folder)
+    copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/config", folder + "/.sdkcpc/config")
 
     # Create model file
     build = str(datetime.now())
@@ -94,18 +94,18 @@ def createVscode(folder):
         sys.exit(1)
 
 
-def copyConfig(folder):
+def copyFile(origen, destino):
     """
     create files vscode
 
     Args:
-        folder (string): project folder
+        origen (string): file source
+        destino (string): file destination
 
     """
     try:
-        shutil.copy(os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/config",
-                    folder + "/.sdkcpc/config")
-        print("[+] Create config files.")
+        shutil.copy(origen, destino)
+        # print("[+] Copy config files.")
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
