@@ -137,7 +137,7 @@ dmypy.json
 # PRUEBAS
 
 prueba*/
-pepe*/
+example.py/
 mibas*/
 *sdkcpc/resources/software/Retr*
 *sdkcpc/resources/software/che*

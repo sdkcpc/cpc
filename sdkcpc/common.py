@@ -74,7 +74,7 @@ def readCfgSection(section):
 
 
 def readBuild():
-    file_path = SOFTWARE + "/BUILD"
+    file_path = APP_PATH + "/resources/BUILD"
 
     if os.path.isfile(file_path):
         text_file = open(file_path, "r")
