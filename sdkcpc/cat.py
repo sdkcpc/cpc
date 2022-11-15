@@ -2,6 +2,7 @@ import os.path
 import os.path
 import sys
 import getpass as gt
+import pathlib
 
 from rich import print
 from rich.columns import Columns
@@ -31,13 +32,16 @@ def catCommand():
 
     for file in files:
         # if it is not a folder we show it
+        file_split = os.path.splitext(file)
         if column == 1:
+            file_extension = pathlib.Path(os.getcwd() + "/" + file).suffix
             totalKbytes = totalKbytes + int(GetKbytes(file))
-            col = '{:<10s}    {:>4s}'.format(file, GetKbytes(file) + "K")
+            col = '{:<8s}{:>3s}{:>8s}'.format(file_split[0].ljust(8, " "), file_split[1], GetKbytes(file) + "K")
             column = column + 1
         else:
             totalKbytes = totalKbytes + int(GetKbytes(file))
-            col = col + '   {:<10s}    {:>4s}'.format(file, GetKbytes(file) + "K")
+            file_extension = pathlib.Path(os.getcwd() + "/" + file).suffix
+            col = col + '   {:<8s}{:>3s}{:>8s}'.format(file_split[0].ljust(8, " "), file_split[1], GetKbytes(file) + "K")
             grid.add_row(col)
             column = 1
             col = ""
