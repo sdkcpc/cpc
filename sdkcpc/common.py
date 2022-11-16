@@ -73,16 +73,7 @@ def readCfgSection(section):
         sys.exit(1)
 
 
-def readBuild():
-    file_path = APP_PATH + "/resources/BUILD"
 
-    if os.path.isfile(file_path):
-        text_file = open(file_path, "r")
-        data = text_file.read()
-        text_file.close()
-        return data
-
-    return "Could not read the build"
 
 
 def show_head(info, color):

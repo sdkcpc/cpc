@@ -2,6 +2,7 @@ import click
 from .cat import *
 from .save import *
 from .run import *
+from .about import *
 
 
 @click.group()
@@ -11,8 +12,7 @@ def main():
 
 @main.command()
 def about():
-    print('about')
-    # TODO: show files in folder.
+    aboutCommand()
 
 
 @main.command()
