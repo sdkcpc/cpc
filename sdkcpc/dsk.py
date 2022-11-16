@@ -1,7 +1,9 @@
 import os.path
 import os.path
+import pathlib
 import sys
 import getpass as gt
+from os import path
 from zipfile import ZipFile
 import subprocess
 import requests
@@ -24,6 +26,9 @@ def dskCommand(file):
     if not isConfig():
         print("This folder is not a valid sdkcpc project")
         sys.exit(1)
+
+    # if exist remove temporal folder
+    removeTemporalFolder()
 
     # If the project does not exist, we create a folder
     if not os.path.exists(os.getcwd() + "/OUT"):
@@ -58,9 +63,26 @@ def dskCommand(file):
                 os.remove(os.getcwd() + "/TMP/" + '/' + basfile)
         os.rename(os.getcwd() + "/TMP/" + isConcat() + ".concat", os.getcwd() + "/TMP/" + isConcat())
 
+    # If it exists, we extract the 8BP library binary from the dsk image
+    extract8BPLibrary(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
+
     # We create DSK file with name last folder of the path
     createDskFile(os.path.basename(os.path.normpath(os.getcwd())))
 
+    # Add files to DSK
+    dsk = os.getcwd() + "/OUT/" + os.path.basename(os.path.normpath(os.getcwd())).replace(" ", "_") + ".dsk"
+    AddFilesFolder2Dsk(dsk, os.getcwd() + "/TMP/", "BAS")
+    AddFilesFolder2Dsk(dsk, os.getcwd(), "None")
+
+    # if exist remove temporal folder
+    removeTemporalFolder()
+
+    # Update compilation data in config file
+    updateConfigKey("compilation", "version", new_version)
+    updateConfigKey("compilation", "build", new_compilation)
+
+    # Show Message
+    print("[+] Build Successfully - Version: " + new_version + " - Build: " + new_compilation)
 
 def downloadiDsk():
     """
@@ -79,7 +101,7 @@ def downloadiDsk():
         elif sys.platform == "linux":
             URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
         print("[+] Download iDSK Software Version 0.20.... please wait..")
-        with requests.get(URL,stream=True) as r:
+        with requests.get(URL, stream=True) as r:
             total_length = int(r.headers.get("Content-Length"))
             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
                 with open(os.environ['HOME'] + "/sdkcpc/resources/idsk.zip", 'wb') as output:
@@ -89,6 +111,15 @@ def downloadiDsk():
         os.remove(os.environ['HOME'] + "/sdkcpc/resources/idsk.zip")
         if sys.platform == "darwin" or sys.platform == "linux":
             chmod(os.environ['HOME'] + "/sdkcpc/resources/iDSK")
+
+
+def removeTemporalFolder():
+    """
+    Remove temporal Folder.
+
+    """
+    if os.path.exists(os.getcwd() + "/TMP"):
+        shutil.rmtree(os.getcwd() + "/TMP")
 
 
 def chmod(path):
@@ -137,7 +168,38 @@ def remove_comments_lines_in_bas_files(file, new_version, new_compilation):
             output.write("\n")
 
 
+def extract8BPLibrary(library, destiny):
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file image sdk library
+
+    """
+
+    if path.exists(library):
+        FNULL = open(os.devnull, 'w')
+
+        try:
+            subprocess.Popen(
+                [os.environ['HOME'] + "/sdkcpc/resources/iDSK", library, "-g", destiny],
+                stdout=FNULL, stderr=subprocess.STDOUT)
+            print("[+] Copy the 8BP library to the sdkcpc project.")
+        except OSError as err:
+            print("Error to Copy the 8BP library to the sdkcpc project.")
+            sys.exit(1)
+    else:
+        print("[+] No exist 8BP library in sdkcpc project.")
+
+
 def createDskFile(file):
+    """
+   create dsk file
+
+    Args:
+        file (string): name image dsk creare
+
+    """
     FNULL = open(os.devnull, 'w')
 
     try:
@@ -149,3 +211,76 @@ def createDskFile(file):
     except OSError as err:
         print("BUILD ERROR - " + "iDSK does not exist. " + str(err))
         sys.exit(1)
+
+
+def addFileToDsk(file, dsk, type_file):
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file to added
+        dsk (string): path name of dsk file
+        type_file (string): values 0 ascii, 1 binary
+
+    """
+    FNULL = open(os.devnull, 'w')
+
+    file_extension = os.path.basename(file)
+
+    try:
+        subprocess.run(
+            [os.environ['HOME'] + "/sdkcpc/resources/iDSK", dsk, "-i", file, "-f", "-t", type_file],
+            stdout=FNULL, stderr=subprocess.STDOUT)
+
+    except OSError as err:
+        print("BUILD ERROR - " + "Added file " + file + " to DSK")
+        sys.exit(1)
+
+
+def AddFilesFolder2Dsk(dsk, folder, option):
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file to added
+        folder (string): path files
+        option (string): if files BAS or not
+
+    """
+    files = next(os.walk(folder))[2]
+    for file in files:
+        file_add = folder + file
+        file_split = os.path.splitext(file)
+        file = file_split[0] + file_split[1]
+        if option == "BAS":
+            if file_split[1].upper() == ".BAS":
+                if is_binary(file_add):
+                    addFileToDsk(file_add, dsk, "1")
+                    print("[+] Add binary " + file + " to DSK")
+                else:
+                    addFileToDsk(file_add, dsk, "0")
+                    print("[+] Add ascii " + file + " to DSK")
+        else:
+            if file_split[1].upper() != ".BAS":
+                if is_binary(file_add):
+                    addFileToDsk(file_add, dsk, "1")
+                    print("[+] Add binary " + file + " to DSK")
+                else:
+                    addFileToDsk(file_add, dsk, "0")
+                    print("[+] Add ascii " + file + " to DSK")
+
+
+def is_binary(file):
+    """
+    get file is binary
+
+    Args:
+        file (string): file to analizate
+
+    """
+    try:
+        with open(file, 'tr') as check_file:
+            check_file.read()
+            return False
+    except:
+        return True
