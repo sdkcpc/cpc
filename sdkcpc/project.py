@@ -95,7 +95,7 @@ def createNewProject():
         create_template(data, "basic.j2", project_path + "/src/" + answers_1.get("bas_file"))
 
     if answers_4.get("creategit"):
-        console.print("[+] Create Git Repository")
+        console.print("[✔] Create Git Repository")
         gitInit(project_path)
     if answers_4.get("vscodeopen"):
         createVscode(project_path)
@@ -128,7 +128,7 @@ def create_template(data, template_name, file):
     j2_env = Environment(loader=FileSystemLoader(TEMPLATES), trim_blocks=True)
     with open(file, mode="w", encoding="utf-8") as message:
         message.write(j2_env.get_template(template_name).render(data))
-    print("[+] Create Template " + Path(file).stem + ".bas")
+    print("[✔] Create Template " + Path(file).stem + ".bas")
 
 
 # Crea estructura del proyecto
@@ -136,14 +136,14 @@ def create_structure_project(project):
     for i in FOLDERS_PROJECT_NEW:
         if not os.path.isdir(project + "/" + i):
             os.makedirs(project + "/" + i)
-            print("[+] Create Folder ../" + i)
+            print("[✔] Create Folder ../" + i)
 
 
 # Crea estructura vscode
 def createVscode(project):
     try:
         shutil.copytree(APP_PATH + "/resources/vscode", project + "/.vscode")
-        print("[+] Create Vscode files.")
+        print("[✔] Create Vscode files.")
     except OSError as err:
         print("[red bold]" + str(err))
         sys.exit(1)
@@ -153,7 +153,7 @@ def createVscode(project):
 def copy_resources(project):
     try:
         shutil.copy(APP_PATH + "/resources/software/8bp.dsk", project)
-        print("[+] Copy example 8bp library.")
+        print("[✔] Copy example 8bp library.")
     except OSError as err:
         print("[red bold]" + str(err))
         sys.exit(1)
@@ -169,7 +169,7 @@ def gitInit(project):
 
     try:
         shutil.copy(APP_PATH + "/resources/gitignore", project + "/.gitignore")
-        print("[+] Create gitignore file.")
+        print("[✔] Create gitignore file.")
     except OSError as err:
         print("[bold red]" + err)
         sys.exit(1)

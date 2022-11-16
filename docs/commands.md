@@ -91,13 +91,13 @@ linux - Build: 2022/09/10 12:14:17
 [*] ------------------------------------------------------------------------
 [*] Create New Project mibas
 [*] ------------------------------------------------------------------------
-[+] Create Folder mibas/resources
-[+] Create Folder mibas/ascii
-[+] Create Folder mibas/bin
-[+] Create Folder mibas/src
-[+] Create Folder mibas/obj
-[+] Create Template /home/destroyer/Documentos/Github/SDKCPC/cpc/pepep/mibas/Project.cfg
-[+] Create Template /home/destroyer/Documentos/Github/SDKCPC/cpc/pepep/mibas/src/mibas.bas
+[✔] Create Folder mibas/resources
+[✔] Create Folder mibas/ascii
+[✔] Create Folder mibas/bin
+[✔] Create Folder mibas/src
+[✔] Create Folder mibas/obj
+[✔] Create Template /home/destroyer/Documentos/Github/SDKCPC/cpc/pepep/mibas/Project.cfg
+[✔] Create Template /home/destroyer/Documentos/Github/SDKCPC/cpc/pepep/mibas/src/mibas.bas
 [?] Do you want to create version control in the project (git software needed)?: No
    Yes
  > No
@@ -106,7 +106,7 @@ linux - Build: 2022/09/10 12:14:17
  > Yes
    No
 
-[+] Create Vscode files.
+[✔] Create Vscode files.
 [*] ------------------------------------------------------------------------
 [*] mibas project successfully created
 [*] ------------------------------------------------------------------------

@@ -49,14 +49,14 @@ def info_files(estructura):
     for i in estructura:
         if not i == "resources":
             TOTAL_FILES = TOTAL_FILES + CountFilesFolderProject(i)
-            print("[+] [blue bold]" + i + " [/] (" + str(CountFilesFolderProject(i)) + " Files)")
+            print("[✔] [blue bold]" + i + " [/] (" + str(CountFilesFolderProject(i)) + " Files)")
             arr = next(os.walk(PWD + i))[2]
             if len(arr) == 0:
                 TOTAL_SIZE = TOTAL_SIZE + 0
-                print('{message: <18}'.format(message="[+]  ....") + "[0 KB]")
+                print('{message: <18}'.format(message="[✔]  ....") + "[0 KB]")
             for x in range(0, len(arr)):
                 TOTAL_SIZE = TOTAL_SIZE + int(GetKbytes(PWD + i + "/" + arr[x]))
-                print('{message: <18}'.format(message="[+]   " + arr[x]) + "[" + GetKbytes(
+                print('{message: <18}'.format(message="[✔]   " + arr[x]) + "[" + GetKbytes(
                     PWD + i + "/" + arr[x]) + " KB]")
     show_foot("Total " + str(TOTAL_FILES) + " files with a size of " + str(TOTAL_SIZE) + " KB", "green")
 

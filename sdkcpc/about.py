@@ -1,11 +1,7 @@
-from rich.console import Console
-
 
 from .project import *
-
 from . import __version__
 from .common import *
-from rich import print
 from rich.console import Console
 
 console = Console(width=100, color_system="windows", force_terminal=True)

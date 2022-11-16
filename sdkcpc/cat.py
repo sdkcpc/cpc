@@ -1,8 +1,6 @@
 import os.path
 import os.path
-import sys
 import getpass as gt
-
 from rich import print
 from rich.table import Table
 from .validator import *
@@ -16,7 +14,7 @@ def catCommand():
     column = 1
     totalKbytes = 0
 
-    # Check that it is an sdkcpc project
+    # Check that it is and sdkcpc project
     if not isConfig():
         print("This folder is not a valid sdkcpc project")
         sys.exit(1)

@@ -1,10 +1,7 @@
 import click
-import os
-from .validator import *
 from .cat import *
 from .save import *
-from .init import *
-from .dsk import *
+from .run import *
 
 
 @click.group()
@@ -29,8 +26,12 @@ def load(file):
 @click.argument('file', required=False)
 def dsk(file):
     if not file:
-        file = os.path.basename(os.path.normpath(os.getcwd()))
-    dskCommand(file)
+        file = os.path.basename(os.path.normpath(os.getcwd())) + ".dsk"
+    file_split = os.path.splitext(file)
+    if file_split[1].upper() != ".DSK":
+        file = file + ".dsk"
+    updateConfigKey("files", "dsk", file.replace(" ", "_"))
+    dskCommand()
 
 
 @main.command()
@@ -39,9 +40,7 @@ def dsk(file):
 def save(file, template):
     if not template:
         template = "BASIC"
-
     saveCommand(file, template)
-    # TODO: create file bas.
 
 
 @main.command()
@@ -52,8 +51,7 @@ def cat():
 @main.command()
 @click.argument('file', required=True)
 def run(file):
-    print(file)
-    # TODO: FILE --> Run rvm con fichero file, si no hay fichero hacer cat.
+    runCommand(file)
 
 
 @main.command()

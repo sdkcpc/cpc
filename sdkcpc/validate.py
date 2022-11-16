@@ -133,12 +133,12 @@ def validate_structure_project(estructura, verbose):
         show_head("Project Structure Validation", "white")
     for i in estructura:
         if not os.path.isdir(PWD + i):
-            print("[red bold][+]   " + i + " : Folder not exist in this project.")
+            print("[red bold][✔]   " + i + " : Folder not exist in this project.")
             show_foot("Structure error", "red")
             sys.exit(1)
         else:
             if not verbose:
-                print("[+]   " + i + " [green bold][OK]")
+                print("[✔]   " + i + " [green bold][OK]")
 
     if not verbose:
         show_foot("Structure Successfully", "green")
@@ -149,18 +149,18 @@ def validate_83_files_project(estructura, verbose):
         show_head("Validate 8:3 Files", "white")
     for i in estructura:
         if not verbose:
-            print("[+] [blue bold]" + i + " [/]")
+            print("[✔] [blue bold]" + i + " [/]")
         arr = next(os.walk(PWD + i))[2]
         if len(arr) == 0:
             if not verbose:
-                print("[+]   No files in folder [yellow bold][WARNING]")
+                print("[✔]   No files in folder [yellow bold][WARNING]")
         for x in range(0, len(arr)):
             if len(os.path.splitext(arr[x])[1]) != 4 or len(os.path.splitext(arr[x])[0]) > 8:
                 show_head("Validate 8:3 Files", "white")
-                print("[red bold][+]   " + arr[x] + " : does not conform to 8:3 file format.")
+                print("[red bold][✔]   " + arr[x] + " : does not conform to 8:3 file format.")
                 sys.exit(1)
             else:
                 if not verbose:
-                    print("[+]   " + arr[x] + " [green bold][OK]")
+                    print("[✔]   " + arr[x] + " [green bold][OK]")
     if not verbose:
         show_foot("8:3 Files Successfully", "green")

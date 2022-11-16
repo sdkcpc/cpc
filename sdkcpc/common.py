@@ -28,17 +28,17 @@ SOFTWARE = MY_HOME + "/resources/"
 if sys.platform == "darwin":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip"
     COMMANDO_IDSK = MY_HOME + "/iDSK"
-    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
+    RVM = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "win32" or sys.platform == "win64":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip"
     COMMANDO_IDSK = MY_HOME + "/iDSK.exe"
-    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine.exe"
+    RVM = MY_HOME + "/RetroVirtualMachine.exe"
     URL = "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7.windows.x86.zip"
 elif sys.platform == "linux":
     DOWNLOAD_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
     COMMANDO_IDSK = MY_HOME + "/iDSK"
-    RETROVIRTUALMACHINE = MY_HOME + "/RetroVirtualMachine"
+    RVM = MY_HOME + "/RetroVirtualMachine"
     URL = "https://static.retrovm.org/release/beta1/linux/x64/RetroVirtualMachine.2.0.beta-1.r7.linux.x64.zip"
 
 

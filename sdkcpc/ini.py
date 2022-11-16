@@ -51,4 +51,3 @@ def createConfigKey(section, key, value):
     config.set(section, key, value)
     with open(os.getcwd() + "/.sdkcpc/config", 'a') as configfile:
         config.write(configfile)
-

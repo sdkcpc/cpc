@@ -25,6 +25,21 @@ def isModel():
     return readConfigKey("rvm", "model")
 
 
+def isVersion():
+    """Check if there is a file"""
+    return readConfigKey("compilation", "version")
+
+
+def isDSK():
+    """Check if there is a file"""
+    return readConfigKey("files", "dsk")
+
+
+def isBuild():
+    """Check if there is a file"""
+    return readConfigKey("compilation", "build")
+
+
 def isConcat():
     """Check if there is a file"""
     file = readConfigKey("files", "concat")

@@ -1,10 +1,7 @@
 import os.path
-import os.path
 import shutil
 import sys
 from datetime import datetime
-
-from rich import print
 from .validator import *
 from .ini import *
 from jinja2 import Environment, FileSystemLoader
@@ -26,7 +23,7 @@ def initCommand(folder, model):
         sys.exit(1)
     else:
         os.mkdir(folder + "/.sdkcpc")
-        print("[+] Create config files.")
+        print("[✔] Create config files.")
 
     # If the project does not exist, we create a folder
     if not os.path.exists(folder):
@@ -44,7 +41,7 @@ def initCommand(folder, model):
     # Create bas template
     data = {"project": os.path.basename(os.path.normpath(folder)), "build": build, "version": "1.0.0"}
     createTemplate(data, "basic.j2", folder + "/MAIN.BAS")
-    print("[+] Initialized SDKCPC folder in " + folder + ".sdkcpc")
+    print("[✔] Initialized SDKCPC folder in " + folder + ".sdkcpc")
 
 
 def createFile(file, text):
@@ -75,7 +72,7 @@ def createTemplate(data, template, file):
                          trim_blocks=True)
     with open(file, mode="w", encoding="utf-8") as message:
         message.write(j2_env.get_template(template).render(data))
-        print("[+] Create Template Bas file.")
+        print("[✔] Create Template Bas file.")
 
 
 def createVscode(folder):
@@ -88,7 +85,7 @@ def createVscode(folder):
     """
     try:
         shutil.copytree(os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode", folder + "/.vscode")
-        print("[+] Create Vscode files.")
+        print("[✔] Create Vscode files.")
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
@@ -105,7 +102,7 @@ def copyFile(origen, destino):
     """
     try:
         shutil.copy(origen, destino)
-        # print("[+] Copy config files.")
+        # print("[✔] Copy config files.")
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
