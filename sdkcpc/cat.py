@@ -7,11 +7,12 @@ from .validator import *
 from .about import *
 
 
-def catCommand():
+def catCommand(activate):
     """Show files in folder (Format Amstrad)"""
 
     # Show header is activated in config
-    headerAmstrad()
+    if activate:
+        headerAmstrad()
 
     # initialitate variables
     col = ""
@@ -57,7 +58,7 @@ def catCommand():
     print("\nDrive A: user " + str(gt.getuser()) + "\n")
     print(grid)
     bytesFree = 180 - int(totalKbytes)
-    print("\n" + str(bytesFree) + "K free")
+    print("\n" + str(bytesFree) + "K free\n")
 
 
 def GetKbytes(file):

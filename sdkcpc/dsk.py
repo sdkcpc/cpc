@@ -10,6 +10,10 @@ from .about import *
 from .validator import *
 from .init import *
 
+commands_8bp = ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL', '|LAYOUT',
+                '|LOCATESP', '|MAP2SP', '|MOVER', '|MOVERALL', 'MUSIC', '|MUSIC', '|PEEK', '|POKE', '|PRINTAT',
+                '|PRINTSP', '|PRINTSPALL', '|RINK', '|ROUTESP', '|ROUTEALL', '|SETLIMITS', '|SETUPSP', '|UMAP', ]
+
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
 
 if sys.platform == "darwin":
@@ -23,16 +27,17 @@ elif sys.platform == "linux":
     URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
 
 
-def dskCommand():
+def dskCommand(activate):
     """
     create dsk image
 
     Args:
-        file (string): Path of file
+        activate (boolean): activate header
 
     """
     # Show header is activated in config
-    headerAmstrad()
+    if activate:
+        headerAmstrad()
 
     # Check that it is and sdkcpc project
     if not isSdkProject():
@@ -61,7 +66,7 @@ def dskCommand():
     for file in files:
         if file.endswith(".BAS") or file.endswith(".bas"):
             remove_comments_lines_in_bas_files(file, new_version, new_compilation)
-    print("[✔] Remove Comment lines BAS files.")
+    okMessage("Remove Comment lines BAS files.")
 
     # concatenate files
     if getConcat():
@@ -69,14 +74,14 @@ def dskCommand():
         with open(os.getcwd() + "/TMP/" + getConcat() + ".concat", "a") as file_object:
             for basfile in files_in_path:
                 with open(os.getcwd() + "/TMP/" + basfile) as file:
-                    print("Concatenate file -> " + str(basfile))
                     while line := file.readline().rstrip():
                         file_object.write(line + "\r\n")
                 os.remove(os.getcwd() + "/TMP/" + '/' + basfile)
         os.rename(os.getcwd() + "/TMP/" + getConcat() + ".concat", os.getcwd() + "/TMP/" + getConcat())
 
     # If it exists, we extract the 8BP library binary from the dsk image
-    extract8BPLibrary(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
+    if findCommand8BP():
+        extract8BPLibrary(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
 
     dsk = os.getcwd() + "/OUT/" + getDSK()
 
@@ -95,7 +100,7 @@ def dskCommand():
     updateConfigKey("compilation", "build", new_compilation)
 
     # Show Message
-    print("[✔] Build Successfully - Version: " + new_version + " - Build: " + new_compilation)
+    okMessage("Build Successfully - Version: " + new_version + " - Build: " + new_compilation)
 
 
 def downloadiDsk():
@@ -193,12 +198,44 @@ def extract8BPLibrary(library, destiny):
             subprocess.Popen(
                 [os.environ['HOME'] + "/sdkcpc/resources/iDSK", library, "-g", destiny],
                 stdout=FNULL, stderr=subprocess.STDOUT)
-            print("[✔] Copy the 8BP library to the sdkcpc project.")
+            okMessage("Copy the 8BP library to project.")
         except OSError as err:
             print("Error to Copy the 8BP library to the sdkcpc project: " + str(err))
             sys.exit(1)
     else:
-        print("[✔] No exist 8BP library in sdkcpc project.")
+        okMessage("No exist 8BP library in sdkcpc project.")
+
+
+def findWord(word_list, line):
+    """
+    Search a string for a list of words
+
+    Args:
+        line (string): path file image sdk library
+        word_list (string): word list
+    """
+    for word in word_list:
+        if word in line:
+            return True
+
+
+def findCommand8BP():
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file image sdk library
+
+    """
+    files = next(os.walk(os.getcwd()))[2]
+    for file in files:
+        file_split = os.path.splitext(file)
+        file = file_split[0] + file_split[1]
+        if file_split[1].upper() == ".BAS":
+            with open(os.getcwd() + "/" + file) as f:
+                result = [findWord(commands_8bp, line.upper()) for line in f.readlines()]
+            if True in result:
+                return True
 
 
 def createDskFile(file):
@@ -215,7 +252,7 @@ def createDskFile(file):
         subprocess.Popen([os.environ['HOME'] + "/sdkcpc/resources/iDSK", file, "-n"],
                          stdout=FNULL,
                          stderr=subprocess.STDOUT)
-        print("[✔] Create image disk " + os.path.basename(file))
+        okMessage("Create image disk " + os.path.basename(file))
     except OSError as err:
         print("BUILD ERROR - " + "iDSK does not exist. " + str(err))
         sys.exit(1)
@@ -239,7 +276,7 @@ def addFileToDsk(file, dsk, type_file):
             stdout=FNULL, stderr=subprocess.STDOUT)
 
     except OSError as err:
-        print("[X] Error Added file " + file + " to DSK: " + str(err))
+        errMessage(" Error Added file " + file + " to DSK: " + str(err))
         sys.exit(1)
 
 
@@ -262,18 +299,18 @@ def AddFilesFolder2Dsk(dsk, folder, option):
             if file_split[1].upper() == ".BAS":
                 if is_binary(file_add):
                     addFileToDsk(file_add, dsk, "1")
-                    print("[✔] Add binary " + file + " to DSK")
+                    okMessage("Add binary " + file + " to DSK")
                 else:
                     addFileToDsk(file_add, dsk, "0")
-                    print("[✔] Add ascii " + file + " to DSK")
+                    okMessage("Add ascii " + file + " to DSK")
         else:
             if file_split[1].upper() != ".BAS":
                 if is_binary(file_add):
                     addFileToDsk(file_add, dsk, "1")
-                    print("[✔] Add binary " + file + " to DSK")
+                    okMessage("Add binary " + file + " to DSK")
                 else:
                     addFileToDsk(file_add, dsk, "0")
-                    print("[✔] Add ascii " + file + " to DSK")
+                    okMessage("Add ascii " + file + " to DSK")
 
 
 def is_binary(file):

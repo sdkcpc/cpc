@@ -20,7 +20,7 @@ elif sys.platform == "linux":
 
 
 # Ejecuta retro virtual machine con el dsk asociado
-def runCommand(bas_file, model):
+def runCommand(bas_file, model, activate):
     """
     Execute bas in retrovirtualmachine
 
@@ -30,7 +30,8 @@ def runCommand(bas_file, model):
     """
 
     # Show header is activated in config
-    headerAmstrad()
+    if activate:
+        headerAmstrad()
 
     # if not exist file exit
     commandFileExist(bas_file)
@@ -41,13 +42,13 @@ def runCommand(bas_file, model):
     download_retro_virtual_machine()
     dsk = os.getcwd() + "/OUT/" + getDSK()
     if not path.exists(dsk):
-        print("An error occurred not exist ./OUT/" + getDSK())
+        errMessage("An error occurred not exist ./OUT/" + getDSK())
         sys.exit(1)
 
-    print("[✔] Version : " + getVersion())
-    print("[✔] Build   : " + getBuild())
-    print("[✔] Bas File: " + bas_file)
-    print("[✔] Dsk File: " + getDSK())
+    okMessage("Version : " + getVersion())
+    okMessage("Build   : " + getBuild())
+    okMessage("Bas File: " + bas_file)
+    okMessage("Dsk File: " + getDSK())
 
     FNULL = open(os.devnull, 'w')
     try:
@@ -61,9 +62,9 @@ def runCommand(bas_file, model):
         elif sys.platform == "linux":
             subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                              stderr=subprocess.STDOUT)
-        print("[✔] Execution Successfully")
+        okMessage("Execution Successfully")
     except OSError as err:
-        print("[✔] An error occurred while running Retro Virtual Machine: \n" + str(err))
+        errMessage("An error occurred while running Retro Virtual Machine: \n" + str(err))
 
 
 def download_retro_virtual_machine():

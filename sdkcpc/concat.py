@@ -1,15 +1,13 @@
-import os.path
-import os.path
-import getpass as gt
-from rich import print
-from rich.table import Table
+from .about import headerAmstrad
 from .validator import *
-from .about import *
 
 
-def concatCommand(file):
+def concatCommand(file, activate):
     """Update config with file to concat"""
 
+    # Show header is activated in config
+    if activate:
+        headerAmstrad()
     # update concat field
     updateConfigKey("files", "concat", file)
-    print("[✔] The file to concatenate is now " + file)
+    okMessage("The file to concatenate is now " + file)

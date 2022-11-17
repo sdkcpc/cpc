@@ -12,18 +12,18 @@ from .about import headerAmstrad
 from .validator import *
 
 
-def saveCommand(file, template):
+def saveCommand(file, activate):
     """
     create file bas in project
 
     Args:
         file (string): Path of file
-        template (string):
 
     """
 
     # Show header is activated in config
-    headerAmstrad()
+    if activate:
+        headerAmstrad()
 
     # Check if the file exists
     if isExist(os.getcwd() + "/" + file):
@@ -42,9 +42,8 @@ def saveCommand(file, template):
 
     data = {"project": os.path.basename(os.path.normpath(os.getcwd())), "build": str(datetime.now()),
             "version": "1.0.0"}
-    createTemplate(data, template.lower() + ".j2", file)
+    createTemplate(data, "8bp.j2", file)
 
-    if template.upper() == "8BP":
-        if not os.path.exists(os.getcwd() + "/.sdkcpc/8bp.dsk"):
-            copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
-                     os.getcwd() + "/.sdkcpc/8bp.dsk")
+    if not os.path.exists(os.getcwd() + "/.sdkcpc/8bp.dsk"):
+        copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
+                 os.getcwd() + "/.sdkcpc/8bp.dsk")

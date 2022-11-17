@@ -1,11 +1,7 @@
 import os
 
 from . import __version__
-from rich.console import Console
-
-from .validator import getBuild, getHeader, getModel
-
-console = Console()
+from .validator import *
 
 
 def headerAmstrad():
@@ -41,7 +37,11 @@ def headerAmstrad():
     
  Ready
         """.format(kbytes=kbytes, basic=basic, s=s, year=year)
-        print(info)
+
+        if getHeaderColor().upper() == "ON":
+            print_formatted_text(HTML('<yellow>' + info + '</yellow>'), style=style)
+        else:
+            print_formatted_text(HTML('<white>' + info + '</white>'), style=style)
 
 
 def aboutCommand():
@@ -51,14 +51,19 @@ def aboutCommand():
     """
     ver = __version__
     build = readBuild()
-    banner = """\n[bold white] ╔═╗╔╦╗╦╔═╔═╗╔═╗╔═╗ [bold white]┌─────────────┐[/][white]    Created by: © Destroyer - 2022[/]
-[bold white] ╚═╗ ║║╠╩╗║  ╠═╝║   [bold white]│ [red bold]■■■[green] ■■■[blue] ■■■ [white]│[/]    Github    : https://github.com/sdkcpc/cpc.git[/]
-[bold white] ╚═╝═╩╝╩ ╩╚═╝╩  ╚═╝ [bold white]│ [red bold]■■■[green] ■■■[blue] ■■■ [white]│[/]    Version   : {ver}[/]
-[white] For Amstrad Basic[bold white]  └─────────────┘[/]    [bold]Build     : [bold]{build}[/]""".format(
-        ver=ver, build=build)
 
-    console.print(banner)
-    console.print("")
+    print_formatted_text(HTML('<yellow>╔═╗╔╦╗╦╔═╔═╗╔═╗╔═╗ ┌─────────────┐  Created by: © Destroyer - 2022</yellow>'),
+                         style=style)
+    print_formatted_text(HTML(
+        '<yellow>╚═╗ ║║╠╩╗║  ╠═╝║   │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
+        '│  Github    : https://github.com/sdkcpc/cpc.git</yellow>'),
+                         style=style)
+    print_formatted_text(HTML(
+        '<yellow>╚═╝═╩╝╩ ╩╚═╝╩  ╚═╝ │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
+        '│  Version   : ' + ver + '</yellow>'),
+                         style=style)
+    print_formatted_text(HTML('<yellow>For Amstrad Basic  └─────────────┘  Build     : ' + build + '</yellow>'),
+                         style=style)
 
 
 def header():

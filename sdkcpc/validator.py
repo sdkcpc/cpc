@@ -2,6 +2,45 @@ import os.path
 import configparser
 import os
 import sys
+from rich.console import Console
+from prompt_toolkit import print_formatted_text, HTML
+from prompt_toolkit.styles import Style
+
+style = Style.from_dict({
+    'red': '#ff0066',
+    'green': '#44ff00',
+    'yellow': '#ffff00',
+    'blue': '#0000FF'
+})
+
+console = Console()
+
+
+def okMessage(message):
+    """
+    Show info messages
+
+    Args:
+        message (string): Text to show
+    """
+
+    if getMessageColor().upper() == "ON":
+        print_formatted_text(HTML('<green>[✔]</green> <yellow>' + message + '</yellow>'), style=style)
+    else:
+        print_formatted_text(HTML('<white>[✔] ' + message + '</white>'), style=style)
+
+
+def errMessage(message):
+    """
+    Show info messages
+
+    Args:
+        message (string): Text to show
+    """
+    if getMessageColor().upper() == "ON":
+        print_formatted_text(HTML('<red>[X] ' + message + '</red>'), style=style)
+    else:
+        print_formatted_text(HTML('<white>[X] ' + message + '</white>'), style=style)
 
 
 def commandFileExist(file):
@@ -37,6 +76,11 @@ def isExist(file):
 def isSdkProject():
     """Check if there is a file"""
     return os.path.exists(os.getcwd() + "/.sdkcpc")
+
+
+def getMessageColor():
+    """Check if there is a file"""
+    return readConfigKey("messages", "color")
 
 
 def getModel():
@@ -75,6 +119,11 @@ def getConcat():
 def getHeader():
     """Check if there is a file"""
     return readConfigKey("header", "show")
+
+
+def getHeaderColor():
+    """Check if there is a file"""
+    return readConfigKey("header", "color")
 
 
 def getFooter():

@@ -24,7 +24,7 @@ def initCommand(folder, model):
         sys.exit(1)
     else:
         os.mkdir(folder + "/.sdkcpc")
-        print("[✔] Create config files.")
+        okMessage("Create config files.")
 
     # If the project does not exist, we create a folder
     if not os.path.exists(folder):
@@ -41,7 +41,12 @@ def initCommand(folder, model):
 
     # Create bas template
     data = {"project": os.path.basename(os.path.normpath(folder)), "build": build, "version": "1.0.0"}
-    createTemplate(data, "basic.j2", folder + "/MAIN.BAS")
+    createTemplate(data, "8bp.j2", folder + "/MAIN.BAS")
+
+    # Add library 8bp
+    if not os.path.exists(os.getcwd() + "/.sdkcpc/8bp.dsk"):
+        copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
+                 os.getcwd() + "/.sdkcpc/8bp.dsk")
 
     # Create file
     createFile(folder + "/.sdkcpc/CDT", "MAIN.BAS")
@@ -49,7 +54,7 @@ def initCommand(folder, model):
     # Show header is activated in config
     headerAmstrad()
 
-    print("[✔] Initialized SDKCPC folder in " + folder + ".sdkcpc")
+    okMessage("Initialized SDKCPC folder in " + folder + ".sdkcpc")
 
 
 def createFile(file, text):
@@ -80,7 +85,7 @@ def createTemplate(data, template, file):
                          trim_blocks=True)
     with open(file, mode="w", encoding="utf-8") as message:
         message.write(j2_env.get_template(template).render(data))
-        print("[✔] Create Template Bas file.")
+        okMessage("Create Template Bas file.")
 
 
 def createVscode(folder):
@@ -93,7 +98,7 @@ def createVscode(folder):
     """
     try:
         shutil.copytree(os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode", folder + "/.vscode")
-        print("[✔] Create Vscode files.")
+        okMessage("Create Vscode files.")
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
@@ -110,7 +115,7 @@ def copyFile(origen, destino):
     """
     try:
         shutil.copy(origen, destino)
-        # print("[✔] Copy config files.")
+        # okMessage("Copy config files.")
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)

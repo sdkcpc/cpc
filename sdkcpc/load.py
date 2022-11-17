@@ -23,7 +23,7 @@ elif sys.platform == "linux":
     URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
 
 
-def loadCommand(file):
+def loadCommand(file, activate):
     """
     create dsk image
 
@@ -33,7 +33,8 @@ def loadCommand(file):
     """
 
     # Show header is activated in config
-    headerAmstrad()
+    if activate:
+        headerAmstrad()
 
     # if not exist file exit
     commandFileExist(file)
@@ -43,7 +44,7 @@ def loadCommand(file):
     openVscode(file)
 
     # Show Message
-    print("[✔] Open Visual Studio Code")
+    okMessage("Open Visual Studio Code")
 
 
 # Open Visual Studio Code
