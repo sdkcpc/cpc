@@ -4,10 +4,15 @@ import getpass as gt
 from rich import print
 from rich.table import Table
 from .validator import *
+from .about import *
 
 
 def catCommand():
     """Show files in folder (Format Amstrad)"""
+
+    # Show header is activated in config
+    headerAmstrad()
+
     # initialitate variables
     col = ""
     count = 1
@@ -15,7 +20,7 @@ def catCommand():
     totalKbytes = 0
 
     # Check that it is and sdkcpc project
-    if not isConfig():
+    if not isSdkProject():
         print("This folder is not a valid sdkcpc project")
         sys.exit(1)
 

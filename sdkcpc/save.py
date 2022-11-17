@@ -19,6 +19,10 @@ def saveCommand(file, template):
         template (string):
 
     """
+
+    # Show header is activated in config
+    headerAmstrad()
+
     # Check if the file exists
     if isExist(os.getcwd() + "/" + file):
         print("File exists in this path.")

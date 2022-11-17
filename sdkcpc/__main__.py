@@ -3,6 +3,8 @@ from .cat import *
 from .save import *
 from .run import *
 from .about import *
+from .concat import *
+from .cls import *
 
 
 @click.group()
@@ -46,6 +48,17 @@ def save(file, template):
 @main.command()
 def cat():
     catCommand()
+
+
+@main.command()
+def cls():
+    clsCommand()
+
+
+@main.command()
+@click.argument('file', required=True)
+def concat(file):
+    concatCommand(file)
 
 
 @main.command()

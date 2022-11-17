@@ -1,13 +1,54 @@
+import os
+
 from . import __version__
-from .common import *
 from rich.console import Console
+
+from .validator import getBuild, getHeader, getModel
 
 console = Console()
 
 
-# Show Banner in console
-#   @Param text to show in banner
+def headerAmstrad():
+    """
+    show header Amstrad is activated in config
+
+    """
+    if getHeader().upper() == "ON":
+        if getModel() == "6128":
+            kbytes = "128"
+            s = "s3"
+            basic = "1.1"
+            year = "1985"
+        elif getModel() == "664":
+            kbytes = "64"
+            s = "v2"
+            basic = "1.1"
+            year = "1984"
+        elif getModel() == "464":
+            kbytes = "64"
+            s = "s1"
+            basic = "1.0"
+            year = "1984"
+        else:
+            print("No model")
+
+        info = """
+ Amstrad {kbytes}K Microcomputer  ({s})
+ ©1985 Amstrad Consumer Electronic plc
+          and Locomotive Software Ltd.
+      
+ BASIC {basic}
+    
+ Ready
+        """.format(kbytes=kbytes, basic=basic, s=s, year=year)
+        print(info)
+
+
 def aboutCommand():
+    """
+    show header about sdkcpc
+
+    """
     ver = __version__
     build = readBuild()
     banner = """\n[bold white] ╔═╗╔╦╗╦╔═╔═╗╔═╗╔═╗ [bold white]┌─────────────┐[/][white]    Created by: © Destroyer - 2022[/]
@@ -20,7 +61,11 @@ def aboutCommand():
     console.print("")
 
 
-def head():
+def header():
+    """
+    Shows the application header
+
+    """
     ver = __version__
     build = readBuild()
     banner = """
@@ -34,6 +79,10 @@ def head():
 
 
 def readBuild():
+    """
+    Read number build sdkcpc
+
+    """
     file_path = os.path.dirname(os.path.abspath(__file__)) + "/resources/software/BUILD"
     if os.path.isfile(file_path):
         text_file = open(file_path, "r")

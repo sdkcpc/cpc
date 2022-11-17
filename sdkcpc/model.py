@@ -1,0 +1,1 @@
+# cambia modelo de amstrad

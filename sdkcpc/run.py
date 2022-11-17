@@ -1,10 +1,8 @@
 
 import os.path
 from .dsk import *
-from .project import *
 from .validator import *
 
-console = Console()
 
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
 if sys.platform == "darwin":
@@ -30,28 +28,31 @@ def runCommand(bas_file):
         bas_file(string): Bas file to execute in RVM
 
     """
+    # Show header is activated in config
+    headerAmstrad()
+
     download_retro_virtual_machine()
-    dsk = os.getcwd() + "/OUT/" + isDSK()
+    dsk = os.getcwd() + "/OUT/" + getDSK()
     if not path.exists(dsk):
-        print("An error occurred not exist ./OUT/" + isDSK())
+        print("An error occurred not exist ./OUT/" + getDSK())
         sys.exit(1)
 
-    print("[✔] Version : " + isVersion())
-    print("[✔] Build   : " + isBuild())
+    print("[✔] Version : " + getVersion())
+    print("[✔] Build   : " + getBuild())
     print("[✔] Bas File: " + bas_file)
-    print("[✔] Dsk File: " + isDSK())
+    print("[✔] Dsk File: " + getDSK())
 
     FNULL = open(os.devnull, 'w')
     try:
         # Variables for platform
         if sys.platform == "darwin":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + isModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                              stderr=subprocess.STDOUT)
         elif sys.platform == "win32" or sys.platform == "win64":
-            subprocess.run([RVM, "-i", dsk, "-b=cpc" + isModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.run([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                            stderr=subprocess.STDOUT)
         elif sys.platform == "linux":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + isModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                              stderr=subprocess.STDOUT)
         print("[✔] Execution Successfully")
     except OSError as err:
@@ -67,7 +68,7 @@ def download_retro_virtual_machine():
     if not os.path.exists(SOFTWARE_PATH):
         os.makedirs(SOFTWARE_PATH)
     if not os.path.exists(RVM):
-        validateOK("Download Retro Virtual Machine.... please wait..")
+        print("[*] Download Retro Virtual Machine.... please wait..")
         with requests.get(URL_RVM, stream=True) as r:
             total_length = int(r.headers.get("Content-Length"))
             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:

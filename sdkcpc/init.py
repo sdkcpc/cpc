@@ -2,8 +2,9 @@ import os.path
 import shutil
 import sys
 from datetime import datetime
+
+from .about import headerAmstrad
 from .validator import *
-from .ini import *
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -41,6 +42,10 @@ def initCommand(folder, model):
     # Create bas template
     data = {"project": os.path.basename(os.path.normpath(folder)), "build": build, "version": "1.0.0"}
     createTemplate(data, "basic.j2", folder + "/MAIN.BAS")
+
+    # Show header is activated in config
+    headerAmstrad()
+
     print("[✔] Initialized SDKCPC folder in " + folder + ".sdkcpc")
 
 

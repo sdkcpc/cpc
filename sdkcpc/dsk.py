@@ -5,6 +5,8 @@ from zipfile import ZipFile
 import subprocess
 import requests
 from tqdm.auto import tqdm
+
+from .about import *
 from .validator import *
 from .init import *
 
@@ -29,8 +31,11 @@ def dskCommand():
         file (string): Path of file
 
     """
+    # Show header is activated in config
+    headerAmstrad()
+
     # Check that it is and sdkcpc project
-    if not isConfig():
+    if not isSdkProject():
         print("This folder is not a valid sdkcpc project")
         sys.exit(1)
 
@@ -59,21 +64,21 @@ def dskCommand():
     print("[✔] Remove Comment lines BAS files.")
 
     # concatenate files
-    if isConcat():
+    if getConcat():
         files_in_path = next(os.walk(os.getcwd() + "/TMP/"))[2]
-        with open(os.getcwd() + "/TMP/" + isConcat() + ".concat", "a") as file_object:
+        with open(os.getcwd() + "/TMP/" + getConcat() + ".concat", "a") as file_object:
             for basfile in files_in_path:
                 with open(os.getcwd() + "/TMP/" + basfile) as file:
                     print("Concatenate file -> " + str(basfile))
                     while line := file.readline().rstrip():
                         file_object.write(line + "\r\n")
                 os.remove(os.getcwd() + "/TMP/" + '/' + basfile)
-        os.rename(os.getcwd() + "/TMP/" + isConcat() + ".concat", os.getcwd() + "/TMP/" + isConcat())
+        os.rename(os.getcwd() + "/TMP/" + getConcat() + ".concat", os.getcwd() + "/TMP/" + getConcat())
 
     # If it exists, we extract the 8BP library binary from the dsk image
     extract8BPLibrary(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
 
-    dsk = os.getcwd() + "/OUT/" + isDSK()
+    dsk = os.getcwd() + "/OUT/" + getDSK()
 
     # We create DSK file with name last folder of the path
     createDskFile(dsk)
