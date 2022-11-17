@@ -5,7 +5,8 @@ from .run import *
 from .about import *
 from .concat import *
 from .cls import *
-
+from .machine import *
+from .load import *
 
 @click.group()
 def main():
@@ -37,6 +38,14 @@ def dsk(file):
 
 
 @main.command()
+@click.argument('file', required=False)
+def load(file):
+    if not file:
+        file = ""
+    loadCommand(file)
+
+
+@main.command()
 @click.argument('file', required=True)
 @click.option('--template', '-t', type=click.Choice(['BASIC', '8BP'], case_sensitive=False))
 def save(file, template):
@@ -62,9 +71,20 @@ def concat(file):
 
 
 @main.command()
-@click.argument('file', required=True)
-def run(file):
-    runCommand(file)
+@click.argument('model', required=True)
+def machine(model):
+    modelCommand(model)
+
+
+@main.command()
+@click.argument('file', required=False)
+@click.option('--model', '-m', type=click.Choice(['464', '664', '6128'], case_sensitive=False))
+def run(file, model):
+    if not file:
+        file = getRun()
+    if not model:
+        model = getModel()
+    runCommand(file, model)
 
 
 @main.command()

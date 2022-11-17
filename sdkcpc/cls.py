@@ -1,9 +1,11 @@
 from os import system, name
-from time import sleep
 
 
-# define our clear function
 def clsCommand():
+    """
+    clear screen
+
+    """
     # for windows
     if name == 'nt':
         _ = system('cls')

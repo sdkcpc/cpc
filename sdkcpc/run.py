@@ -1,8 +1,8 @@
-
 import os.path
+import sys
+
 from .dsk import *
 from .validator import *
-
 
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
 if sys.platform == "darwin":
@@ -20,7 +20,7 @@ elif sys.platform == "linux":
 
 
 # Ejecuta retro virtual machine con el dsk asociado
-def runCommand(bas_file):
+def runCommand(bas_file, model):
     """
     Execute bas in retrovirtualmachine
 
@@ -28,8 +28,15 @@ def runCommand(bas_file):
         bas_file(string): Bas file to execute in RVM
 
     """
+
     # Show header is activated in config
     headerAmstrad()
+
+    # if not exist file exit
+    commandFileExist(bas_file)
+
+    # update configfile
+    updateConfigKey("files", "run", bas_file)
 
     download_retro_virtual_machine()
     dsk = os.getcwd() + "/OUT/" + getDSK()
@@ -46,13 +53,13 @@ def runCommand(bas_file):
     try:
         # Variables for platform
         if sys.platform == "darwin":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                              stderr=subprocess.STDOUT)
         elif sys.platform == "win32" or sys.platform == "win64":
-            subprocess.run([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.run([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                            stderr=subprocess.STDOUT)
         elif sys.platform == "linux":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + getModel(), "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
                              stderr=subprocess.STDOUT)
         print("[✔] Execution Successfully")
     except OSError as err:

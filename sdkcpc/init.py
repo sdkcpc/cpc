@@ -43,6 +43,9 @@ def initCommand(folder, model):
     data = {"project": os.path.basename(os.path.normpath(folder)), "build": build, "version": "1.0.0"}
     createTemplate(data, "basic.j2", folder + "/MAIN.BAS")
 
+    # Create file
+    createFile(folder + "/.sdkcpc/CDT", "MAIN.BAS")
+
     # Show header is activated in config
     headerAmstrad()
 

@@ -6,8 +6,10 @@ from datetime import datetime
 
 from rich import print
 from rich.table import Table
+from sdkcpc.init import createTemplate, copyFile
+
+from .about import headerAmstrad
 from .validator import *
-from .init import createTemplate
 
 
 def saveCommand(file, template):

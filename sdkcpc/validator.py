@@ -1,6 +1,25 @@
 import os.path
 import configparser
 import os
+import sys
+
+
+def commandFileExist(file):
+    """
+    Check if there is a file that is passed to the command.
+
+    Args:
+        file (string): File to find
+    """
+
+    if not isExist(os.getcwd() + "/" + file):
+        file_split = os.path.splitext(file.upper())
+        if len(file_split[0]) > 8:
+            file83 = file_split[0][0:7] + "~"
+        else:
+            file83 = file_split[0]
+        print('{:<8s}{:>3s} Not found'.format(file83.ljust(8, " "), file_split[1]))
+        sys.exit(1)
 
 
 def isExist(file):
@@ -28,6 +47,11 @@ def getModel():
 def getVersion():
     """Check if there is a file"""
     return readConfigKey("compilation", "version")
+
+
+def getRun():
+    """Check if there is a file"""
+    return readConfigKey("files", "run")
 
 
 def getDSK():
@@ -107,3 +131,22 @@ def createConfigKey(section, key, value):
     config.set(section, key, value)
     with open(os.getcwd() + "/.sdkcpc/config", 'a') as configfile:
         config.write(configfile)
+
+
+def searchCommand(file_path, word):
+    """
+    find word in bas files
+
+    Args:
+        file (string): Path of file
+        word (string): word top search
+
+    """
+    with open(file_path, 'r') as file:
+        # read all content of a file
+        content = file.read()
+        # check if string present in a file
+        if word in content:
+            return True
+        else:
+            return False

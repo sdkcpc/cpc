@@ -109,7 +109,7 @@ def downloadiDsk():
     if not os.path.exists(os.environ['HOME'] + "/sdkcpc/resources"):
         os.makedirs(os.environ['HOME'] + "/sdkcpc/resources")
     if not os.path.exists(iDSK):
-        print("[✔] Download iDSK Software Version 0.20.... please wait..")
+        print("[*] Download iDSK Software Version 0.20.... please wait..")
         with requests.get(URL, stream=True) as r:
             total_length = int(r.headers.get("Content-Length"))
             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
