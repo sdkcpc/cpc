@@ -33,17 +33,24 @@ def console():
 
 @main.command()
 @click.argument('file', required=False)
-def dsk(file):
+def make(file):
+    cdtFile = ""
     if not isSdkProject():
         print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
         sys.exit(1)
     if not file:
         file = os.path.basename(os.path.normpath(os.getcwd())) + ".dsk"
+        cdtFile = os.path.basename(os.path.normpath(os.getcwd())) + ".cdt"
     file_split = os.path.splitext(file)
     if file_split[1].upper() != ".DSK":
+        cdtFile = file + ".cdt"
         file = file + ".dsk"
+    else:
+        cdtFile = file_split[0] + ".cdt"
+
     updateConfigKey("files", "dsk", file.replace(" ", "_"))
-    dskCommand(True)
+    updateConfigKey("files", "cdt", cdtFile.replace(" ", "_"))
+    makeCommand(True)
 
 
 @main.command()

@@ -1,7 +1,7 @@
 import os.path
 import sys
 
-from .dsk import *
+from .make import *
 from .validator import *
 
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"

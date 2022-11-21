@@ -13,7 +13,7 @@ from sdkcpc.load import loadCommand
 
 
 from sdkcpc.concat import concatCommand
-from sdkcpc.dsk import dskCommand
+from sdkcpc.make import makeCommand
 
 from sdkcpc.machine import modelCommand
 from sdkcpc.run import runCommand
@@ -29,7 +29,7 @@ session = PromptSession(history=FileHistory('~/.history_sdkcpc'))
 
 commandActivate = True
 
-command_list = ["ABOUT", "DSK", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
+command_list = ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
 
 sql_completer = WordCompleter(command_list, ignore_case=True)
 
@@ -74,14 +74,14 @@ def consoleCommand():
                         if countCommand(command.split(), 2):
                             file = command.split()[1]
                             concatCommand(file.replace('"', ''), False)
-                    elif command.split()[0].upper() == "DSK":
+                    elif command.split()[0].upper() == "MAKE":
                         if len(command.split()) == 2:
                             file = command.split()[1]
                             file_split = os.path.splitext(file)
                             if file_split[1].upper() != ".DSK":
                                 file = file + ".dsk"
                             updateConfigKey("files", "dsk", file.replace(" ", "_"))
-                        dskCommand(False)
+                        makeCommand(False)
                     elif command.split()[0].upper() == "LOAD":
                         if len(command.split()) == 2:
                             file = command.split()[1].replace('"', '')

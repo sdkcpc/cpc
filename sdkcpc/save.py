@@ -48,4 +48,4 @@ def saveCommand(file, activate):
         copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
                  os.getcwd() + "/.sdkcpc/8bp.dsk")
 
-    add2File(os.getcwd() + "/.sdkcpc/CDT", file_split[0] + ",,," + file)
+    # add2File(os.getcwd() + "/.sdkcpc/CDT", file_split[0] + ",,," + file)
