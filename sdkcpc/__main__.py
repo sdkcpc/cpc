@@ -39,8 +39,12 @@ def make(file):
         print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
         sys.exit(1)
     if not file:
-        file = os.path.basename(os.path.normpath(os.getcwd())) + ".dsk"
-        cdtFile = os.path.basename(os.path.normpath(os.getcwd())) + ".cdt"
+        if not getDSK():
+            file = os.path.basename(os.path.normpath(os.getcwd())) + ".dsk"
+            cdtFile = os.path.basename(os.path.normpath(os.getcwd())) + ".cdt"
+        else:
+            file = getDSK()
+            cdtFile = getCDT()
     file_split = os.path.splitext(file)
     if file_split[1].upper() != ".DSK":
         cdtFile = file + ".cdt"

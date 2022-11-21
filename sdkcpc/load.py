@@ -33,8 +33,8 @@ def loadCommand(file, activate):
     """
 
     # Show header is activated in config
-    if activate:
-        headerAmstrad()
+    # if activate:
+    #     headerAmstrad()
 
     # if not exist file exit
     if commandFileExist(file):

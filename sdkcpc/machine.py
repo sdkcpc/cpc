@@ -13,8 +13,8 @@ def modelCommand(model, activate):
     """
 
     # Show header is activated in config
-    if activate:
-        headerAmstrad()
+    # if activate:
+    #     headerAmstrad()
 
     if model == "6128" or model == "664" or model == "464":
         # update model field

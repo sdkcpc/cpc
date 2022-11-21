@@ -30,8 +30,8 @@ def runCommand(bas_file, model, activate):
     """
 
     # Show header is activated in config
-    if activate:
-        headerAmstrad()
+    # if activate:
+    #     headerAmstrad()
 
     # if not exist file exit
     if commandFileExist(bas_file):

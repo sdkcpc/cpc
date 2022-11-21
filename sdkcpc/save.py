@@ -23,8 +23,8 @@ def saveCommand(file, activate):
     file_split = os.path.splitext(file)
 
     # Show header is activated in config
-    if activate:
-        headerAmstrad()
+    # if activate:
+    #     headerAmstrad()
 
     # Check if the file exists
     if isExist(os.getcwd() + "/" + file):
@@ -48,4 +48,5 @@ def saveCommand(file, activate):
         copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
                  os.getcwd() + "/.sdkcpc/8bp.dsk")
 
-    # add2File(os.getcwd() + "/.sdkcpc/CDT", file_split[0] + ",,," + file)
+    if isExist(os.getcwd() + "/.sdkcpc/CDT"):
+        add2File(os.getcwd() + "/.sdkcpc/CDT", file_split[0] + ",,," + file)

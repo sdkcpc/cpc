@@ -11,8 +11,8 @@ def catCommand(activate):
     """Show files in folder (Format Amstrad)"""
 
     # Show header is activated in config
-    if activate:
-        headerAmstrad()
+    # if activate:
+    #     headerAmstrad()
 
     # initialitate variables
     col = ""

@@ -49,11 +49,11 @@ def initCommand(folder, model):
                  os.getcwd() + "/.sdkcpc/8bp.dsk")
 
     # Create file
-    createFile(folder + "/.sdkcpc/CDT", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
-                                        "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
+    createFile(folder + "/.sdkcpc/CDT.example", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
+                                                "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
 
     # Show header is activated in config
-    headerAmstrad()
+    # headerAmstrad()
 
     okMessage("Initialized SDKCPC folder in " + folder + ".sdkcpc")
 
