@@ -20,7 +20,7 @@ def modelCommand(model, activate):
         # update model field
         updateConfigKey("rvm", "model", model)
         clsCommand()
-        headerAmstrad()
+        # headerAmstrad()
         okMessage("The CPC model is now " + model)
     else:
         errMessage(" The model is not supported. Wouldn't it be that you want a Spectrum?")

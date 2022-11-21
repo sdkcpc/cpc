@@ -24,10 +24,10 @@ def okMessage(message):
         message (string): Text to show
     """
 
-    if getMessageColor().upper() == "ON":
-        print_formatted_text(HTML('<green>[✔]</green> <yellow>' + message + '</yellow>'), style=style)
-    else:
-        print_formatted_text(HTML('<white>[✔] ' + message + '</white>'), style=style)
+    # if getMessageColor().upper() == "ON":
+    print_formatted_text(HTML('<green>[✔]</green> <yellow>' + message + '</yellow>'), style=style)
+    # else:
+    #    print_formatted_text(HTML('<white>[✔] ' + message + '</white>'), style=style)
 
 
 def errMessage(message):
@@ -37,10 +37,10 @@ def errMessage(message):
     Args:
         message (string): Text to show
     """
-    if getMessageColor().upper() == "ON":
-        print_formatted_text(HTML('<red>[X] ' + message + '</red>'), style=style)
-    else:
-        print_formatted_text(HTML('<white>[X] ' + message + '</white>'), style=style)
+    # if getMessageColor().upper() == "ON":
+    print_formatted_text(HTML('<red>[X] ' + message + '</red>'), style=style)
+    # else:
+    # print_formatted_text(HTML('<white>[X] ' + message + '</white>'), style=style)
 
 
 def commandFileExist(file):
@@ -61,7 +61,6 @@ def commandFileExist(file):
         print_formatted_text(HTML('<yellow>' + line + '</yellow>'), style=style)
         return False
     return True
-
 
 
 def isExist(file):

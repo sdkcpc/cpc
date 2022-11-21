@@ -9,26 +9,27 @@ def headerAmstrad():
     show header Amstrad is activated in config
 
     """
-    if getHeader().upper() == "ON":
-        if getModel() == "6128":
-            kbytes = "128"
-            s = "s3"
-            basic = "1.1"
-            year = "1985"
-        elif getModel() == "664":
-            kbytes = "64"
-            s = "v2"
-            basic = "1.1"
-            year = "1984"
-        elif getModel() == "464":
-            kbytes = "64"
-            s = "s1"
-            basic = "1.0"
-            year = "1984"
-        else:
-            print("No model")
 
-        info = """
+
+    if getModel() == "6128":
+        kbytes = "128"
+        s = "s3"
+        basic = "1.1"
+        year = "1985"
+    elif getModel() == "664":
+        kbytes = "64"
+        s = "v2"
+        basic = "1.1"
+        year = "1984"
+    elif getModel() == "464":
+        kbytes = "64"
+        s = "s1"
+        basic = "1.0"
+        year = "1984"
+    else:
+        print("No model")
+
+    info = """
  Amstrad {kbytes}K Microcomputer  ({s})
  ©1985 Amstrad Consumer Electronic plc
           and Locomotive Software Ltd.
@@ -38,10 +39,10 @@ def headerAmstrad():
  Ready
         """.format(kbytes=kbytes, basic=basic, s=s, year=year)
 
-        if getHeaderColor().upper() == "ON":
-            print_formatted_text(HTML('<yellow>' + info + '</yellow>'), style=style)
-        else:
-            print_formatted_text(HTML('<white>' + info + '</white>'), style=style)
+    print_formatted_text(HTML('<yellow>' + info + '</yellow>'), style=style)
+
+
+# print_formatted_text(HTML('<white>' + info + '</white>'), style=style)
 
 
 def aboutCommand():
@@ -57,11 +58,11 @@ def aboutCommand():
     print_formatted_text(HTML(
         '<yellow>╚═╗ ║║╠╩╗║  ╠═╝║   │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
         '│  Github    : https://github.com/sdkcpc/cpc.git</yellow>'),
-                         style=style)
+        style=style)
     print_formatted_text(HTML(
         '<yellow>╚═╝═╩╝╩ ╩╚═╝╩  ╚═╝ │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
         '│  Version   : ' + ver + '</yellow>'),
-                         style=style)
+        style=style)
     print_formatted_text(HTML('<yellow>For Amstrad Basic  └─────────────┘  Build     : ' + build + '</yellow>'),
                          style=style)
 
