@@ -11,7 +11,6 @@ from sdkcpc.machine import *
 from sdkcpc.load import *
 from sdkcpc.validator import *
 from sdkcpc.console import *
-from sdkcpc.cdt import *
 
 
 @click.group()
@@ -30,14 +29,6 @@ def console():
         print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
         sys.exit(1)
     consoleCommand()
-
-
-@main.command()
-def cdt():
-    if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
-        sys.exit(1)
-    cdtCommand(True)
 
 
 @main.command()

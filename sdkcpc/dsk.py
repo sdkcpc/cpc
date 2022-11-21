@@ -1,6 +1,7 @@
 import os.path
 import os.path
 from os import path
+import csv
 from zipfile import ZipFile
 import subprocess
 import requests
@@ -18,13 +19,19 @@ SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
 
 if sys.platform == "darwin":
     iDSK = SOFTWARE_PATH + "/iDSK"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip"
+    URL_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip"
+    CDT = SOFTWARE_PATH + "/2cdt"
+    URL_CDT = "https://github.com/sdkcpc/2cdt/raw/main/binary/darwin/2cdt"
 elif sys.platform == "win32" or sys.platform == "win64":
     iDSK = SOFTWARE_PATH + "/iDSK.exe"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip"
+    URL_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip"
+    CDT = SOFTWARE_PATH + "/2cdt.exe"
+    URL_CDT = "https://github.com/sdkcpc/2cdt/raw/main/binary/win/2cdt.exe"
 elif sys.platform == "linux":
     iDSK = SOFTWARE_PATH + "/iDSK"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
+    URL_IDSK = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
+    CDT = SOFTWARE_PATH + "/2cdt"
+    URL_CDT = "https://github.com/sdkcpc/2cdt/raw/main/binary/linux/2cdt"
 
 
 def dskCommand(activate):
@@ -51,11 +58,17 @@ def dskCommand(activate):
     if not os.path.exists(os.getcwd() + "/OUT"):
         os.mkdir(os.getcwd() + "/OUT")
 
+    if not os.path.exists(os.getcwd() + "/OUT/M4"):
+        os.mkdir(os.getcwd() + "/OUT/M4")
+
     if not os.path.exists(os.getcwd() + "/TMP"):
         os.mkdir(os.getcwd() + "/TMP")
 
     # Download iDSK software if not exist
     downloadiDsk()
+
+    # Initialize M4 file
+    createFile(os.getcwd() + "/.sdkcpc/.M4", "")
 
     # create new buil/version
     new_version = patchVersion(readConfigKey("compilation", "version"))
@@ -81,16 +94,59 @@ def dskCommand(activate):
 
     # If it exists, we extract the 8BP library binary from the dsk image
     if findCommand8BP():
-        extract8BPLibrary(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
+        extractFileDSK(os.getcwd() + "/.sdkcpc/8bp.dsk", os.getcwd() + "/8BP.BIN")
 
     dsk = os.getcwd() + "/OUT/" + getDSK()
 
     # We create DSK file with name last folder of the path
+    okMessage("------- Create DSK Image -------")
     createDskFile(dsk)
 
     # Add files to DSK
     AddFilesFolder2Dsk(dsk, os.getcwd() + "/TMP", "BAS")
     AddFilesFolder2Dsk(dsk, os.getcwd(), "None")
+
+    # Create CDT Imagen
+    if isExist(os.getcwd() + "/.sdkcpc/CDT"):
+        cdt = os.getcwd() + "/OUT/" + getCDT()
+        okMessage("------- Create CDT Image -------")
+        download2cdt()
+        createCdtFile(cdt)
+
+        rows = []
+        addArchive = [CDT, "-b", "2000", "-r"]
+        with open(os.getcwd() + "/.sdkcpc/CDT", 'r') as file:
+            csvreader = csv.reader(file)
+            header = next(csvreader)
+            for row in csvreader:
+                if not row[0]:
+                    row[0] = "ARCHIVE"
+                addArchive.append(row[0])
+                if row[1]:
+                    addArchive.append("-L")
+                    addArchive.append(row[1])
+                if row[2]:
+                    addArchive.append("-X")
+                    addArchive.append(row[2])
+                if row[3]:
+                    file_split = os.path.splitext(row[3])
+                    if file_split[1].upper() == ".BAS":
+                        addArchive.append(os.getcwd() + "/TMP/" + row[3])
+                    else:
+                        addArchive.append(os.getcwd() + "/" + row[3])
+                else:
+                    errMessage("No exist file in CDT file")
+                addArchive.append(cdt)
+                addFileToCdt(addArchive)
+                okMessage("Add " + row[3] + " to CDT")
+                addArchive = [CDT, "-b", "2000", "-r"]
+
+    if getM4() != "0.0.0.0":
+        okMessage("------- Create M4 Folder -------")
+        with open(os.getcwd() + "/.sdkcpc/.M4") as M4File:
+            for line in M4File:
+                if line:
+                    extractFileDSK(dsk, os.getcwd() + "/OUT/M4/" + line)
 
     # if exist remove temporal folder
     removeTemporalFolder()
@@ -101,6 +157,64 @@ def dskCommand(activate):
 
     # Show Message
     okMessage("Build Successfully - Version: " + new_version + " - Build: " + new_compilation)
+
+
+def createCdtFile(file):
+    """
+   create dsk file
+
+    Args:
+        file (string): name image dsk create
+
+    """
+    FNULL = open(os.devnull, 'w')
+
+    try:
+        subprocess.Popen([CDT, "-n", ".", file], stdout=FNULL, stderr=subprocess.STDOUT)
+        okMessage("Create image cdt " + os.path.basename(file))
+    except OSError as err:
+        print("BUILD ERROR - " + "CDT does not exist. " + str(err))
+        sys.exit(1)
+
+
+def addFileToCdt(data):
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file to added
+        dsk (string): path name of dsk file
+        type_file (string): values 0 ascii, 1 binary
+
+    """
+    FNULL = open(os.devnull, 'w')
+
+    try:
+        subprocess.run(data, stdout=FNULL, stderr=subprocess.STDOUT)
+    except OSError as err:
+        errMessage(" Error Added file " + file + " to DSK: " + str(err))
+        sys.exit(1)
+
+
+def download2cdt():
+    """
+    download CDT file
+
+    Args:
+        file (string): Path of file
+    """
+
+    if not os.path.exists(os.environ['HOME'] + "/sdkcpc/resources"):
+        os.makedirs(os.environ['HOME'] + "/sdkcpc/resources")
+    if not os.path.exists(CDT):
+        okMessage("Download 2cdt Software.... please wait..")
+        with requests.get(URL_CDT, stream=True) as r:
+            total_length = int(r.headers.get("Content-Length"))
+            with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
+                with open(os.environ['HOME'] + "/sdkcpc/resources/2cdt", 'wb') as output:
+                    shutil.copyfileobj(raw, output)
+        if sys.platform == "darwin" or sys.platform == "linux":
+            chmod(CDT)
 
 
 def downloadiDsk():
@@ -114,8 +228,8 @@ def downloadiDsk():
     if not os.path.exists(os.environ['HOME'] + "/sdkcpc/resources"):
         os.makedirs(os.environ['HOME'] + "/sdkcpc/resources")
     if not os.path.exists(iDSK):
-        print("[*] Download iDSK Software Version 0.20.... please wait..")
-        with requests.get(URL, stream=True) as r:
+        okMessage("Download iDSK Software Version 0.20.... please wait..")
+        with requests.get(URL_IDSK, stream=True) as r:
             total_length = int(r.headers.get("Content-Length"))
             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
                 with open(os.environ['HOME'] + "/sdkcpc/resources/idsk.zip", 'wb') as output:
@@ -182,7 +296,7 @@ def remove_comments_lines_in_bas_files(file, new_version, new_compilation):
             output.write("\n")
 
 
-def extract8BPLibrary(library, destiny):
+def extractFileDSK(library, destiny):
     """
     add files to dsk image
 
@@ -198,7 +312,7 @@ def extract8BPLibrary(library, destiny):
             subprocess.Popen(
                 [os.environ['HOME'] + "/sdkcpc/resources/iDSK", library, "-g", destiny],
                 stdout=FNULL, stderr=subprocess.STDOUT)
-            okMessage("Copy the 8BP library to project.")
+            okMessage("extract image file: " + os.path.basename(destiny).strip())
         except OSError as err:
             print("Error to Copy the 8BP library to the sdkcpc project: " + str(err))
             sys.exit(1)
@@ -271,10 +385,9 @@ def addFileToDsk(file, dsk, type_file):
     FNULL = open(os.devnull, 'w')
 
     try:
-        subprocess.run(
-            [os.environ['HOME'] + "/sdkcpc/resources/iDSK", dsk, "-i", file, "-f", "-t", type_file],
-            stdout=FNULL, stderr=subprocess.STDOUT)
-
+        subprocess.run([os.environ['HOME'] + "/sdkcpc/resources/iDSK", dsk, "-i", file, "-f", "-t", type_file],
+                       stdout=FNULL, stderr=subprocess.STDOUT)
+        add2File(os.getcwd() + "/.sdkcpc/.M4", os.path.basename(file))
     except OSError as err:
         errMessage(" Error Added file " + file + " to DSK: " + str(err))
         sys.exit(1)

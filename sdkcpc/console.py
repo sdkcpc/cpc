@@ -11,7 +11,7 @@ from prompt_toolkit.history import FileHistory
 
 from sdkcpc.load import loadCommand
 
-from sdkcpc.cdt import cdtCommand
+
 from sdkcpc.concat import concatCommand
 from sdkcpc.dsk import dskCommand
 
@@ -29,7 +29,7 @@ session = PromptSession(history=FileHistory('~/.history_sdkcpc'))
 
 commandActivate = True
 
-command_list = ["ABOUT", "CDT", "DSK", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
+command_list = ["ABOUT", "DSK", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
 
 sql_completer = WordCompleter(command_list, ignore_case=True)
 
@@ -68,8 +68,6 @@ def consoleCommand():
                         aboutCommand()
                     elif command.split()[0].upper() == "CAT":
                         catCommand(False)
-                    if command.split()[0].upper() == "CDT":
-                        cdtCommand(False)
                     if command.split()[0].upper() == "CLS":
                         clsCommand()
                     elif command.split()[0].upper() == "CONCAT":

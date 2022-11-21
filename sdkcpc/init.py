@@ -49,7 +49,8 @@ def initCommand(folder, model):
                  os.getcwd() + "/.sdkcpc/8bp.dsk")
 
     # Create file
-    createFile(folder + "/.sdkcpc/CDT", "MAIN.BAS")
+    createFile(folder + "/.sdkcpc/CDT", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
+                                        "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
 
     # Show header is activated in config
     headerAmstrad()
@@ -68,6 +69,20 @@ def createFile(file, text):
     """
     fp = open(file, 'w')
     fp.write(text)
+    fp.close()
+
+
+def add2File(file, text):
+    """
+    add lines to file
+
+    Args:
+        file (string): Path of file
+        text (string): file text
+
+    """
+    fp = open(file, 'a')
+    fp.write(text + "\n")
     fp.close()
 
 

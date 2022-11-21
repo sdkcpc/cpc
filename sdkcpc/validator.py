@@ -106,9 +106,19 @@ def getDSK():
     return readConfigKey("files", "dsk")
 
 
+def getCDT():
+    """Check if there is a file"""
+    return readConfigKey("files", "cdt")
+
+
 def getBuild():
     """Check if there is a file"""
     return readConfigKey("compilation", "build")
+
+
+def getM4():
+    """Check if there is a file"""
+    return readConfigKey("m4", "ip")
 
 
 def getConcat():
