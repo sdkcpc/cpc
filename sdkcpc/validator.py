@@ -57,8 +57,11 @@ def commandFileExist(file):
             file83 = file_split[0][0:7] + "~"
         else:
             file83 = file_split[0]
-        print('{:<8s}{:>3s} Not found'.format(file83.ljust(8, " "), file_split[1]))
-        sys.exit(1)
+        line = '{:<8s}{:>3s} Not found'.format(file83.ljust(8, " "), file_split[1])
+        print_formatted_text(HTML('<yellow>' + line + '</yellow>'), style=style)
+        return False
+    return True
+
 
 
 def isExist(file):

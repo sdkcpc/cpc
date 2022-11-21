@@ -34,37 +34,36 @@ def runCommand(bas_file, model, activate):
         headerAmstrad()
 
     # if not exist file exit
-    commandFileExist(bas_file)
+    if commandFileExist(bas_file):
 
-    # update configfile
-    updateConfigKey("files", "run", bas_file)
+        # update configfile
+        updateConfigKey("files", "run", bas_file)
 
     download_retro_virtual_machine()
     dsk = os.getcwd() + "/OUT/" + getDSK()
-    if not path.exists(dsk):
+    if path.exists(dsk):
+        okMessage("Version : " + getVersion())
+        okMessage("Build   : " + getBuild())
+        okMessage("Bas File: " + bas_file)
+        okMessage("Dsk File: " + getDSK())
+
+        FNULL = open(os.devnull, 'w')
+        try:
+            # Variables for platform
+            if sys.platform == "darwin":
+                subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+                                 stderr=subprocess.STDOUT)
+            elif sys.platform == "win32" or sys.platform == "win64":
+                subprocess.run([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+                               stderr=subprocess.STDOUT)
+            elif sys.platform == "linux":
+                subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
+                                 stderr=subprocess.STDOUT)
+            okMessage("Execution Successfully")
+        except OSError as err:
+            errMessage("An error occurred while running Retro Virtual Machine: \n" + str(err))
+    else:
         errMessage("An error occurred not exist ./OUT/" + getDSK())
-        sys.exit(1)
-
-    okMessage("Version : " + getVersion())
-    okMessage("Build   : " + getBuild())
-    okMessage("Bas File: " + bas_file)
-    okMessage("Dsk File: " + getDSK())
-
-    FNULL = open(os.devnull, 'w')
-    try:
-        # Variables for platform
-        if sys.platform == "darwin":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
-                             stderr=subprocess.STDOUT)
-        elif sys.platform == "win32" or sys.platform == "win64":
-            subprocess.run([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
-                           stderr=subprocess.STDOUT)
-        elif sys.platform == "linux":
-            subprocess.Popen([RVM, "-i", dsk, "-b=cpc" + model, "-c=RUN\"" + bas_file + "\n"], stdout=FNULL,
-                             stderr=subprocess.STDOUT)
-        okMessage("Execution Successfully")
-    except OSError as err:
-        errMessage("An error occurred while running Retro Virtual Machine: \n" + str(err))
 
 
 def download_retro_virtual_machine():

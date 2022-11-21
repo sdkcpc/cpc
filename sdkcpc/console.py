@@ -1,41 +1,62 @@
+import os
 import sys
 
-from prompt_toolkit import PromptSession
+from prompt_toolkit import PromptSession, print_formatted_text, HTML
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.cursor_shapes import CursorShape
 from prompt_toolkit.lexers import PygmentsLexer
-from pygments.lexers.sql import SqlLexer
+from prompt_toolkit.styles import Style
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.history import FileHistory
-from .save import *
-from .cls import *
-from .about import headerAmstrad
-from .cat import *
-from .about import *
 
-session = PromptSession(history=FileHistory('~/.history'))
+from sdkcpc.load import loadCommand
+
+from sdkcpc.cdt import cdtCommand
+from sdkcpc.concat import concatCommand
+from sdkcpc.dsk import dskCommand
+
+from sdkcpc.machine import modelCommand
+from sdkcpc.run import runCommand
+
+from sdkcpc.save import saveCommand
+
+from sdkcpc.cat import catCommand
+from sdkcpc.validator import *
+from sdkcpc.about import headerAmstrad, aboutCommand
+from sdkcpc.cls import clsCommand
+
+session = PromptSession(history=FileHistory('~/.history_sdkcpc'))
 
 commandActivate = True
 
-command_list = ["ABOUT", "CDT", "DSK", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT", "CLS"]
+command_list = ["ABOUT", "CDT", "DSK", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
 
 sql_completer = WordCompleter(command_list, ignore_case=True)
+
+style = Style.from_dict(
+    {
+        # Default style.
+        "": "#ffff00"
+    }
+)
 
 
 def consoleCommand():
     # Erase Screen
     clsCommand()
-
-    sessions = PromptSession(completer=sql_completer, history=FileHistory(os.getcwd() + '/.sdkcpc/.history'),
+    print(os.getcwd())
+    sessions = PromptSession(style=style, completer=sql_completer,
+                             history=FileHistory(os.getcwd() + '/.sdkcpc/.history'),
                              cursor=CursorShape.BLOCK)
+
     # Show header is activated in config
     headerAmstrad()
 
     while True:
         try:
-            command = sessions.prompt('', auto_suggest=AutoSuggestFromHistory())
+            command = sessions.prompt('', style=style, auto_suggest=AutoSuggestFromHistory())
         except KeyboardInterrupt:
-            print("GoodBye!!")
+            print_formatted_text(HTML('<yellow>GoodBye!!</yellow>'), style=style)
             sys.exit(1)
         except EOFError:
             break
@@ -43,23 +64,61 @@ def consoleCommand():
             if command:
                 command.split()
                 if command.split()[0].upper() in command_list:
-                    if command.split()[0].upper() == "CLS":
-                        clsCommand()
+                    if command.split()[0].upper() == "ABOUT":
+                        aboutCommand()
                     elif command.split()[0].upper() == "CAT":
                         catCommand(False)
-                    elif command.split()[0].upper() == "ABOUT":
-                        aboutCommand()
+                    if command.split()[0].upper() == "CDT":
+                        cdtCommand(False)
+                    if command.split()[0].upper() == "CLS":
+                        clsCommand()
+                    elif command.split()[0].upper() == "CONCAT":
+                        if countCommand(command.split(), 2):
+                            file = command.split()[1]
+                            concatCommand(file.replace('"', ''), False)
+                    elif command.split()[0].upper() == "DSK":
+                        if len(command.split()) == 2:
+                            file = command.split()[1]
+                            file_split = os.path.splitext(file)
+                            if file_split[1].upper() != ".DSK":
+                                file = file + ".dsk"
+                            updateConfigKey("files", "dsk", file.replace(" ", "_"))
+                        dskCommand(False)
+                    elif command.split()[0].upper() == "LOAD":
+                        if len(command.split()) == 2:
+                            file = command.split()[1].replace('"', '')
+                        else:
+                            file = ""
+                        loadCommand(file, False)
+                    elif command.split()[0].upper() == "MACHINE":
+                        if countCommand(command.split(), 2):
+                            file = command.split()[1]
+                            modelCommand(file.replace('"', ''), False)
+                    elif command.split()[0].upper() == "RUN":
+                        if len(command.split()) == 3:
+                            updateConfigKey("files", "dsk", command.split()[1].replace(" ", "_"))
+                            runCommand(command.split()[1], command.split()[2], False)
+                        elif len(command.split()) == 2:
+                            updateConfigKey("files", "run", command.split()[1].replace(" ", "_"))
+                            runCommand(command.split()[1], getModel(), False)
+                        elif len(command.split()) == 1:
+                            runCommand(getRun(), getModel(), False)
                     elif command.split()[0].upper() == "SAVE":
                         if countCommand(command.split(), 2):
-                            saveCommand(command.split()[1], False)
+                            file = command.split()[1]
+                            if not isExist(file.replace('"', '')):
+                                saveCommand(file.replace('"', ''), False)
+                            else:
+                                print_formatted_text(HTML('<red>File exists in this path</red>'), style=style)
+                    elif command.split()[0].upper() == "CDT":
+                        print_formatted_text(HTML('<white>Coming soon</white>'), style=style)
                     print_formatted_text(HTML('<yellow>Ready</yellow>'), style=style)
                 else:
                     print_formatted_text(HTML('<yellow>Syntax error\nReady</yellow>'), style=style)
-    print('GoodBye!')
 
 
 if __name__ == '__main__':
-    console()
+    consoleCommand()
 
 
 def countCommand(command, number):

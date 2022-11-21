@@ -37,14 +37,14 @@ def loadCommand(file, activate):
         headerAmstrad()
 
     # if not exist file exit
-    commandFileExist(file)
-    file = os.getcwd() + "/" + file
+    if commandFileExist(file):
+        file = os.getcwd() + "/" + file
 
-    # Open Visual Studio Code
-    openVscode(file)
+        # Open Visual Studio Code
+        openVscode(file)
 
-    # Show Message
-    okMessage("Open Visual Studio Code")
+        # Show Message
+        okMessage("Open Visual Studio Code")
 
 
 # Open Visual Studio Code
@@ -53,4 +53,4 @@ def openVscode(project):
     try:
         subprocess.call(['code', project], stdout=FNULL, stderr=subprocess.STDOUT)
     except OSError as err:
-        print('[X] The Visual Studio Code does not exist. ' + err)
+        print('[X] The Visual Studio Code does not exist. ' + str(err))

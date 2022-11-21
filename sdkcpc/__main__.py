@@ -1,15 +1,17 @@
+import sys
+
 import click
-from .cat import *
-from .save import *
-from .run import *
-from .about import *
-from .concat import *
-from .cls import *
-from .machine import *
-from .load import *
-from .validator import *
-from .console import *
-from .cdt import *
+from sdkcpc.cat import *
+from sdkcpc.save import *
+from sdkcpc.run import *
+from sdkcpc.about import *
+from sdkcpc.concat import *
+from sdkcpc.cls import *
+from sdkcpc.machine import *
+from sdkcpc.load import *
+from sdkcpc.validator import *
+from sdkcpc.console import *
+from sdkcpc.cdt import *
 
 
 @click.group()
@@ -24,11 +26,17 @@ def about():
 
 @main.command()
 def console():
+    if not isSdkProject():
+        print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
+        sys.exit(1)
     consoleCommand()
 
 
 @main.command()
 def cdt():
+    if not isSdkProject():
+        print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
+        sys.exit(1)
     cdtCommand(True)
 
 
@@ -115,7 +123,7 @@ def run(file, model):
         file = getRun()
     if not model:
         model = getModel()
-    runCommand(file, model, True)
+    runCommand(file, model, False)
 
 
 @main.command()

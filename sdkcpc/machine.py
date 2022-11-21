@@ -1,6 +1,6 @@
 import sys
-from .cls import *
-from .about import *
+from sdkcpc.cls import *
+from sdkcpc.about import *
 from os import system, name
 
 from sdkcpc.validator import updateConfigKey, okMessage, errMessage
@@ -24,5 +24,4 @@ def modelCommand(model, activate):
         okMessage("The CPC model is now " + model)
     else:
         errMessage(" The model is not supported. Wouldn't it be that you want a Spectrum?")
-        sys.exit(1)
 
