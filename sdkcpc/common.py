@@ -17,7 +17,7 @@ console = Console()
 
 
 def get_configuration():
-    #     print(get_configuration()["SOFTWARE_PATH"])
+    #     print(get_configuration()["FILE_HISTORY"])
     values = None
     values = {
         "PROJECT_PATH": os.getcwd() + "/",
@@ -31,6 +31,7 @@ def get_configuration():
         "FILE_CONFIG": os.getcwd() + "/.sdkcpc/config",
         "FILE_M4": os.getcwd() + "/.sdkcpc/.M4",
         "FILE_CDT": os.getcwd() + "/.sdkcpc/CDT",
+        "FILE_HISTORY": os.getcwd() + '/.sdkcpc/.history',
         "LIBRARY_8BP": os.getcwd() + "/.sdkcpc/8bp.dsk",
         "iDSK_WIN": "idsk.exe",
         "iDSK_LINUX": "iDSK",
@@ -42,6 +43,7 @@ def get_configuration():
         "URL_CDT_WIN": "https://github.com/sdkcpc/2cdt/raw/main/binary/win/2cdt.exe",
         "URL_CDT_LINUX": "https://github.com/sdkcpc/2cdt/raw/main/binary/linux/2cdt",
         "URL_CDT_OSX": "https://github.com/sdkcpc/2cdt/raw/main/binary/darwin/2cdt",
+        "COMMAND_LIST": ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"],
         "COMMANDS_8BP": ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL',
                          '|LAYOUT',
                          '|LOCATESP', '|MAP2SP', '|MOVER', '|MOVERALL', 'MUSIC', '|MUSIC', '|PEEK', '|POKE', '|PRINTAT',

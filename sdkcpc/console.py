@@ -27,11 +27,7 @@ from sdkcpc.cls import clsCommand
 
 session = PromptSession(history=FileHistory('~/.history_sdkcpc'))
 
-commandActivate = True
-
-command_list = ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"]
-
-sql_completer = WordCompleter(command_list, ignore_case=True)
+sql_completer = WordCompleter(get_configuration()["COMMAND_LIST"], ignore_case=True)
 
 style = Style.from_dict(
     {
@@ -46,8 +42,7 @@ def consoleCommand():
     clsCommand()
     print(os.getcwd())
     sessions = PromptSession(style=style, completer=sql_completer,
-                             history=FileHistory(os.getcwd() + '/.sdkcpc/.history'),
-                             cursor=CursorShape.BLOCK)
+                             history=FileHistory(get_configuration()["FILE_HISTORY"]), cursor=CursorShape.BLOCK)
 
     # Show header is activated in config
     headerAmstrad()
@@ -63,7 +58,7 @@ def consoleCommand():
         else:
             if command:
                 command.split()
-                if command.split()[0].upper() in command_list:
+                if command.split()[0].upper() in get_configuration()["COMMAND_LIST"]:
                     if command.split()[0].upper() == "ABOUT":
                         aboutCommand()
                     elif command.split()[0].upper() == "CAT":
