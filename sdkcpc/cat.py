@@ -30,7 +30,7 @@ def catCommand(activate):
     grid.add_column()
     grid.add_column(justify="right")
 
-    files = next(os.walk(os.getcwd()))[2]
+    files = next(os.walk(get_configuration()["PROJECT_PATH"]))[2]
 
     for file in files:
         # if it is not a folder we show it
@@ -55,10 +55,10 @@ def catCommand(activate):
         count = count + 1
 
     # Show files
-    print("\nDrive A: user " + str(gt.getuser()) + "\n")
+    Message("\nDrive A: user " + str(gt.getuser()) + "\n")
     print(grid)
     bytesFree = 180 - int(totalKbytes)
-    print("\n" + str(bytesFree) + "K free\n")
+    Message("\n" + str(bytesFree) + "K free\n")
 
 
 def GetKbytes(file):

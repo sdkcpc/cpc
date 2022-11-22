@@ -42,7 +42,6 @@ def get_configuration():
         "URL_CDT_WIN": "https://github.com/sdkcpc/2cdt/raw/main/binary/win/2cdt.exe",
         "URL_CDT_LINUX": "https://github.com/sdkcpc/2cdt/raw/main/binary/linux/2cdt",
         "URL_CDT_OSX": "https://github.com/sdkcpc/2cdt/raw/main/binary/darwin/2cdt",
-        "": "",
         "COMMANDS_8BP": ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL',
                          '|LAYOUT',
                          '|LOCATESP', '|MAP2SP', '|MOVER', '|MOVERALL', 'MUSIC', '|MUSIC', '|PEEK', '|POKE', '|PRINTAT',
@@ -52,6 +51,18 @@ def get_configuration():
     }
 
     return values
+
+
+def Message(message):
+    """
+    Show info messages
+
+    Args:
+        message (string): Text to show
+    """
+    print_formatted_text(HTML('<yellow>' + message + '</yellow>'), style=style)
+
+
 
 
 def okMessage(message):
