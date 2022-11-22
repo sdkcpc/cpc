@@ -17,7 +17,7 @@ console = Console()
 
 
 def get_configuration():
-    #     print(get_configuration()["FILE_HISTORY"])
+    #     print(get_configuration()["FILE_CONFIG"])
     values = None
     values = {
         "PROJECT_PATH": os.getcwd() + "/",
@@ -65,8 +65,6 @@ def Message(message):
     print_formatted_text(HTML('<yellow>' + message + '</yellow>'), style=style)
 
 
-
-
 def okMessage(message):
     """
     Show info messages
@@ -102,7 +100,7 @@ def commandFileExist(file):
         file (string): File to find
     """
 
-    if not isExist(os.getcwd() + "/" + file):
+    if not isExist(get_configuration()["PROJECT_PATH"] + file):
         file_split = os.path.splitext(file.upper())
         if len(file_split[0]) > 8:
             file83 = file_split[0][0:7] + "~"
@@ -128,7 +126,7 @@ def isExist(file):
 
 def isSdkProject():
     """Check if there is a file"""
-    return os.path.exists(os.getcwd() + "/.sdkcpc")
+    return os.path.exists(get_configuration()["PROJECT_CONFIG"])
 
 
 def getMessageColor():
@@ -205,11 +203,11 @@ def readConfigKey(section, key):
 
     """
     config = configparser.RawConfigParser()
-    config.read(os.getcwd() + "/.sdkcpc/config")
+    config.read(get_configuration()["FILE_CONFIG"])
     return config.get(section, key)
 
 
-def updateConfigKey(section, key, value, path=os.getcwd() + "/.sdkcpc"):
+def updateConfigKey(section, key, value, path=get_configuration()["PROJECT_CONFIG"]):
     """
     update key value ini file
 
@@ -241,7 +239,7 @@ def createConfigKey(section, key, value):
     config = configparser.ConfigParser()
     config.add_section(section)
     config.set(section, key, value)
-    with open(os.getcwd() + "/.sdkcpc/config", 'a') as configfile:
+    with open(get_configuration()["FILE_CONFIG"], 'a') as configfile:
         config.write(configfile)
 
 

@@ -10,18 +10,6 @@ from .about import *
 from .common import *
 from .init import *
 
-SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
-
-if sys.platform == "darwin":
-    iDSK = SOFTWARE_PATH + "/iDSK"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip"
-elif sys.platform == "win32" or sys.platform == "win64":
-    iDSK = SOFTWARE_PATH + "/iDSK.exe"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip"
-elif sys.platform == "linux":
-    iDSK = SOFTWARE_PATH + "/iDSK"
-    URL = "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip"
-
 
 def loadCommand(file, activate):
     """
