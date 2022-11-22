@@ -26,7 +26,7 @@ def loadCommand(file, activate):
 
     # if not exist file exit
     if commandFileExist(file):
-        file = os.getcwd() + "/" + file
+        file = get_configuration()["PROJECT_PATH"] + file
 
         # Open Visual Studio Code
         openVscode(file)

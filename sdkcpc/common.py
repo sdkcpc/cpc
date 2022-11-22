@@ -17,7 +17,7 @@ console = Console()
 
 
 def get_configuration():
-    #     print(get_configuration()["FILE_CONFIG"])
+    #     print(get_configuration()["PROJECT_PATH"])
     values = None
     values = {
         "PROJECT_PATH": os.getcwd() + "/",
