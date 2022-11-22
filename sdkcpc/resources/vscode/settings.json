@@ -1,0 +1,9 @@
+{
+    "terminal.integrated.shell.linux": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
+    "terminal.integrated.shellArgs.linux": ["console"],
+    "terminal.integrated.shell.windows": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
+    "terminal.integrated.shellArgs.windows": ["console"],
+    "terminal.integrated.shell.osx": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
+    "terminal.integrated.shellArgs.osx": ["console"],
+    "task.allowAutomaticTasks": "on",
+}

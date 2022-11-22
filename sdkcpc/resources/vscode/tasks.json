@@ -1,6 +1,13 @@
 {
-    "version": "2.0.0",
-    "tasks": [
+  "version": "2.0.0",
+  "presentation": {
+    "echo": false,
+    "reveal": "always",
+    "focus": false,
+    "panel": "dedicated",
+    "showReuseMessage": true
+  },
+  "tasks": [
         {
             "label": "CPC: MAKE",
             "type": "shell",
@@ -111,6 +118,36 @@
                 "kind": "build",
                 "isDefault": false
             }
+        },
+        {
+          "label": "Create terminals CPC",
+          "dependsOn": [
+            "cpc"
+          ],
+          "group": {
+            "kind": "build",
+            "isDefault": true
+          },
+          "runOptions": {
+            "runOn": "folderOpen"
+          }
+        },
+        {
+          "label": "cpc",
+          "type": "shell",
+          "command": "",
+          "options": {
+            "shell": {
+              "executable": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
+              "args": ["console"],
+            },
+            "cwd": "${cwd}"
+          },
+          "isBackground": true,
+          "problemMatcher": [],
+          "presentation": {
+            "group": "sdkcpc"
+          }
         }
     ]
 }
