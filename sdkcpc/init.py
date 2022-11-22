@@ -23,41 +23,43 @@ def initCommand(folder, model):
     if not validatePath(folder):
         folder = os.getcwd() + "/" + folder
 
+    PROJECT_PATH = folder
+    PROJECT_CONFIG = folder + "/.sdkcpc/"
+
     # Check exist proyect folder
-    if os.path.exists(folder + "/.sdkcpc"):
+    if os.path.exists(PROJECT_CONFIG):
         print("A project already exists in this path.")
         sys.exit(1)
 
     # If the project does not exist, we create a folder
-    if not os.path.exists(folder + "/.sdkcpc"):
-        os.makedirs(folder + "/.sdkcpc")
+    if not os.path.exists(PROJECT_CONFIG):
+        os.makedirs(PROJECT_CONFIG)
 
     # copy files (vscode and config)
     createVscode(folder)
-    copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/config", folder + "/.sdkcpc/config")
+    copyFile(get_configuration()["LOCAL_RESOURCES_TEMPLATES"] + "config", PROJECT_CONFIG + "config")
 
     # Create model file
     build = str(datetime.now())
-    updateConfigKey("rvm", "model", model, folder + "/.sdkcpc")
-    updateConfigKey("compilation", "build", build, folder + "/.sdkcpc")
+    updateConfigKey("rvm", "model", model, PROJECT_CONFIG)
+    updateConfigKey("compilation", "build", build, PROJECT_CONFIG)
 
     # Create bas template
-    data = {"project": os.path.basename(os.path.normpath(folder)), "build": build, "version": "1.0.0"}
+    data = {"project": os.path.basename(os.path.normpath(PROJECT_CONFIG)), "build": build, "version": "1.0.0"}
     createTemplate(data, "8bp.j2", folder + "/MAIN.BAS")
 
     # Add library 8bp
     if not os.path.exists(folder + "/.sdkcpc/8bp.dsk"):
-        copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
-                 folder + "/.sdkcpc/8bp.dsk")
+        copyFile(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", PROJECT_CONFIG + "8bp.dsk")
 
     # Create file
-    createFile(folder + "/.sdkcpc/CDT.example", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
-                                                "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
+    createFile(PROJECT_CONFIG + "CDT.example", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
+                                               "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
 
     # Show header is activated in config
     # headerAmstrad()
 
-    okMessage("Initialized SDKCPC folder in " + folder + "/.sdkcpc")
+    okMessage("Initialized SDKCPC folder in " + PROJECT_CONFIG)
 
 
 def validatePath(filePath):
@@ -118,7 +120,7 @@ def createTemplate(data, template, file):
         file (string): Name of the file to create
 
     """
-    j2_env = Environment(loader=FileSystemLoader(os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/"),
+    j2_env = Environment(loader=FileSystemLoader(get_configuration()["LOCAL_RESOURCES_TEMPLATES"]),
                          trim_blocks=True)
     with open(file, mode="w", encoding="utf-8") as message:
         message.write(j2_env.get_template(template).render(data))
@@ -134,7 +136,7 @@ def createVscode(folder):
 
     """
     try:
-        shutil.copytree(os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode", folder + "/.vscode")
+        shutil.copytree(get_configuration()["LOCAL_RESOURCES_VSCODE"], folder + "/.vscode")
         okMessage("Create Vscode files.")
     except OSError as err:
         print("[red]" + str(err))
