@@ -3,7 +3,13 @@ model = 6128
 
 [files]
 concat =
+dsk =
+run =
+cdt =
 
 [compilation]
 version = 1.0.0
 build = XXXX
+
+[m4]
+ip = 0.0.0.0

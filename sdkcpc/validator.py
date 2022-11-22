@@ -158,7 +158,7 @@ def readConfigKey(section, key):
     return config.get(section, key)
 
 
-def updateConfigKey(section, key, value):
+def updateConfigKey(section, key, value, path=os.getcwd() + "/.sdkcpc"):
     """
     update key value ini file
 
@@ -170,9 +170,9 @@ def updateConfigKey(section, key, value):
 
     """
     config = configparser.RawConfigParser()
-    config.read(os.getcwd() + "/.sdkcpc/config")
+    config.read(path + "/config")
     config.set(section, key, value)
-    with open(os.getcwd() + "/.sdkcpc/config", 'w') as configfile:
+    with open(path + "/config", 'w') as configfile:
         config.write(configfile)
 
 

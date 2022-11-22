@@ -11,7 +11,7 @@ from sdkcpc.machine import *
 from sdkcpc.load import *
 from sdkcpc.validator import *
 from sdkcpc.console import *
-
+from sdkcpc.init import validatePath
 
 @click.group()
 def main():
