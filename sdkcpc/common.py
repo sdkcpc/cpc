@@ -16,6 +16,41 @@ style = Style.from_dict({
 console = Console()
 
 
+def get_configuration():
+    #     print(get_configuration()["SOFTWARE_PATH"])
+    values = None
+    values = {
+        "PROJECT_PATH": os.getcwd() + "/",
+        "PROJECT_TMP": os.getcwd() + "/TMP/",
+        "PROJECT_OUT": os.getcwd() + "/OUT/",
+        "PROJECT_M4": os.getcwd() + "/OUT/M4",
+        "PROJECT_CONFIG": os.getcwd() + "/.sdkcpc/",
+        "FILE_CONFIG": os.getcwd() + "/.sdkcpc/config",
+        "FILE_M4": os.getcwd() + "/.sdkcpc/.M4",
+        "FILE_CDT": os.getcwd() + "/.sdkcpc/CDT",
+        "LIBRARY_8BP": os.getcwd() + "/.sdkcpc/8bp.dsk",
+        "iDSK_WIN": "idsk.exe",
+        "iDSK_LINUX": "iDSK",
+        "iDSK_OSX": "iDSK",
+        "SOFTWARE_PATH": os.environ['HOME'] + "/sdkcpc/resources/",
+        "URL_IDSK_WIN": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip",
+        "URL_IDSK_LINUX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip",
+        "URL_IDSK_OSX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip",
+        "URL_CDT_WIN": "https://github.com/sdkcpc/2cdt/raw/main/binary/win/2cdt.exe",
+        "URL_CDT_LINUX": "https://github.com/sdkcpc/2cdt/raw/main/binary/linux/2cdt",
+        "URL_CDT_OSX": "https://github.com/sdkcpc/2cdt/raw/main/binary/darwin/2cdt",
+        "": "",
+        "COMMANDS_8BP": ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL',
+                         '|LAYOUT',
+                         '|LOCATESP', '|MAP2SP', '|MOVER', '|MOVERALL', 'MUSIC', '|MUSIC', '|PEEK', '|POKE', '|PRINTAT',
+                         '|PRINTSP', '|PRINTSPALL', '|RINK', '|ROUTESP', '|ROUTEALL', '|SETLIMITS', '|SETUPSP',
+                         '|UMAP', ],
+
+    }
+
+    return values
+
+
 def okMessage(message):
     """
     Show info messages
