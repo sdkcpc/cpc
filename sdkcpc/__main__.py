@@ -97,7 +97,7 @@ def cls():
 
 
 @main.command()
-@click.argument('file', required=True)
+@click.argument('file', required=False)
 def concat(file):
     if not isSdkProject():
         print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)

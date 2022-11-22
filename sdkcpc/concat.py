@@ -10,4 +10,7 @@ def concatCommand(file, activate):
     #     headerAmstrad()
     # update concat field
     updateConfigKey("files", "concat", file)
-    okMessage("The file to concatenate is now " + file)
+    if not file:
+        okMessage("Concatenate file is now disabled.")
+    else:
+        okMessage("The file to concatenate is now " + file)
