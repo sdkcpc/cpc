@@ -7,7 +7,7 @@ import requests
 from tqdm.auto import tqdm
 
 from .about import *
-from .validator import *
+from .common import *
 from .init import *
 
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"

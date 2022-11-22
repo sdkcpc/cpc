@@ -1,7 +1,7 @@
 import os
 
 from . import __version__
-from .validator import *
+from .common import *
 
 
 def headerAmstrad():

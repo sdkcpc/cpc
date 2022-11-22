@@ -3,7 +3,7 @@ import os.path
 import getpass as gt
 from rich import print
 from rich.table import Table
-from .validator import *
+from .common import *
 from .about import *
 
 

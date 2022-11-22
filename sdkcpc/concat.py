@@ -1,5 +1,5 @@
 from .about import headerAmstrad
-from .validator import *
+from .common import *
 
 
 def concatCommand(file, activate):

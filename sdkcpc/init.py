@@ -5,7 +5,7 @@ from datetime import datetime
 import re
 
 from .about import headerAmstrad
-from .validator import *
+from .common import *
 from jinja2 import Environment, FileSystemLoader
 
 

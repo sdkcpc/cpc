@@ -9,7 +9,7 @@ from rich.table import Table
 from sdkcpc.init import createTemplate, copyFile, add2File
 
 from .about import headerAmstrad
-from .validator import *
+from .common import *
 
 
 def saveCommand(file, activate):

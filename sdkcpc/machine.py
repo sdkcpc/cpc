@@ -3,7 +3,7 @@ from sdkcpc.cls import *
 from sdkcpc.about import *
 from os import system, name
 
-from sdkcpc.validator import updateConfigKey, okMessage, errMessage
+from sdkcpc.common import updateConfigKey, okMessage, errMessage
 
 
 def modelCommand(model, activate):

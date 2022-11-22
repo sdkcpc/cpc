@@ -9,7 +9,7 @@ from sdkcpc.concat import *
 from sdkcpc.cls import *
 from sdkcpc.machine import *
 from sdkcpc.load import *
-from sdkcpc.validator import *
+from sdkcpc.common import *
 from sdkcpc.console import *
 from sdkcpc.init import validatePath
 

@@ -2,7 +2,7 @@ import os.path
 import sys
 
 from .make import *
-from .validator import *
+from .common import *
 
 SOFTWARE_PATH = os.environ['HOME'] + "/sdkcpc/resources"
 if sys.platform == "darwin":

@@ -21,7 +21,7 @@ from sdkcpc.run import runCommand
 from sdkcpc.save import saveCommand
 
 from sdkcpc.cat import catCommand
-from sdkcpc.validator import *
+from sdkcpc.common import *
 from sdkcpc.about import headerAmstrad, aboutCommand
 from sdkcpc.cls import clsCommand
 
