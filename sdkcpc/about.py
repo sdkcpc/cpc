@@ -10,7 +10,6 @@ def headerAmstrad():
 
     """
 
-
     if getModel() == "6128":
         kbytes = "128"
         s = "s3"
@@ -89,7 +88,7 @@ def readBuild():
     Read number build sdkcpc
 
     """
-    file_path = os.path.dirname(os.path.abspath(__file__)) + "/resources/software/BUILD"
+    file_path = get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "BUILD"
     if os.path.isfile(file_path):
         text_file = open(file_path, "r")
         data = text_file.read()
