@@ -27,7 +27,7 @@ def saveCommand(file, activate):
     #     headerAmstrad()
 
     # Check if the file exists
-    if isExist(os.getcwd() + "/" + file):
+    if isExist(get_configuration()["PROJECT_PATH"] + file):
         errMessage("File exists in this path.")
         sys.exit(1)
 
@@ -40,13 +40,12 @@ def saveCommand(file, activate):
     if len(file) > 8:
         file = file_split[0][0:8] + file_split[1]
 
-    data = {"project": os.path.basename(os.path.normpath(os.getcwd())), "build": str(datetime.now()),
+    data = {"project": os.path.basename(os.path.normpath(get_configuration()["PROJECT_PATH"])), "build": str(datetime.now()),
             "version": "1.0.0"}
     createTemplate(data, "8bp.j2", file)
 
-    if not os.path.exists(os.getcwd() + "/.sdkcpc/8bp.dsk"):
-        copyFile(os.path.dirname(os.path.abspath(__file__)) + "/resources/software/8bp.dsk",
-                 os.getcwd() + "/.sdkcpc/8bp.dsk")
+    if not os.path.exists(get_configuration()["LIBRARY_8BP"]):
+        copyFile(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", get_configuration()["LIBRARY_8BP"])
 
-    if isExist(os.getcwd() + "/.sdkcpc/CDT"):
-        add2File(os.getcwd() + "/.sdkcpc/CDT", file_split[0] + ",,," + file)
+    if isExist(get_configuration()["FILE_CDT"]):
+        add2File(get_configuration()["FILE_CDT"], file_split[0] + ",,," + file)

@@ -17,7 +17,7 @@ console = Console()
 
 
 def get_configuration():
-    #     print(get_configuration()["PROJECT_PATH"])
+    #     print(get_configuration()["PROJECT_OUT"])
     values = None
     values = {
         "PROJECT_PATH": os.getcwd() + "/",
@@ -43,6 +43,12 @@ def get_configuration():
         "URL_CDT_WIN": "https://github.com/sdkcpc/2cdt/raw/main/binary/win/2cdt.exe",
         "URL_CDT_LINUX": "https://github.com/sdkcpc/2cdt/raw/main/binary/linux/2cdt",
         "URL_CDT_OSX": "https://github.com/sdkcpc/2cdt/raw/main/binary/darwin/2cdt",
+        "URL_RVM_WIN": "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7"
+                       ".windows.x86.zip",
+        "URL_RVM_LINUX": "https://static.retrovm.org/release/beta1/linux/x64/RetroVirtualMachine.2.0.beta-1.r7.linux"
+                         ".x64.zip",
+        "URL_RVM_OSX": "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7"
+                       ".windows.x86.zip",
         "COMMAND_LIST": ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT"],
         "COMMANDS_8BP": ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL',
                          '|LAYOUT',
