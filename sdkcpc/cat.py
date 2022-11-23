@@ -19,6 +19,7 @@ def catCommand(activate):
     count = 1
     column = 1
     totalKbytes = 0
+    Line = []
 
     # Check that it is and sdkcpc project
     if not isSdkProject():
@@ -26,9 +27,9 @@ def catCommand(activate):
         sys.exit(1)
 
     # show files in folders
-    grid = Table.grid(expand=False)
-    grid.add_column()
-    grid.add_column(justify="right")
+    # grid = Table.grid(expand=False)
+    # grid.add_column()
+    # grid.add_column(justify="right")
 
     files = next(os.walk(get_configuration()["PROJECT_PATH"]))[2]
 
@@ -46,17 +47,21 @@ def catCommand(activate):
         else:
             totalKbytes = totalKbytes + int(GetKbytes(file))
             col = col + '   {:<8s}{:>3s}{:>8s}'.format(file83.ljust(8, " "), file_split[1], GetKbytes(file) + "K")
-            grid.add_row(col)
+            # grid.add_row(col)
+            Line.append(col)
             column = 1
             col = ""
 
         if count == len(files):
-            grid.add_row(col)
+            # grid.add_row(col)
+            Line.append(col)
         count = count + 1
 
     # Show files
     Message("\nDrive A: user " + str(gt.getuser()) + "\n")
-    print(grid)
+    # print(grid)
+    for lin in Line:
+        Message(lin)
     bytesFree = 180 - int(totalKbytes)
     Message("\n" + str(bytesFree) + "K free\n")
 
