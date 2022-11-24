@@ -121,11 +121,15 @@ def run(file, model):
     if not isSdkProject():
         print_formatted_text(HTML('<red>[X] The path is not a valid sdkcpc project.</red>'), style=style)
         sys.exit(1)
-    if not file:
-        file = getRun()
     if not model:
         model = getModel()
-    runCommand(file, model, False)
+    if not file:
+        if not getRun():
+            errMessage("Bad command")
+            sys.exit(0)
+        else:
+            file = getRun()
+    runCommand(file.replace('"', ''), model, False)
 
 
 @main.command()

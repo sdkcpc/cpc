@@ -6,4 +6,10 @@
     "terminal.integrated.shell.osx": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
     "terminal.integrated.shellArgs.osx": ["console"],
     "task.allowAutomaticTasks": "on",
+    "workbench.colorCustomizations": {
+        "terminal.background": "#005eff",
+        "terminal.foreground": "#fff200",
+        "terminalCursor.background": "#fff200",
+        "terminalCursor.foreground": "#fff200"
+    }
 }

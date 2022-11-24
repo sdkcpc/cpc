@@ -30,10 +30,12 @@ def runCommand(bas_file, model, activate):
     #     headerAmstrad()
 
     # if not exist file exit
-    if commandFileExist(bas_file):
 
+    if commandFileExist(bas_file):
         # update configfile
         updateConfigKey("files", "run", bas_file)
+    else:
+        sys.exit()
 
     download_retro_virtual_machine()
     dsk = get_configuration()["PROJECT_OUT"] + getDSK()

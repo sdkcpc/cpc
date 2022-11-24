@@ -71,6 +71,16 @@ def Message(message):
     print_formatted_text(HTML('<yellow>' + message + '</yellow>'), style=style)
 
 
+def MessageRed(message):
+    """
+    Show info messages
+
+    Args:
+        message (string): Text to show
+    """
+    print_formatted_text(HTML('<red>' + message + '</red>'), style=style)
+
+
 def okMessage(message):
     """
     Show info messages

@@ -58,12 +58,20 @@ def catCommand(activate):
         count = count + 1
 
     # Show files
-    Message("\nDrive A: user " + str(gt.getuser()) + "\n")
+    bytesFree = 180 - int(totalKbytes)
+    if int(totalKbytes) > 180:
+        MessageRed("\nDrive A: disc full\n")
+    else:
+        Message("\nDrive A: user " + str(gt.getuser()) + "\n")
     # print(grid)
     for lin in Line:
         Message(lin)
-    bytesFree = 180 - int(totalKbytes)
-    Message("\n" + str(bytesFree) + "K free\n")
+    if int(totalKbytes) > 180:
+        print()
+        leftover = int(totalKbytes) - 180
+        MessageRed("0K free - left over " + str(leftover) + "K\n")
+    else:
+        Message("\n" + str(bytesFree) + "K free\n")
 
 
 def GetKbytes(file):
