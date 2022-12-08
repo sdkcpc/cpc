@@ -28,6 +28,7 @@ def get_configuration():
         "LOCAL_RESOURCES_TEMPLATES": os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/",
         "LOCAL_RESOURCES_VSCODE": os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode",
         "LOCAL_RESOURCES_SOFTWARE": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/",
+        "SOFTWARE_TOOLS": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/" + sys.platform ,
         "FILE_CONFIG": os.getcwd() + "/.sdkcpc/config",
         "FILE_M4": os.getcwd() + "/.sdkcpc/.M4",
         "FILE_CDT": os.getcwd() + "/.sdkcpc/CDT",
