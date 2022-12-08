@@ -3,10 +3,17 @@ import shutil
 import sys
 from datetime import datetime
 import re
-
+from zipfile import ZipFile
+import requests
+from tqdm.auto import tqdm
 from .about import headerAmstrad
 from .common import *
 from jinja2 import Environment, FileSystemLoader
+from urllib.request import urlopen
+from io import BytesIO
+from zipfile import ZipFile
+from sdkcpc.make import *
+from sdkcpc.run import *
 
 
 def initCommand(folder, model):
@@ -58,7 +65,8 @@ def initCommand(folder, model):
 
     # Show header is activated in config
     # headerAmstrad()
-
+    downloadTools()
+    #download_and_unzip(get_configuration()["TOOLS"], get_configuration()["SOFTWARE_PATH"])
     okMessage("Initialized SDKCPC folder in " + PROJECT_CONFIG)
 
 
@@ -158,3 +166,35 @@ def copyFile(origen, destino):
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
+
+
+def download_and_unzip(url, extract_to='.'):
+    http_response = urlopen(url)
+    zipfile = ZipFile(BytesIO(http_response.read()))
+
+    zipfile.extractall(path=extract_to)
+
+
+def downloadTools():
+    """
+    download idsk file
+
+    Args:
+        file (string): Path of file
+    """
+
+    if not os.path.exists(get_configuration()["SOFTWARE_PATH"]):
+        os.makedirs(get_configuration()["SOFTWARE_PATH"])
+        okMessage("Download Tools Software Version " + get_configuration()["VERSION_TOOLS"] + ".... please wait..")
+        with requests.get(get_configuration()["TOOLS"], stream=True) as r:
+            total_length = int(r.headers.get("Content-Length"))
+            with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
+                with open(get_configuration()["SOFTWARE_PATH"] + "tools-linux.zip", 'wb') as output:
+                    shutil.copyfileobj(raw, output)
+                    with ZipFile(output, "r") as zipObj:
+                        zipObj.extractall(get_configuration()["SOFTWARE_PATH"])
+        os.remove(get_configuration()["SOFTWARE_PATH"] + "tools-linux.zip")
+        if sys.platform == "darwin" or sys.platform == "linux":
+            chmod(get_configuration()["SOFTWARE_PATH"] + "/iDSK")
+            chmod(get_configuration()["SOFTWARE_PATH"] + "/2cdt")
+            chmod(get_configuration()["SOFTWARE_PATH"] + "/martine")

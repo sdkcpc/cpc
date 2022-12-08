@@ -73,7 +73,7 @@ def download_retro_virtual_machine():
     if not os.path.exists(get_configuration()["SOFTWARE_PATH"]):
         os.makedirs(get_configuration()["SOFTWARE_PATH"])
     if not os.path.exists(RVM):
-        print("[*] Download Retro Virtual Machine.... please wait..")
+        okMessage("Download Retro Virtual Machine.... please wait..")
         with requests.get(URL_RVM, stream=True) as r:
             total_length = int(r.headers.get("Content-Length"))
             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:

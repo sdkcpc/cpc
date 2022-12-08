@@ -37,6 +37,8 @@ def get_configuration():
         "iDSK_LINUX": "iDSK",
         "iDSK_OSX": "iDSK",
         "SOFTWARE_PATH": os.environ['HOME'] + "/sdkcpc/resources/",
+        "VERSION_TOOLS": "1.1",
+        "TOOLS": "https://github.com/sdkcpc/cpc-tools/releases/download/1.2/tools-" + sys.platform + ".zip",
         "URL_IDSK_WIN": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip",
         "URL_IDSK_LINUX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip",
         "URL_IDSK_OSX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip",
