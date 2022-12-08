@@ -3,7 +3,6 @@ import shutil
 import sys
 from datetime import datetime
 import re
-from zipfile import ZipFile
 import requests
 from tqdm.auto import tqdm
 from .about import headerAmstrad
