@@ -5,6 +5,10 @@ import sys
 from rich.console import Console
 from prompt_toolkit import print_formatted_text, HTML
 from prompt_toolkit.styles import Style
+import os.path
+import re
+from jinja2 import Environment, FileSystemLoader
+
 
 style = Style.from_dict({
     'red': '#ff0066',
@@ -23,7 +27,7 @@ def get_configuration():
         "PROJECT_PATH": os.getcwd() + "/",
         "PROJECT_TMP": os.getcwd() + "/TMP/",
         "PROJECT_OUT": os.getcwd() + "/OUT/",
-        "PROJECT_M4": os.getcwd() + "/OUT/M4",
+        "PROJECT_M4": os.getcwd() + "/OUT/M4/",
         "PROJECT_CONFIG": os.getcwd() + "/.sdkcpc/",
         "LOCAL_RESOURCES_TEMPLATES": os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/",
         "LOCAL_RESOURCES_VSCODE": os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode",
@@ -279,3 +283,17 @@ def searchCommand(file_path, word):
             return True
         else:
             return False
+
+
+def createFile(file, text):
+    """
+    create file
+
+    Args:
+        file (string): Path of file
+        text (string): file text
+
+    """
+    fp = open(file, 'w')
+    fp.write(text)
+    fp.close()

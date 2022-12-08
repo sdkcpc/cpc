@@ -1,18 +1,6 @@
-import os.path
-import shutil
-import sys
-from datetime import datetime
-import re
-import requests
-from tqdm.auto import tqdm
-from .about import headerAmstrad
-from .common import *
-from jinja2 import Environment, FileSystemLoader
-from urllib.request import urlopen
-from io import BytesIO
-from zipfile import ZipFile
-from sdkcpc.make import *
+
 from sdkcpc.run import *
+from sdkcpc.common import *
 
 
 def initCommand(folder, model):
@@ -89,21 +77,7 @@ def validatePath(filePath):
         return False
 
 
-def createFile(file, text):
-    """
-    create file
-
-    Args:
-        file (string): Path of file
-        text (string): file text
-
-    """
-    fp = open(file, 'w')
-    fp.write(text)
-    fp.close()
-
-
-def add2File(file, text):
+def addLines2File(file, text):
     """
     add lines to file
 

@@ -6,7 +6,7 @@ from datetime import datetime
 
 from rich import print
 from rich.table import Table
-from sdkcpc.init import createTemplate, copyFile, add2File
+from sdkcpc.init import createTemplate, copyFile, addLines2File
 from sdkcpc.cat import *
 from .about import headerAmstrad
 from .common import *
@@ -50,7 +50,7 @@ def saveCommand(file, activate):
             copyFile(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", get_configuration()["LIBRARY_8BP"])
 
         if isExist(get_configuration()["FILE_CDT"]):
-            add2File(get_configuration()["FILE_CDT"], file_split[0] + ",,," + file)
+            addLines2File(get_configuration()["FILE_CDT"], file_split[0] + ",,," + file)
     else:
         MessageRed("Drive A: disc full\n")
 
