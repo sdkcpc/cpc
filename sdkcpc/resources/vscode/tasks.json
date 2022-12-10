@@ -139,7 +139,7 @@
           "options": {
             "shell": {
               "executable": "/home/destroyer/Documentos/Github/SDKCPC/cpc/venv/bin/cpc",
-              "args": ["console"],
+              "args": ["console"]
             },
             "cwd": "${cwd}"
           },

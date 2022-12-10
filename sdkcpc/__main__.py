@@ -54,7 +54,7 @@ def make(file):
 
     updateConfigKey("files", "dsk", file.replace(" ", "_"))
     updateConfigKey("files", "cdt", cdtFile.replace(" ", "_"))
-    makeCommand(True)
+    makeCommand()
 
 
 @main.command()

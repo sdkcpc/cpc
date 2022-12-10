@@ -76,7 +76,7 @@ def consoleCommand():
                             if file_split[1].upper() != ".DSK":
                                 file = file + ".dsk"
                             updateConfigKey("files", "dsk", file.replace(" ", "_"))
-                        makeCommand(False)
+                        makeCommand()
                     elif command.split()[0].upper() == "LOAD":
                         if len(command.split()) == 2:
                             file = command.split()[1].replace('"', '')

@@ -1,0 +1,16 @@
+[rvm]
+model = 6128
+
+[files]
+concat = 
+dsk = project.dsk
+run = 
+cdt = project.cdt
+
+[compilation]
+version = 1.0.4
+build = 2022-12-08 20:59:45.529189
+
+[m4]
+ip = 0.0.0.0
+
