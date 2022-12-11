@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 from io import open
 from setuptools import setup
-from sdkcpc import __version__ as version
+from amstradbasic import __version__ as version
 
 VERSION = version
 DESCRIPTION = 'SDK for Programing Basic in SO Windows, Linux and OSX'
@@ -10,7 +10,7 @@ DESCRIPTION = 'SDK for Programing Basic in SO Windows, Linux and OSX'
 # Setting up
 setup(
        # the name must match the folder name 'verysimplemodule'
-        name="sdkcpc", 
+        name="amstradbasic",
         version=VERSION,
         author="Destroyer",
         author_email="<destroyer.dcf@gmail.com>",
@@ -18,9 +18,9 @@ setup(
         long_description=''.join(open('README.md', encoding='utf-8').readlines()),
         long_description_content_type='text/markdown',
         license="GPL",
-        url="https://github.com/destroyer-dcf/sdkcpc",
+        url="https://github.com/destroyer-dcf/amstradbasic",
         project_urls={
-            "Bug Tracker": "https://github.com/destroyer-dcf/sdkcpc/issues",
+            "Bug Tracker": "https://github.com/destroyer-dcf/amstradbasic/issues",
         },
         keywords=['executable'],
         include_package_data=True,
@@ -53,8 +53,9 @@ setup(
         ],
         entry_points={
             'console_scripts': [
-                'sdkcpc=sdkcpc.__main__:main',
-                'cpc=sdkcpc.__main__:main'
+                'amstradbasic=amstradbasic.__main__:main',
+                'cpc=amstradbasic.__main__:main',
+                'basic=amstradbasic.__main__:main',
             ],
         },
 )

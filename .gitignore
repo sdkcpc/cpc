@@ -140,10 +140,6 @@ dmypy.json
 prueba*/
 pruebas/example.py/
 mibas*/
-*sdkcpc/resources/software/Retr*
-*sdkcpc/resources/software/che*
-*sdkcpc/resources/software/iD*
-*sdkcpc/resources/software/c*
 menusd*/*
 make*
 NOTAS.TXT

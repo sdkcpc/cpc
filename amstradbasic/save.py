@@ -6,8 +6,8 @@ from datetime import datetime
 
 from rich import print
 from rich.table import Table
-from sdkcpc.init import createTemplate, copyFile, addLines2File
-from sdkcpc.cat import *
+from amstradbasic.init import createTemplate, copyFile, addLines2File
+from amstradbasic.cat import *
 from .about import headerAmstrad
 from .common import *
 

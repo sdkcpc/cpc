@@ -1,21 +1,21 @@
 # COMANDOS
 
-Podemos ver todas las opciones del programa escribiendo el comando **sdkcpc** seguido del argumento correspondiente y de la opción en el caso de que la tubiera.
+Podemos ver todas las opciones del programa escribiendo el comando **amstradbasic** seguido del argumento correspondiente y de la opción en el caso de que la tubiera.
 
 ```
-sdkcpc [argumento] [opcion]
+amstradbasic [argumento] [opcion]
 ```
 
 Ejemplo
 ```
-$ sdkcpc -h
+$ amstradbasic -h
 
-sdkcpc v1.0.1
+amstradbasic v1.0.1
 linux -  Build: 2022/09/04 11:17:00
 
 © Destroyer 2022
 
-usage: sdkcpc [-h] [-v] {about,make,deploy,validate,info,new,new-8bp,run} ...
+usage: amstradbasic [-h] [-v] {about,make,deploy,validate,info,new,new-8bp,run} ...
 
 positional arguments:
   {about,make,deploy,validate,info,new,new-8bp,run}
@@ -41,7 +41,7 @@ Muestra información del desarrollador del proyecto.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc about`    |     | Muestra información del software y del desarrollador    |
+| `amstradbasic about`    |     | Muestra información del software y del desarrollador    |
 
 ### -h, --help
 
@@ -49,7 +49,7 @@ Muestra información del desarrollador del proyecto.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc about`    |     | Muestra información del software y del desarrollador    |
+| `amstradbasic about`    |     | Muestra información del software y del desarrollador    |
 
 
 
@@ -59,7 +59,7 @@ Muestra información del proyecto de la ruta actual.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc info`    |    | Muestra información del proyecto de la ruta actual.|
+| `amstradbasic info`    |    | Muestra información del proyecto de la ruta actual.|
 
 ### make
 
@@ -68,7 +68,7 @@ Crea una imagen para Disco (DSK) y Cinta (CDT) con el software del proyecto
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc make`    |     | Genera un archivo DSK con todo el software del proyecto.    |
+| `amstradbasic make`    |     | Genera un archivo DSK con todo el software del proyecto.    |
 
 ### new
 
@@ -76,14 +76,14 @@ Crea un nuevo proyecto en la ruta actual con la estructura necesaria para empeza
 El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.
 
 ```
-sdkcpc new [Nombre_proyecto]
+amstradbasic new [Nombre_proyecto]
 ```
 > 
 > **El Nombre de proyecto no admite espacios.**
 
 ```
-$ sdkcpc new mibas                                                                          
-sdkcpc v1.0.2
+$ amstradbasic new mibas                                                                          
+amstradbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022
@@ -118,7 +118,7 @@ Crea un nuevo proyecto en la ruta actual con la estructura necesaria para trabaj
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc new-8bp`    | [Nombre_proyecto]  |El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.|
+| `amstradbasic new-8bp`    | [Nombre_proyecto]  |El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.|
 
 > **NOTA:** 
 > **No se admiten espacios en el nombre del proyecto.**
@@ -130,7 +130,7 @@ Carga nuestro DSK generado y ejecuta el bas seleccionado sobre el emulador pasad
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `sdkcpc run`    |  --rvm   | Ejecuta el emulador Retro virtual Machine.|
+| `amstradbasic run`    |  --rvm   | Ejecuta el emulador Retro virtual Machine.|
 ---
 
 ### deploy
@@ -146,9 +146,9 @@ Carga nuestro DSK generado y ejecuta el bas seleccionado sobre el emulador pasad
 Muestra la version del software actual.
 
 ```shell
-$ sdkcpc --version                  
+$ amstradbasic --version                  
 
-sdkcpc v1.0.1
+amstradbasic v1.0.1
 linux -  Build: 2022/09/04 11:17:00
 
 © Destroyer 2022
@@ -159,9 +159,9 @@ linux -  Build: 2022/09/04 11:17:00
 Valida que las configuraciones del proyecto en la ruta actual esten correctas.
 
 ```shell
-$ sdkcpc validate     
+$ amstradbasic validate     
 
-sdkcpc v1.0.2
+amstradbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022
@@ -176,9 +176,9 @@ linux - Build: 2022/09/10 12:14:17
 Muestra toda la información del proceso de validación.
 
 ```shell
-$ sdkcpc validate --verbose  
+$ amstradbasic validate --verbose  
 
-sdkcpc v1.0.2
+amstradbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022

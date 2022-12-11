@@ -1,4 +1,4 @@
-from sdkcpc import __version__
+from amstradbasic import __version__
 
 
 def test_version():

@@ -21,9 +21,9 @@ def catCommand(activate):
     totalKbytes = 0
     Line = []
 
-    # Check that it is and sdkcpc project
+    # Check that it is and amstradbasic project
     if not isSdkProject():
-        print("This folder is not a valid sdkcpc project")
+        print("This folder is not a valid amstradbasic project")
         sys.exit(1)
 
     # show files in folders
