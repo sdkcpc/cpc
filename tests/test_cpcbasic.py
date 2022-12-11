@@ -1,4 +1,4 @@
-from amstradbasic import __version__
+from cpcbasic import __version__
 
 
 def test_version():

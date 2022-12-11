@@ -1,8 +1,6 @@
 import os.path
 import os.path
 import getpass as gt
-from rich import print
-from rich.table import Table
 from .common import *
 from .about import *
 
@@ -21,9 +19,9 @@ def catCommand(activate):
     totalKbytes = 0
     Line = []
 
-    # Check that it is and amstradbasic project
+    # Check that it is and cpcbasic project
     if not isSdkProject():
-        print("This folder is not a valid amstradbasic project")
+        print("This folder is not a valid cpcbasic project")
         sys.exit(1)
 
     # show files in folders

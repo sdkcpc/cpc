@@ -11,13 +11,13 @@ echo "New Tag   : "$NEW_TAG
 echo "New Build : "$BUILD
 
 echo "[*] Create __init__.py version"
-echo "__version__ = '$NEW_TAG'" > amstradbasic/__init__.py
+echo "__version__ = '$NEW_TAG'" > cpcbasic/__init__.py
 echo "[*] Create VERSION and BUILD Files"
 echo $NEW_TAG > VERSION
 echo $BUILD > BUILD
 
-cp VERSION amstradbasic/resources/software
-cp BUILD amstradbasic/resources/software
+cp VERSION cpcbasic/resources/software
+cp BUILD cpcbasic/resources/software
 echo "[*] Copy VERSION and BUILD Files to main dir"
 
 echo "[*] Add commit to repository"

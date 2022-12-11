@@ -46,7 +46,7 @@ def headerAmstrad():
 
 def aboutCommand():
     """
-    show header about amstradbasic
+    show header about cpcbasic
 
     """
     ver = __version__
@@ -56,7 +56,7 @@ def aboutCommand():
                          style=style)
     print_formatted_text(HTML(
         '<yellow>╚═╗ ║║╠╩╗║  ╠═╝║   │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
-        '│  Github    : https://github.com/amstradbasic/cpc.git</yellow>'),
+        '│  Github    : https://github.com/cpcbasic/cpc.git</yellow>'),
         style=style)
     print_formatted_text(HTML(
         '<yellow>╚═╝═╩╝╩ ╩╚═╝╩  ╚═╝ │</yellow><red> ■■■ </red><green>■■■ </green><blue>■■■</blue><yellow> '
@@ -85,7 +85,7 @@ def header():
 
 def readBuild():
     """
-    Read number build amstradbasic
+    Read number build cpcbasic
 
     """
     file_path = get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "BUILD"

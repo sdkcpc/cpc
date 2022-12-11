@@ -1,21 +1,21 @@
 # COMANDOS
 
-Podemos ver todas las opciones del programa escribiendo el comando **amstradbasic** seguido del argumento correspondiente y de la opción en el caso de que la tubiera.
+Podemos ver todas las opciones del programa escribiendo el comando **cpcbasic** seguido del argumento correspondiente y de la opción en el caso de que la tubiera.
 
 ```
-amstradbasic [argumento] [opcion]
+cpcbasic [argumento] [opcion]
 ```
 
 Ejemplo
 ```
-$ amstradbasic -h
+$ cpcbasic -h
 
-amstradbasic v1.0.1
+cpcbasic v1.0.1
 linux -  Build: 2022/09/04 11:17:00
 
 © Destroyer 2022
 
-usage: amstradbasic [-h] [-v] {about,make,deploy,validate,info,new,new-8bp,run} ...
+usage: cpcbasic [-h] [-v] {about,make,deploy,validate,info,new,new-8bp,run} ...
 
 positional arguments:
   {about,make,deploy,validate,info,new,new-8bp,run}
@@ -41,7 +41,7 @@ Muestra información del desarrollador del proyecto.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic about`    |     | Muestra información del software y del desarrollador    |
+| `cpcbasic about`    |     | Muestra información del software y del desarrollador    |
 
 ### -h, --help
 
@@ -49,7 +49,7 @@ Muestra información del desarrollador del proyecto.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic about`    |     | Muestra información del software y del desarrollador    |
+| `cpcbasic about`    |     | Muestra información del software y del desarrollador    |
 
 
 
@@ -59,7 +59,7 @@ Muestra información del proyecto de la ruta actual.
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic info`    |    | Muestra información del proyecto de la ruta actual.|
+| `cpcbasic info`    |    | Muestra información del proyecto de la ruta actual.|
 
 ### make
 
@@ -68,7 +68,7 @@ Crea una imagen para Disco (DSK) y Cinta (CDT) con el software del proyecto
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic make`    |     | Genera un archivo DSK con todo el software del proyecto.    |
+| `cpcbasic make`    |     | Genera un archivo DSK con todo el software del proyecto.    |
 
 ### new
 
@@ -76,14 +76,14 @@ Crea un nuevo proyecto en la ruta actual con la estructura necesaria para empeza
 El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.
 
 ```
-amstradbasic new [Nombre_proyecto]
+cpcbasic new [Nombre_proyecto]
 ```
 > 
 > **El Nombre de proyecto no admite espacios.**
 
 ```
-$ amstradbasic new mibas                                                                          
-amstradbasic v1.0.2
+$ cpcbasic new mibas                                                                          
+cpcbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022
@@ -118,7 +118,7 @@ Crea un nuevo proyecto en la ruta actual con la estructura necesaria para trabaj
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic new-8bp`    | [Nombre_proyecto]  |El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.|
+| `cpcbasic new-8bp`    | [Nombre_proyecto]  |El argumento lleva como opción el nombre que asignaremos a nuestro proyecto.|
 
 > **NOTA:** 
 > **No se admiten espacios en el nombre del proyecto.**
@@ -130,7 +130,7 @@ Carga nuestro DSK generado y ejecuta el bas seleccionado sobre el emulador pasad
 
 | Como Usar  | Opciones  | Descripcion  |
 |:----------|:----------|:----------|
-| `amstradbasic run`    |  --rvm   | Ejecuta el emulador Retro virtual Machine.|
+| `cpcbasic run`    |  --rvm   | Ejecuta el emulador Retro virtual Machine.|
 ---
 
 ### deploy
@@ -146,9 +146,9 @@ Carga nuestro DSK generado y ejecuta el bas seleccionado sobre el emulador pasad
 Muestra la version del software actual.
 
 ```shell
-$ amstradbasic --version                  
+$ cpcbasic --version                  
 
-amstradbasic v1.0.1
+cpcbasic v1.0.1
 linux -  Build: 2022/09/04 11:17:00
 
 © Destroyer 2022
@@ -159,9 +159,9 @@ linux -  Build: 2022/09/04 11:17:00
 Valida que las configuraciones del proyecto en la ruta actual esten correctas.
 
 ```shell
-$ amstradbasic validate     
+$ cpcbasic validate     
 
-amstradbasic v1.0.2
+cpcbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022
@@ -176,9 +176,9 @@ linux - Build: 2022/09/10 12:14:17
 Muestra toda la información del proceso de validación.
 
 ```shell
-$ amstradbasic validate --verbose  
+$ cpcbasic validate --verbose  
 
-amstradbasic v1.0.2
+cpcbasic v1.0.2
 linux - Build: 2022/09/10 12:14:17
 
 © Destroyer 2022

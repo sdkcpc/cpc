@@ -4,10 +4,8 @@ import sys
 import getpass as gt
 from datetime import datetime
 
-from rich import print
-from rich.table import Table
-from amstradbasic.init import createTemplate, copyFile, addLines2File
-from amstradbasic.cat import *
+from cpcbasic.init import createTemplate, copyFile, addLines2File
+from cpcbasic.cat import *
 from .about import headerAmstrad
 from .common import *
 

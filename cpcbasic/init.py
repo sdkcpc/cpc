@@ -1,7 +1,7 @@
 import shutil
 
-from amstradbasic.run import *
-from amstradbasic.common import *
+from cpcbasic.run import *
+from cpcbasic.common import *
 
 
 def initCommand(folder, model):
@@ -19,7 +19,7 @@ def initCommand(folder, model):
         folder = os.getcwd() + "/" + folder
 
     PROJECT_PATH = folder
-    PROJECT_CONFIG = folder + "/.amstradbasic/"
+    PROJECT_CONFIG = folder + "/.cpcbasic/"
 
     # Check exist proyect folder
     if os.path.exists(PROJECT_CONFIG):
@@ -44,7 +44,7 @@ def initCommand(folder, model):
     createTemplate(data, "8bp.j2", folder + "/MAIN.BAS")
 
     # Add library 8bp
-    if not os.path.exists(folder + "/.amstradbasic/8bp.dsk"):
+    if not os.path.exists(folder + "/.cpcbasic/8bp.dsk"):
         copyFile(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", PROJECT_CONFIG + "8bp.dsk")
 
     # Create file

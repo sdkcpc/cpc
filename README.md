@@ -2,7 +2,7 @@
 
 ![image](screenshot/about.png)
 
-**amstradbasic** son una serie de librerias y programas multiplataforma desarrollados en *[Python](https://www.python.org/downloads/)*, que nos sirven para facilitarnos la vida en la programación con Locomotive Amstrad Basic en ordenadores actuales. **sdkcpc** se distribuye bajo licencia [LGPL v3](https://www.python.org/downloads/)
+**cpcbasic** son una serie de librerias y programas multiplataforma desarrollados en *[Python](https://www.python.org/downloads/)*, que nos sirven para facilitarnos la vida en la programación con Locomotive Amstrad Basic en ordenadores actuales. **sdkcpc** se distribuye bajo licencia [LGPL v3](https://www.python.org/downloads/)
 
 **sdkcpc** incluye: 
 

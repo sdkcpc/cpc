@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 from io import open
 from setuptools import setup
-from amstradbasic import __version__ as version
+from cpcbasic import __version__ as version
 
 VERSION = version
 DESCRIPTION = 'SDK for Programing Basic in SO Windows, Linux and OSX'
@@ -10,7 +10,7 @@ DESCRIPTION = 'SDK for Programing Basic in SO Windows, Linux and OSX'
 # Setting up
 setup(
        # the name must match the folder name 'verysimplemodule'
-        name="amstradbasic",
+        name="CPCBasic",
         version=VERSION,
         author="Destroyer",
         author_email="<destroyer.dcf@gmail.com>",
@@ -18,26 +18,22 @@ setup(
         long_description=''.join(open('README.md', encoding='utf-8').readlines()),
         long_description_content_type='text/markdown',
         license="GPL",
-        url="https://github.com/destroyer-dcf/amstradbasic",
+        url="https://github.com/destroyer-dcf/cpcbasic",
         project_urls={
-            "Bug Tracker": "https://github.com/destroyer-dcf/amstradbasic/issues",
+            "Bug Tracker": "https://github.com/destroyer-dcf/cpcbasic/issues",
         },
         keywords=['executable'],
         include_package_data=True,
         packages=find_packages(),
         install_requires=[
-            'rich',
-            'datetime',
-            'ipaddress',
-            'pyyaml',
             'jinja2',
             'ipaddress',
             'tabulate',
-            'inquirer',
             'cerberus',
-            'tqdm',
+            'tqdm==4.64.1',
             'requests',
-            'click'
+            'click',
+            'prompt_toolkit'
         ],
         python_requires='>=3.6',
         classifiers=[
@@ -54,9 +50,9 @@ setup(
         ],
         entry_points={
             'console_scripts': [
-                'amstradbasic=amstradbasic.__main__:main',
-                'cpc=amstradbasic.__main__:main',
-                'basic=amstradbasic.__main__:main',
+                'cpcbasic=cpcbasic.__main__:main',
+                'cpc=cpcbasic.__main__:main',
+                'basic=cpcbasic.__main__:main',
             ],
         },
 )

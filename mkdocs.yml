@@ -1,11 +1,11 @@
 # Project information
 site_name: SDKCPC
-site_url: https://github.com/destroyer-dcf/amstradbasic
+site_url: https://github.com/destroyer-dcf/cpcbasic
 site_author: Destroyer
 copyright: © Copyright 2022, Destroyer. Revision 1.0.1
 # Repository
-repo_name: destroyer-dcf/amstradbasic
-repo_url: https://github.com/destroyer-dcf/amstradbasic
+repo_name: destroyer-dcf/cpcbasic
+repo_url: https://github.com/destroyer-dcf/cpcbasic
 edit_uri: ""
 
 nav:

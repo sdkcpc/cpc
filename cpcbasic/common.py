@@ -2,7 +2,6 @@ import os.path
 import configparser
 import os
 import sys
-from rich.console import Console
 from prompt_toolkit import print_formatted_text, HTML
 from prompt_toolkit.styles import Style
 import os.path
@@ -17,9 +16,6 @@ style = Style.from_dict({
     'blue': '#0000FF'
 })
 
-console = Console()
-
-
 def get_configuration():
     #     print(get_configuration()["PROJECT_OUT"])
     values = None
@@ -28,28 +24,22 @@ def get_configuration():
         "PROJECT_TMP": os.getcwd() + "/TMP/",
         "PROJECT_OUT": os.getcwd() + "/OUT/",
         "PROJECT_M4": os.getcwd() + "/OUT/M4/",
-        "PROJECT_CONFIG": os.getcwd() + "/.amstradbasic/",
+        "PROJECT_CONFIG": os.getcwd() + "/.cpcbasic/",
         "LOCAL_RESOURCES_TEMPLATES": os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/",
         "LOCAL_RESOURCES_VSCODE": os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode",
         "LOCAL_RESOURCES_SOFTWARE": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/",
         "SOFTWARE_TOOLS": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/" + sys.platform ,
-        "FILE_CONFIG": os.getcwd() + "/.amstradbasic/config",
-        "FILE_M4": os.getcwd() + "/.amstradbasic/.M4",
-        "FILE_CDT": os.getcwd() + "/.amstradbasic/CDT",
-        "FILE_HISTORY": os.getcwd() + '/.amstradbasic/.history',
-        "LIBRARY_8BP": os.getcwd() + "/.amstradbasic/8bp.dsk",
+        "FILE_CONFIG": os.getcwd() + "/.cpcbasic/config",
+        "FILE_M4": os.getcwd() + "/.cpcbasic/.M4",
+        "FILE_CDT": os.getcwd() + "/.cpcbasic/CDT",
+        "FILE_HISTORY": os.getcwd() + '/.cpcbasic/.history',
+        "LIBRARY_8BP": os.getcwd() + "/.cpcbasic/8bp.dsk",
         "iDSK_WIN": "idsk.exe",
         "iDSK_LINUX": "iDSK",
         "iDSK_OSX": "iDSK",
-        "SOFTWARE_PATH": os.environ['HOME'] + "/amstradbasic/resources/",
+        "SOFTWARE_PATH": os.environ['HOME'] + "/cpcbasic/resources/",
         "VERSION_TOOLS": "1.1",
-        "TOOLS": "https://github.com/amstradbasic/cpc-tools/releases/download/1.2/tools-" + sys.platform + ".zip",
-        "URL_IDSK_WIN": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-windows.zip",
-        "URL_IDSK_LINUX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-linux.zip",
-        "URL_IDSK_OSX": "https://github.com/destroyer-dcf/idsk/releases/download/v0.20/iDSK-0.20-OSX.zip",
-        "URL_CDT_WIN": "https://github.com/amstradbasic/2cdt/raw/main/binary/win/2cdt.exe",
-        "URL_CDT_LINUX": "https://github.com/amstradbasic/2cdt/raw/main/binary/linux/2cdt",
-        "URL_CDT_OSX": "https://github.com/amstradbasic/2cdt/raw/main/binary/darwin/2cdt",
+        "TOOLS": "https://github.com/cpcbasic/cpc-tools/releases/download/1.2/tools-" + sys.platform + ".zip",
         "URL_RVM_WIN": "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7"
                        ".windows.x86.zip",
         "URL_RVM_LINUX": "https://static.retrovm.org/release/beta1/linux/x64/RetroVirtualMachine.2.0.beta-1.r7.linux"

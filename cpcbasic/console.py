@@ -9,23 +9,23 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 from prompt_toolkit.history import FileHistory
 
-from amstradbasic.load import loadCommand
+from cpcbasic.load import loadCommand
 
 
-from amstradbasic.concat import concatCommand
-from amstradbasic.make import makeCommand
+from cpcbasic.concat import concatCommand
+from cpcbasic.make import makeCommand
 
-from amstradbasic.machine import modelCommand
-from amstradbasic.run import runCommand
+from cpcbasic.machine import modelCommand
+from cpcbasic.run import runCommand
 
-from amstradbasic.save import saveCommand
+from cpcbasic.save import saveCommand
 
-from amstradbasic.cat import catCommand
-from amstradbasic.common import *
-from amstradbasic.about import headerAmstrad, aboutCommand
-from amstradbasic.cls import clsCommand
+from cpcbasic.cat import catCommand
+from cpcbasic.common import *
+from cpcbasic.about import headerAmstrad, aboutCommand
+from cpcbasic.cls import clsCommand
 
-session = PromptSession(history=FileHistory('~/.history_amstradbasic'))
+session = PromptSession(history=FileHistory('~/.history_cpcbasic'))
 
 sql_completer = WordCompleter(get_configuration()["COMMAND_LIST"], ignore_case=True)
 

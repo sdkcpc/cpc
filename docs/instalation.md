@@ -1,10 +1,10 @@
 # Instalación SDKCPC
 
-**amstradbasic** es un software multiplataforma desarrollado en lenguaje [Python](https://www.python.org/downloads/). Para instalarlo en su sistema siga los siguientes pasos.
+**cpcbasic** es un software multiplataforma desarrollado en lenguaje [Python](https://www.python.org/downloads/). Para instalarlo en su sistema siga los siguientes pasos.
 
 ### Instalacion Python
 
-El modulo **amstradbasic** funciona con cualquier version de Python igual o superior a la versión **3.6**. Lo normal es que todas las maquinas actuales traigan dicho software ya instalado en el sistema. Para saber si realmente lo tenemos instalado en nuestra máquina bastara con ejecutar desde una ventana de CMD si usas windows o una de shell si usas Linux o MAC, el siguiente comando.
+El modulo **cpcbasic** funciona con cualquier version de Python igual o superior a la versión **3.6**. Lo normal es que todas las maquinas actuales traigan dicho software ya instalado en el sistema. Para saber si realmente lo tenemos instalado en nuestra máquina bastara con ejecutar desde una ventana de CMD si usas windows o una de shell si usas Linux o MAC, el siguiente comando.
 
 ```shell
 python3 --version
@@ -35,7 +35,7 @@ pip install sdkcpc
 Dependiendo del sistema operativo. Esto instalara el software y todas sus dependencias. Una vez finalizado comprobaremos que esta correcto ejecutando:
 
 ```shell
-amstradbasic --version
+cpcbasic --version
 ```
 
 ### Instalacion Visual Studio Code
@@ -49,8 +49,8 @@ Como IDE de desarrollo utilizaremos [Visual Studio Code](https://code.visualstud
 
 Las extensiones de [Visual Studio Code](https://code.visualstudio.com/download) nos ayudaran a programar de una forma mas dinámica y amena. Las extensiones de **sdkcpc** son dos:
 
-- sdkcpc-amstradbasic-snippet
-- sdkcpc-amstradbasic-language
+- sdkcpc-cpcbasic-snippet
+- sdkcpc-cpcbasic-language
 
 Para instalar las extensiones desde Visual Studio Code, pulsaremos sobre el boton **Extensiones** y buscaremos sdkcpc y pulsaremos instalar en las dos extensiones.
 

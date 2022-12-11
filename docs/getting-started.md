@@ -3,14 +3,14 @@
 Para crear nuestro primer proyecto basta con escribir desde un CMD/Shell el comando desingado para ello:
 
 ```
-amstradbasic new [Nombre_proyecto]
+cpcbasic new [Nombre_proyecto]
 ```
 
 Teniendo en cuenta que el nombre del proyecto no llevara espacios.
 
 ### Estructura de carpetas
 
-El modulo **amstradbasic** funciona con cualquier version de Python igual o superior a la versión **3.6**. Lo normal es que todas las maquinas actuales traigan dicho software ya instalado en el sistema. Para saber si realmente lo tenemos instalado en nuestra máquina bastara con ejecutar desde una ventana de CMD si usas windows o una de shell si usas Linux o MAC, el siguiente comando.
+El modulo **cpcbasic** funciona con cualquier version de Python igual o superior a la versión **3.6**. Lo normal es que todas las maquinas actuales traigan dicho software ya instalado en el sistema. Para saber si realmente lo tenemos instalado en nuestra máquina bastara con ejecutar desde una ventana de CMD si usas windows o una de shell si usas Linux o MAC, el siguiente comando.
 
 ```shell
 python3 --version
@@ -26,22 +26,22 @@ El comando nos devolvera el número de version, si esta NO esta entre los parame
 
 ### El archivo Project.cfg
 
-Para instalar el modulo **amstradbasic** en python bastara con ejecutar el siguiente comando desde una ventana CMD/shell 
+Para instalar el modulo **cpcbasic** en python bastara con ejecutar el siguiente comando desde una ventana CMD/shell 
 
 ```
-pip3 install amstradbasic
+pip3 install cpcbasic
 ```
 
 o
 
 ```
-pip install amstradbasic
+pip install cpcbasic
 ```
 
 Dependiendo del sistema operativo. Esto instalara el software y todas sus dependencias. Una vez finalizado comprobaremos que esta correcto ejecutando:
 
 ```shell
-amstradbasic --version
+cpcbasic --version
 ```
 
 ### Como trabajar con nuestros BAS

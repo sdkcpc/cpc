@@ -144,3 +144,7 @@ menusd*/*
 make*
 NOTAS.TXT
 /tests/project/
+.gitignore
+tests/upload/pytest.sh
+pytest
+pypi

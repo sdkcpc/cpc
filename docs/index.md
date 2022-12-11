@@ -1,9 +1,9 @@
 
 ![image](assets/about.png)
 
-**amstradbasic** son una serie de extensiones, librerias y programas multiplataforma desarrollados en *[Python](https://www.python.org/downloads/)*, que nos sirven para facilitarnos la vida en la programación con Locomotive Amstrad Basic en ordenadores actuales. **amstradbasic** se distribuye bajo licencia [LGPL v3](license.md)
+**cpcbasic** son una serie de extensiones, librerias y programas multiplataforma desarrollados en *[Python](https://www.python.org/downloads/)*, que nos sirven para facilitarnos la vida en la programación con Locomotive Amstrad Basic en ordenadores actuales. **cpcbasic** se distribuye bajo licencia [LGPL v3](license.md)
 
-**amstradbasic** incluye: 
+**cpcbasic** incluye: 
 
 - Integración con Vscode
 - Visual Studio Code Snnipet para Basic y la libreria [8BP](https://github.com/jjaranda13/8BP)

@@ -1,9 +1,9 @@
 import sys
-from amstradbasic.cls import *
-from amstradbasic.about import *
+from cpcbasic.cls import *
+from cpcbasic.about import *
 from os import system, name
 
-from amstradbasic.common import updateConfigKey, okMessage, errMessage
+from cpcbasic.common import updateConfigKey, okMessage, errMessage
 
 
 def modelCommand(model, activate):
