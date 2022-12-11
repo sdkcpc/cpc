@@ -27,7 +27,7 @@ def about():
 @main.command()
 def console():
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     consoleCommand()
 
@@ -37,7 +37,7 @@ def console():
 def make(file):
     cdtFile = ""
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     if not file:
         if not getDSK():
@@ -62,7 +62,7 @@ def make(file):
 @click.argument('file', required=False)
 def load(file):
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     if not file:
         file = ""
@@ -74,7 +74,7 @@ def load(file):
 @click.option('--template', '-t', type=click.Choice(['BASIC', '8BP'], case_sensitive=False))
 def save(file, template):
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     if not template:
         template = "BASIC"
@@ -84,7 +84,7 @@ def save(file, template):
 @main.command()
 def cat():
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     catCommand(True)
 
@@ -92,7 +92,7 @@ def cat():
 @main.command()
 def cls():
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     clsCommand()
 
@@ -101,7 +101,7 @@ def cls():
 @click.argument('file', required=False)
 def concat(file):
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     concatCommand(file, True)
 
@@ -110,7 +110,7 @@ def concat(file):
 @click.argument('model', required=True)
 def machine(model):
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     modelCommand(model, True)
 
@@ -120,7 +120,7 @@ def machine(model):
 @click.option('--model', '-m', type=click.Choice(['464', '664', '6128'], case_sensitive=False))
 def run(file, model):
     if not isSdkProject():
-        print_formatted_text(HTML('<red>[X] The path is not a valid cpcbasic project.</red>'), style=style)
+        print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     if not model:
         model = getModel()
