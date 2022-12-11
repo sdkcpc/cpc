@@ -12,11 +12,12 @@ from amstradbasic.load import *
 from amstradbasic.common import *
 from amstradbasic.console import *
 from amstradbasic.init import validatePath
+from amstradbasic.__init__ import __version__ as version
 
 @click.group()
+@click.version_option(version, '-v', '--version', is_flag=True, help="Show version Amstrad Basic")
 def main():
     pass
-
 
 @main.command()
 def about():

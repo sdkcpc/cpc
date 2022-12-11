@@ -36,8 +36,9 @@ setup(
             'inquirer',
             'cerberus',
             'tqdm',
-            'requests'
-        ], 
+            'requests',
+            'click'
+        ],
         python_requires='>=3.6',
         classifiers=[
             'License :: OSI Approved :: GNU General Public License (GPL)',   
