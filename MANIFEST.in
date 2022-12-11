@@ -2,3 +2,4 @@ include README.md
 include LICENSE
 include setup.py
 graft cpcbasic/resources
+This folder is not a valid cpcbasic

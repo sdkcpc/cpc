@@ -21,7 +21,7 @@ def catCommand(activate):
 
     # Check that it is and cpcbasic project
     if not isSdkProject():
-        print("This folder is not a valid cpcbasic project")
+        print("This folder is not a valid CPCBasic project")
         sys.exit(1)
 
     # show files in folders
