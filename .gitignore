@@ -145,6 +145,6 @@ make*
 NOTAS.TXT
 /tests/project/
 .gitignore
-tests/upload/pytest.sh
-pytest
-pypi
+scripts/pytest.sh
+scripts/pytest
+scripts/pypi
