@@ -70,7 +70,7 @@ def load(file):
 
 
 @main.command()
-@click.argument('file', required=True)
+@click.argument('source', required=True)
 @click.option('--template', '-t', type=click.Choice(['BASIC', '8BP'], case_sensitive=False))
 def save(file, template):
     if not isSdkProject():
