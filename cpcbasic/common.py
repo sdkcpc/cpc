@@ -17,9 +17,10 @@ style = Style.from_dict({
 })
 
 def get_configuration():
-    #     print(get_configuration()["PROJECT_OUT"])
+    #     print(get_configuration()["PROJECT_FOLDERS"])
     values = None
     values = {
+        "PROJECT_FOLDERS": ["src","assets","assets/8bp","assets/images","out"],
         "PROJECT_PATH": os.getcwd() + "/",
         "PROJECT_TMP": os.getcwd() + "/TMP/",
         "PROJECT_OUT": os.getcwd() + "/OUT/",

@@ -4,12 +4,11 @@ from cpcbasic.run import *
 from cpcbasic.common import *
 
 
-def initCommand(folder, model):
+def initCommand(folder):
     """
     initialize project
 
     Args:
-        file (string): Path of file
         folder (string): Template bas to create.
 
     """
@@ -19,16 +18,15 @@ def initCommand(folder, model):
         folder = os.getcwd() + "/" + folder
 
     PROJECT_PATH = folder
-    PROJECT_CONFIG = folder + "/.cpcbasic/"
-
+    PROJECT_NAME = folder.rsplit('/', 1)[-1]
     # Check exist proyect folder
-    if os.path.exists(PROJECT_CONFIG):
+    if os.path.exists(PROJECT_PATH):
         print("A project already exists in this path.")
         sys.exit(1)
 
-    # If the project does not exist, we create a folder
-    if not os.path.exists(PROJECT_CONFIG):
-        os.makedirs(PROJECT_CONFIG)
+    # If the project does not exist, we create a folders
+    for create in get_configuration()["PROJECT_FOLDERS"]:
+        os.makedirs(PROJECT_PATH + "/" + create)
 
     # copy files (vscode and config)
     createVscode(folder)
@@ -36,7 +34,7 @@ def initCommand(folder, model):
 
     # Create model file
     build = str(datetime.now())
-    updateConfigKey("rvm", "model", model, PROJECT_CONFIG)
+
     updateConfigKey("compilation", "build", build, PROJECT_CONFIG)
 
     # Create bas template
