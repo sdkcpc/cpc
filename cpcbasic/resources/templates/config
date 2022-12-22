@@ -1,15 +1,27 @@
-[rvm]
-model = 6128
+[data]
+project = prueba
+dsk = prueba.dsk
 
-[files]
-concat =
-dsk =
-run =
-cdt =
+[bas]
+concatenate.files = YES
+
+[images]
+include.bas = NO
+
+[8bp]
+dsk = assets/8bp/8bp.dsk
 
 [compilation]
 version = 1.0.0
-build = XXXX
+build = 2022-12-22 09:59:25.292515
+
+[rvm]
+cpc.model = 6128
+run.file = main.bas
 
 [m4]
 ip = 0.0.0.0
+
+[out]
+generate.m4.files = YES
+generate.dsk.files = YES
