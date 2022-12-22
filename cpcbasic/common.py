@@ -6,7 +6,17 @@ from prompt_toolkit import print_formatted_text, HTML
 from prompt_toolkit.styles import Style
 import os.path
 import re
+import configparser
 from jinja2 import Environment, FileSystemLoader
+
+
+class MyParser(configparser.ConfigParser):
+    def as_dict(self):
+        d = dict(self._sections)
+        for k in d:
+            d[k] = dict(self._defaults, **d[k])
+            d[k].pop('__name__', None)
+        return d
 
 
 style = Style.from_dict({
@@ -16,25 +26,26 @@ style = Style.from_dict({
     'blue': '#0000FF'
 })
 
+
 def get_configuration():
-    #     print(get_configuration()["PROJECT_FOLDERS"])
+    #     print(get_configuration()["FILE_CONFIG"])
     values = None
     values = {
-        "PROJECT_FOLDERS": ["src","assets","assets/8bp","assets/images","out"],
+        "PROJECT_FOLDERS": ["src", "assets", "assets/8bp", "assets/images", "out", "obj"],
         "PROJECT_PATH": os.getcwd() + "/",
-        "PROJECT_TMP": os.getcwd() + "/TMP/",
-        "PROJECT_OUT": os.getcwd() + "/OUT/",
-        "PROJECT_M4": os.getcwd() + "/OUT/M4/",
-        "PROJECT_CONFIG": os.getcwd() + "/.cpcbasic/",
+        "PROJECT_TMP": os.getcwd() + "/tmp/",
+        "PROJECT_OUT": os.getcwd() + "/out/",
+        "PROJECT_M4": os.getcwd() + "/out/m4/",
+        "PROJECT_CONFIG": os.getcwd() + "/",
         "LOCAL_RESOURCES_TEMPLATES": os.path.dirname(os.path.abspath(__file__)) + "/resources/templates/",
         "LOCAL_RESOURCES_VSCODE": os.path.dirname(os.path.abspath(__file__)) + "/resources/vscode",
         "LOCAL_RESOURCES_SOFTWARE": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/",
-        "SOFTWARE_TOOLS": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/" + sys.platform ,
-        "FILE_CONFIG": os.getcwd() + "/.cpcbasic/config",
-        "FILE_M4": os.getcwd() + "/.cpcbasic/.M4",
-        "FILE_CDT": os.getcwd() + "/.cpcbasic/CDT",
-        "FILE_HISTORY": os.getcwd() + '/.cpcbasic/.history',
-        "LIBRARY_8BP": os.getcwd() + "/.cpcbasic/8bp.dsk",
+        "SOFTWARE_TOOLS": os.path.dirname(os.path.abspath(__file__)) + "/resources/software/" + sys.platform,
+        "FILE_CONFIG": os.getcwd() + "/config",
+        "FILE_M4": os.getcwd() + "/.m4",
+        "FILE_CDT": os.getcwd() + "/cdt",
+        "FILE_HISTORY": os.getcwd() + '/.history',
+        "LIBRARY_8BP": os.getcwd() + "/assets/8bp/8bp.dsk",
         "iDSK_WIN": "idsk.exe",
         "iDSK_LINUX": "iDSK",
         "iDSK_OSX": "iDSK",
@@ -47,7 +58,7 @@ def get_configuration():
                          ".x64.zip",
         "URL_RVM_OSX": "https://static.retrovm.org/release/beta1/windows/x86/RetroVirtualMachine.2.0.beta-1.r7"
                        ".windows.x86.zip",
-        "COMMAND_LIST": ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT","SCR","PAL"],
+        "COMMAND_LIST": ["ABOUT", "MAKE", "MACHINE", "CAT", "RUN", "LOAD", "SAVE", "CLS", "CONCAT", "SCR", "PAL"],
         "COMMANDS_8BP": ['8BP.BIN', '|3D', '|ANIMA', '|ANIMALL', '|AUTO', '|AUTOALL', '|COLAY', '|COLSP', '|COLSPALL',
                          '|LAYOUT',
                          '|LOCATESP', '|MAP2SP', '|MOVER', '|MOVERALL', 'MUSIC', '|MUSIC', '|PEEK', '|POKE', '|PRINTAT',
@@ -57,6 +68,17 @@ def get_configuration():
     }
 
     return values
+
+
+def dataProject():
+    """
+    get data project
+
+    """
+    data = MyParser()
+    data.read(get_configuration()["FILE_CONFIG"])
+    d = data.as_dict()
+    return d
 
 
 def Message(message):

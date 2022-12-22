@@ -5,17 +5,24 @@ from cpcbasic.run import *
 from cpcbasic.about import *
 from cpcbasic.concat import *
 from cpcbasic.common import *
-from cpcbasic.init import validatePath
+from cpcbasic.init import *
 from cpcbasic.__init__ import __version__ as version
+
 
 @click.group()
 @click.version_option(version, '-v', '--version', is_flag=True, help="Show version Amstrad Basic")
 def main():
     pass
 
+
 @main.command()
 def about():
     aboutCommand()
+
+
+def makeCommand():
+    pass
+
 
 @main.command()
 @click.argument('file', required=False)
@@ -42,6 +49,7 @@ def make(file):
     updateConfigKey("files", "cdt", cdtFile.replace(" ", "_"))
     makeCommand()
 
+
 @main.command()
 @click.argument('file', required=False)
 def concat(file):
@@ -49,6 +57,7 @@ def concat(file):
         print_formatted_text(HTML('<red>[X] The path is not a valid CPCBasic project.</red>'), style=style)
         sys.exit(1)
     concatCommand(file, True)
+
 
 @main.command()
 @click.argument('file', required=False)

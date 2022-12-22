@@ -1,8 +1,14 @@
 import os.path
+import shutil
+import subprocess
 import sys
+from os import path, chmod
+from zipfile import ZipFile
 
-from .make import *
-from .common import *
+import requests
+from tqdm import tqdm
+
+from cpcbasic.common import *
 
 if sys.platform == "darwin":
     RVM = get_configuration()["SOFTWARE_PATH"] + "RetroVirtualMachine"

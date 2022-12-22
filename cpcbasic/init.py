@@ -1,4 +1,5 @@
 import shutil
+from datetime import datetime
 
 from cpcbasic.run import *
 from cpcbasic.common import *
@@ -14,11 +15,13 @@ def initCommand(folder):
     """
 
     # if "/" in folder or "\\" in folder:
-    if not validatePath(folder):
+    if not validate_path(folder):
         folder = os.getcwd() + "/" + folder
 
     PROJECT_PATH = folder
     PROJECT_NAME = folder.rsplit('/', 1)[-1]
+    PROJECT_CONFIG = PROJECT_PATH + "/config"
+
     # Check exist proyect folder
     if os.path.exists(PROJECT_PATH):
         print("A project already exists in this path.")
@@ -29,39 +32,35 @@ def initCommand(folder):
         os.makedirs(PROJECT_PATH + "/" + create)
 
     # copy files (vscode and config)
-    createVscode(folder)
-    copyFile(get_configuration()["LOCAL_RESOURCES_TEMPLATES"] + "config", PROJECT_CONFIG + "config")
+    create_vscode_data(folder)
+    copy_file(get_configuration()["LOCAL_RESOURCES_TEMPLATES"] + "config", PROJECT_CONFIG)
 
     # Create model file
     build = str(datetime.now())
 
-    updateConfigKey("compilation", "build", build, PROJECT_CONFIG)
+    # update data in makefile
+    updateConfigKey("compilation", "build", build, PROJECT_PATH)
+    updateConfigKey("data", "project", PROJECT_NAME, PROJECT_PATH)
+    updateConfigKey("data", "dsk", PROJECT_NAME + ".dsk", PROJECT_PATH)
+    updateConfigKey("rvm", "run.file", "main.bas", PROJECT_PATH)
 
     # Create bas template
-    data = {"project": os.path.basename(os.path.normpath(PROJECT_CONFIG)), "build": build, "version": "1.0.0"}
-    createTemplate(data, "8bp.j2", folder + "/MAIN.BAS")
+    data = {"project": PROJECT_NAME, "build": build, "version": "1.0.0"}
+    create_template(data, "8bp.j2", PROJECT_PATH + "/src/main.bas")
 
     # Add library 8bp
-    if not os.path.exists(folder + "/.cpcbasic/8bp.dsk"):
-        copyFile(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", PROJECT_CONFIG + "8bp.dsk")
+    if not os.path.exists(PROJECT_PATH + "/assets/8bp/8bp.dsk"):
+        copy_file(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", PROJECT_PATH + "/assets/8bp/8bp.dsk")
 
-    # Create file
-    createFile(PROJECT_CONFIG + "CDT.example", "nombre a mostrar,direccion de carga,direccion de ejecucion,"
-                                               "archivo a cargar,nombre del cdt\nMAIN,,,MAIN.BAS\n")
-
-    # Show header is activated in config
-    # headerAmstrad()
-    #downloadTools()
-    #download_and_unzip(get_configuration()["TOOLS"], get_configuration()["SOFTWARE_PATH"])
-    okMessage("Initialized SDKCPC folder in " + PROJECT_CONFIG)
+    okMessage('Project CPCBasic create in ' + PROJECT_PATH)
 
 
-def validatePath(filePath):
+def validate_path(filepath):
     """
     Validate path folder
 
     Args:
-        filePath (string): Path of folder
+        filepath (string): Path of folder
 
     """
     pattern = ""
@@ -70,13 +69,13 @@ def validatePath(filePath):
     elif sys.platform == "win32" or sys.platform == "win64":
         pattern = r"/^(?:[\w]\:|\/)(\/[a-z_\-\s0-9\.]+)/i"
 
-    if re.match(pattern, filePath):
+    if re.match(pattern, filepath):
         return True
     else:
         return False
 
 
-def addLines2File(file, text):
+def add_lines_file(file, text):
     """
     add lines to file
 
@@ -90,7 +89,7 @@ def addLines2File(file, text):
     fp.close()
 
 
-def createTemplate(data, template, file):
+def create_template(data, template, file):
     """
     create template bas
 
@@ -107,7 +106,7 @@ def createTemplate(data, template, file):
         okMessage("Create Template Bas file.")
 
 
-def createVscode(folder):
+def create_vscode_data(folder):
     """
     create files vscode
 
@@ -123,13 +122,15 @@ def createVscode(folder):
         sys.exit(1)
 
 
-def copyFile(origen, destino):
+def copy_file(origen, destino):
     """
     create files vscode
 
     Args:
         origen (string): file source
         destino (string): file destination
+        @param origen:
+        @param destino:
 
     """
     try:
@@ -138,35 +139,3 @@ def copyFile(origen, destino):
     except OSError as err:
         print("[red]" + str(err))
         sys.exit(1)
-
-
-# def download_and_unzip(url, extract_to='.'):
-#     http_response = urlopen(url)
-#     zipfile = ZipFile(BytesIO(http_response.read()))
-#
-#     zipfile.extractall(path=extract_to)
-#
-#
-# def downloadTools():
-#     """
-#     download idsk file
-#
-#     Args:
-#         file (string): Path of file
-#     """
-#
-#     if not os.path.exists(get_configuration()["SOFTWARE_PATH"]):
-#         os.makedirs(get_configuration()["SOFTWARE_PATH"])
-#         okMessage("Download Tools Software Version " + get_configuration()["VERSION_TOOLS"] + ".... please wait..")
-#         with requests.get(get_configuration()["TOOLS"], stream=True) as r:
-#             total_length = int(r.headers.get("Content-Length"))
-#             with tqdm.wrapattr(r.raw, "read", total=total_length, desc="") as raw:
-#                 with open(get_configuration()["SOFTWARE_PATH"] + "tools-linux.zip", 'wb') as output:
-#                     shutil.copyfileobj(raw, output)
-#                     with ZipFile(output, "r") as zipObj:
-#                         zipObj.extractall(get_configuration()["SOFTWARE_PATH"])
-#         os.remove(get_configuration()["SOFTWARE_PATH"] + "tools-linux.zip")
-#         if sys.platform == "darwin" or sys.platform == "linux":
-#             chmod(get_configuration()["SOFTWARE_PATH"] + "/iDSK")
-#             chmod(get_configuration()["SOFTWARE_PATH"] + "/2cdt")
-#             chmod(get_configuration()["SOFTWARE_PATH"] + "/martine")
