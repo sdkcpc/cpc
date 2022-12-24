@@ -310,3 +310,23 @@ def createFile(file, text):
     fp = open(file, 'w')
     fp.write(text)
     fp.close()
+
+
+def validate_path(filepath):
+    """
+    Validate path folder
+
+    Args:
+        filepath (string): Path of folder
+
+    """
+    pattern = ""
+    if sys.platform == "darwin" or sys.platform == "linux":
+        pattern = r"^\/([A-z0-9-_+]+\/)*([A-z0-9])"
+    elif sys.platform == "win32" or sys.platform == "win64":
+        pattern = r"/^(?:[\w]\:|\/)(\/[a-z_\-\s0-9\.]+)/i"
+
+    if re.match(pattern, filepath):
+        return True
+    else:
+        return False

@@ -1,4 +1,3 @@
-import shutil
 from datetime import datetime
 
 from cpcbasic.run import *
@@ -53,26 +52,6 @@ def initCommand(folder):
         copy_file(get_configuration()["LOCAL_RESOURCES_SOFTWARE"] + "8bp.dsk", PROJECT_PATH + "/assets/8bp/8bp.dsk")
 
     okMessage('Project CPCBasic create in ' + PROJECT_PATH)
-
-
-def validate_path(filepath):
-    """
-    Validate path folder
-
-    Args:
-        filepath (string): Path of folder
-
-    """
-    pattern = ""
-    if sys.platform == "darwin" or sys.platform == "linux":
-        pattern = r"^\/([A-z0-9-_+]+\/)*([A-z0-9])"
-    elif sys.platform == "win32" or sys.platform == "win64":
-        pattern = r"/^(?:[\w]\:|\/)(\/[a-z_\-\s0-9\.]+)/i"
-
-    if re.match(pattern, filepath):
-        return True
-    else:
-        return False
 
 
 def add_lines_file(file, text):
