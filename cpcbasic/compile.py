@@ -1,5 +1,6 @@
 import os
 import re
+import subprocess
 import sys
 
 from cpcbasic.common import *
@@ -88,3 +89,25 @@ def find8BPCommand(file):
         result = [findWord(COMMANDS_8BP, line.upper()) for line in f.readlines()]
     if True in result:
         return True
+
+
+def extractFileDSK(library, destiny):
+    """
+    add files to dsk image
+
+    Args:
+        file (string): path file image sdk library
+
+    """
+
+    if os.path.exists(library):
+        FNULL = open(os.devnull, 'w')
+
+        try:
+            subprocess.Popen([iDSK, library, "-g", destiny], stdout=FNULL, stderr=subprocess.STDOUT)
+            okMessage("Extract image file: " + os.path.basename(destiny).strip())
+        except OSError as err:
+            print("Error to Copy the 8BP library to the cpcbasic project: " + str(err))
+            sys.exit(1)
+    else:
+        okMessage("No exist 8BP library in cpcbasic project.")
